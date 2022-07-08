@@ -1,6 +1,6 @@
 
 import click
-from api.models import db, User
+from api.models import db, Usuario, Actividad, Evento, Provincia, Participantes_Evento, Tipo_De_Actividad, Estados
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
