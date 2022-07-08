@@ -47,15 +47,14 @@ def login():
     email = body['email']
     password = body['password']
     usuario = Usuario.query.filter_by(email=email).first()
+    if usuario is None:
+        raise APIException("Usuario no existe")
     print("registro: ", usuario.password)
     hashed = usuario.password.encode(CODE)
     print(bcrypt.checkpw(password.encode(CODE), hashed))
-    return jsonify("ok")
+    #return jsonify("ok")
     # hashed = str.encode(usuario.password)
-    hashed = usuario.password
     print("hashed: ", hashed)
-    if usuario is None:
-        raise APIException("Usuario no existe")
     if not bcrypt.checkpw(password.encode('utf8'), hashed):
         raise APIException("Credenciales Invalidos")
     data = {
