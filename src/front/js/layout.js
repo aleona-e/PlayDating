@@ -6,10 +6,18 @@ import { Home } from "./pages/home";
 import { Register  } from "./pages/register";
 import { Single } from "./pages/single";
 import { Login } from "./pages/login.jsx";
+import { HomeCardGroup } from "./component/homecardgroup.jsx";
+import { Actividades } from "./component/actividades.jsx";
+import { EventosCreados } from "./component/eventoscreados.jsx";
+import { Learnmore } from "./component/learnmore.jsx";
+import { MisEventos } from "./component/miseventos.jsx";
+import { MiPerfil } from "./component/miperfil.jsx";
+
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
+import { Navbar } from "./component/navbar.jsx";
+import { Footer } from "./component/footer.jsx";
+
 
 //create your first component
 const Layout = () => {
@@ -26,6 +34,12 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<HomeCardGroup />} path="/HomeCardGroup" />
+                        <Route element={<Actividades />} path="/actividades" />
+                        <Route element={<EventosCreados />} path="/eventoscreados" />
+                        <Route element={<Learnmore />} path="/Learnmore" />
+                        <Route element={<MisEventos />} path="/miseventos" />
+                        <Route element={<MiPerfil />} path="/miperfil" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
