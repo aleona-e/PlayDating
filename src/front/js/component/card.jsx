@@ -1,23 +1,43 @@
 import React from "react";
+import propTypes from "prop-types";
+import { func } from "prop-types";
+import { Link } from "react-router-dom";
 
-export const Card = () => {
+export const Card = (props) => {
   return (
     <>
-      <div className="container d-flex">
-        <div className="card">
-          <img src="https://img.freepik.com/vector-gratis/parque-infantil-blanco-toboganes-escena_1308-53112.jpg?w=360"></img>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Info
-            </a>
-          </div>
+      <div className="card-group">
+        <div className="col">
+          <div className="card">
+            <img
+              className="card-img-top"
+              src={props.src}
+              alt="Card image cap"
+            ></img>
+            <div className="card-body">
+              <h5 className="card-title">
+                {props.name}
+              </h5>
+              <p className="card-text">
+                {props.text}
+              </p>
+              <div className="card-footer bg-body">
+              <Link to={`/${props.route}`}>  
+                <a href="#" className="btn btn-primary btn-lg" role="button">
+                  {props.button}
+                </a>
+              </Link>
+              </div>
+            </div></div>
         </div>
       </div>
     </>
   );
 };
+Card.propTypes = {
+  name: propTypes.string,
+  src: propTypes.string,
+  text: propTypes.string,
+  route: propTypes.string,
+};
+
