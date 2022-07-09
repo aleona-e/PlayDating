@@ -30,3 +30,42 @@ def setup_commands(app):
         print("All test users created")
 
         ### Insert the code to populate others tables if needed
+    @app.cli.command("insert-provincias") # name of our command
+    def insert_provincias_data():
+        provincias = ["Barcelona", "Madrid", "Tarragona", "Valencia", "Girona", "Málaga"]
+        for nombre_provincia in provincias:
+            provincia = Provincia()
+            provincia.nombre = nombre_provincia
+            db.session.add(provincia)
+            db.session.commit()
+            print("Provincia: ", provincia.nombre, " created.")
+
+        print("All provincias created")
+
+    @app.cli.command("insert-estados") 
+    def insert_estados_data():
+        estados = ["Disponible", "Cerrado", "Cancelado", "Lleno"]
+        for tipo_estado in estados:
+            estado = Estados()
+            estado.estado = tipo_estado
+            db.session.add(estado)
+            db.session.commit()
+            print("Estado: ", estado.estado, " created.")
+
+        print("All estados created")
+
+    @app.cli.command("insert-tipo_de_actividad") 
+    def insert_tipo_de_actividad_data():
+        tipos_de_actividad = ["Exterior", "Interior"]
+        for tipo_de_actividad in tipos_de_actividad:
+            tipo = Tipo_De_Actividad()
+            tipo.tipo = tipo_de_actividad
+            db.session.add(tipo)
+            db.session.commit()
+            print("Tipo_de_actividad: ", tipo.tipo, " created.")
+
+        print("All tipos de actividad created")
+
+    
+
+    
