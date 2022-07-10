@@ -34,10 +34,10 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Login />} path="/login" />
-                        <Route element={<HomeCardGroup />} path="/HomeCardGroup" />
+                        <Route element={<HomeCardGroup />} path="/homecardgroup" />
                         <Route element={<Actividades />} path="/actividades" />
                         <Route element={<EventosCreados />} path="/eventoscreados" />
-                        <Route element={<Learnmore />} path="/Learnmore" />
+                        <Route element={<Learnmore />} path="/learnmore" />
                         <Route element={<MisEventos />} path="/miseventos" />
                         <Route element={<MiPerfil />} path="/miperfil" />
                         <Route element={<Single />} path="/single/:theid" />
