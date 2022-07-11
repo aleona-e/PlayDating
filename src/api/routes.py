@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+import re 
 import bcrypt
 from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_migrate import Migrate
@@ -18,6 +19,27 @@ from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
 CODE = "utf-8"
+email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
+def validacion_email_password(email,password):
+    if email == "":
+        raise APIException("Campo email vacio")
+    if not (re.search(email_regex, email)):
+        raise APIException("Formato de email invalido")
+    if password == "":
+        raise APIException("Campo password vacio")
+
+def validacion_campos_registro(email,password,nombre,provincia_id,numero_hijos):
+    validacion_email_password(email, password)
+    if nombre == "":
+        raise APIException("Campo nombre vacio")
+    if provincia_id == "":
+        raise APIException("Campo provincia vacio")
+    if numero_hijos == "" or numero_hijos == 0:
+        raise APIException("Campo numero_hijos vacio o invalido")
+
+def validacion_campos_login(email,password):
+    validacion_email_password(email, password)
 
 #guardar data de usuario y validar
 @api.route('/nuevo/registro', methods=['POST'])    
@@ -27,11 +49,11 @@ def registro():
     password = body['password']
     hashed = bcrypt.hashpw(password.encode(CODE), bcrypt.gensalt(14))
     auxHashed = hashed.decode(CODE)
-    # print("login: ", auxHashed)
     nombre = body['nombre']
     provincia_id = body['provincia']
     provincia = Provincia.query.filter_by(id=provincia_id).first()
     numero_hijos = body['numero_hijos']
+    validacion_campos_registro(email, password, nombre, provincia_id, numero_hijos)
     aux_usuario = Usuario.query.filter_by(email=email).first()
     if not (aux_usuario is None):
        raise APIException("Usuario ya existe.")
@@ -46,15 +68,11 @@ def login():
     body = request.get_json()
     email = body['email']
     password = body['password']
+    validacion_campos_login(email, password)
     usuario = Usuario.query.filter_by(email=email).first()
     if usuario is None:
         raise APIException("Usuario no existe")
-    # print("registro: ", usuario.password)
     hashed = usuario.password.encode(CODE)
-    # print(bcrypt.checkpw(password.encode(CODE), hashed))
-    #return jsonify("ok")
-    # hashed = str.encode(usuario.password)
-    # print("hashed: ", hashed)
     if not bcrypt.checkpw(password.encode('utf8'), hashed):
         raise APIException("Credenciales Invalidos")
     data = {
