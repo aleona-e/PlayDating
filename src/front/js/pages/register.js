@@ -37,13 +37,55 @@ export const Register = () => {
           <div className="col-md-4">
             <label className="form-label">Provincia</label>
             <select className="form-select">
-              <option selected>BARCELONA</option>
-              <option selected>MADRID</option>
-              <option selected>VALENCIA</option>
-              <option selected>VIGO</option>
-              <option selected>TENERIFE</option>
-              <option selected>TARRAGONA</option>
-              <option selected>MALAGA</option>
+            <option selected>Álava</option>
+              <option selected>Albacete</option>
+              <option selected>Alicante</option>
+              <option selected>Almería</option>
+              <option selected>Asturias</option>
+              <option selected>Ávila</option>
+              <option selected>Badajoz</option>
+              <option selected>Barcelona</option>
+              <option selected>Burgos</option>
+              <option selected>Cáceres</option>
+              <option selected>Cádiz</option>
+              <option selected>Cantabria</option>
+              <option selected>Castellón</option>
+              <option selected>Ciudad Real</option>
+              <option selected>Córdoba</option>
+              <option selected>A Coruña</option>
+              <option selected>Cuenca</option>
+              <option selected>Girona</option>
+              <option selected>Granada</option>
+              <option selected>Guadalajara</option>
+              <option selected>Gipuzkoa</option>
+              <option selected>Huelva</option>
+              <option selected>Huesca</option>
+              <option selected>Illes Balears</option>
+              <option selected>Jaén</option>
+              <option selected>León</option>
+              <option selected>Lleida</option>
+              <option selected>Lugo</option>
+              <option selected>Madrid</option>
+              <option selected>Málaga</option>
+              <option selected>Murcia</option>
+              <option selected>Navarra</option>
+              <option selected>Ourense</option>
+              <option selected>Palencia</option>
+              <option selected>Las Palmas</option>
+              <option selected>Pontevedra</option>
+              <option selected>La Rioja</option>
+              <option selected>Segovia</option>
+              <option selected>Sevilla</option>
+              <option selected>Soria</option>
+              <option selected>Tarragona</option>
+              <option selected>Santa Cruz de Tenerife</option>
+              <option selected>Teruel</option>
+              <option selected>Toledo</option>
+              <option selected>Valencia</option>
+              <option selected>Valladolid</option>
+              <option selected>Bizkaia</option>
+              <option selected>Zamora</option>
+              <option selected>Zaragoza</option>
             </select>
           </div>
 
