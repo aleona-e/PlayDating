@@ -27,7 +27,7 @@ def registro():
     password = body['password']
     hashed = bcrypt.hashpw(password.encode(CODE), bcrypt.gensalt(14))
     auxHashed = hashed.decode(CODE)
-    print("login: ", auxHashed)
+    # print("login: ", auxHashed)
     nombre = body['nombre']
     provincia_id = body['provincia']
     provincia = Provincia.query.filter_by(id=provincia_id).first()
@@ -49,12 +49,12 @@ def login():
     usuario = Usuario.query.filter_by(email=email).first()
     if usuario is None:
         raise APIException("Usuario no existe")
-    print("registro: ", usuario.password)
+    # print("registro: ", usuario.password)
     hashed = usuario.password.encode(CODE)
-    print(bcrypt.checkpw(password.encode(CODE), hashed))
+    # print(bcrypt.checkpw(password.encode(CODE), hashed))
     #return jsonify("ok")
     # hashed = str.encode(usuario.password)
-    print("hashed: ", hashed)
+    # print("hashed: ", hashed)
     if not bcrypt.checkpw(password.encode('utf8'), hashed):
         raise APIException("Credenciales Invalidos")
     data = {
