@@ -1,43 +1,118 @@
-import React from "react";
+import { resetWarningCache } from "prop-types";
+import React, { useState } from "react";
 
 
 export const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nombre, setNombre] = useState("");
+  // const [apellido, setApellido] = useState("");
+  const [numero_hijos, setNumero_hijos] = useState("");
+  // const [edad_hijo, setEdad_hijo] = useState("");
+  const [provincia, setProvincia] = useState(1);
+
+  const updateText = (e, setState) => {
+    const value = e.target.value;
+    setState(value);
+  };
+
+  const onSave = async () => {
+    const body = JSON.stringify({
+      email,
+      password,
+      nombre,
+      // apellido,
+      numero_hijos,
+      // edad_hijo,
+      provincia,
+    });
+    const resp = await fetch(
+      "https://3001-isarebollo-childwebappf-8o99k1xiioj.ws-eu53.gitpod.io/nuevo/registro",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }
+    );
+    const data = await resp.json();
+
+    if (data.message === "Usuario ya existe.") {
+      alert(data.message);
+    }
+  };
+
   return (
     <>
       <div className="container" id="containerRegister">
         <form className="row g-3">
           <div className="col-md-6">
             <label className="form-label">Email</label>
-            <input type="email" className="form-control"></input>
+            <input
+              onChange={(e) => updateText(e, setEmail)}
+              value={email}
+              type="email"
+              className="form-control"
+            ></input>
           </div>
           <div className="col-md-6">
             <label className="form-label">Contraseña</label>
-            <input type="password" className="form-control"></input>
+            <input
+              onChange={(e) => updateText(e, setPassword)}
+              value={password}
+              type="password"
+              className="form-control"
+            ></input>
           </div>
           <div className="col-md-6">
             <label className="form-label">Nombre</label>
-            <input type="email" className="form-control"></input>
+            <input
+              onChange={(e) => updateText(e, setNombre)}
+              value={nombre}
+              type="email"
+              className="form-control"
+            ></input>
           </div>
-          <div className="col-md-6">
-            <label className="form-label">Apellido</label>
-            <input type="text" className="form-control"></input>
-          </div>
+          {/* <div className="col-md-6">
+              <label className="form-label">Apellido</label>
+              <input
+                onChange={(e) => updateText(e, setApellido)}
+                value={apellido}
+                type="text"
+                className="form-control"
+              ></input>
+            </div> */}
 
           <div className="row g-3">
             <div className="col-sm-7">
-              <label className="form-label">Hijo 1</label>
-              <input type="text" className="form-control"></input>
+              <label className="form-label">Numero Hijos</label>
+              <input
+                onChange={(e) => updateText(e, setNumero_hijos)}
+                value={numero_hijos}
+                type="text"
+                className="form-control"
+              ></input>
             </div>
-            <div className="col-sm">
-              <label className="form-label">Edad</label>
-              <input type="text" className="form-control"></input>
-            </div>
+            {/* <div className="col-sm">
+                <label className="form-label">Edad</label>
+                <input
+                  onChange={(e) => updateText(e, setEdad_hijo)}
+                  value={edad_hijo}
+                  type="text"
+                  className="form-control"
+                ></input>
+              </div> */}
           </div>
 
           <div className="col-md-4">
             <label className="form-label">Provincia</label>
-            <select className="form-select">
-            <option selected>Álava</option>
+            <select
+              // onChange={(e) => updateText(e, setProvincia)}
+              // value={provincia}
+              className="form-select"
+            >
+              <option selected>Álava</option>
               <option selected>Albacete</option>
               <option selected>Alicante</option>
               <option selected>Almería</option>
@@ -90,8 +165,13 @@ export const Register = () => {
           </div>
 
           <div className="col-12">
-            <button id="buttonRegister" type="submit" className="btn btn-info">
-              Login
+            <button
+              onClick={onSave}
+              id="buttonRegister"
+              type="submit"
+              className="btn btn-info"
+            >
+              Save
             </button>
           </div>
         </form>

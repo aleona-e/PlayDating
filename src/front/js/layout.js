@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Register  } from "./pages/register";
+import { Register  } from "./pages/register.jsx";
 import { Single } from "./pages/single";
 import { Login } from "./pages/login.jsx";
 import { HomeCardGroup } from "./component/homecardgroup.jsx";
