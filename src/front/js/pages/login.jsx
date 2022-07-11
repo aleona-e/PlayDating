@@ -16,7 +16,7 @@ export const Login = () => {
       password,
     });
     const resp = await fetch(
-      "https://3001-4geeksacade-reactflaskh-bussn8ov9ql.ws-eu53.gitpod.io/login",
+      "https://3001-isarebollo-childwebappf-8o99k1xiioj.ws-eu53.gitpod.io/login",
       {
         method: "POST",
         headers: {
@@ -51,7 +51,7 @@ export const Login = () => {
                 value={password} type="password" className="form-control"></input>
             </div>
           </div>
-          <button onClick={onSave}type="button" className="btn btn-outline-info">Aceptar</button>
+          <button  onClick={onSave} type="button" className="btn btn-outline-info">Aceptar</button>
           <a className="popup-cerrar" href="#popup">
             X
           </a>
