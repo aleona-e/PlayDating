@@ -1,5 +1,5 @@
 import { resetWarningCache } from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/register.css";
 import { HOSTNAME } from "../component/config";
 
@@ -7,15 +7,27 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nombre, setNombre] = useState(""); //nombre completo
-
   const [numero_hijos, setNumero_hijos] = useState("");
-
   const [provincia, setProvincia] = useState(1);
+  const [deshabilitado, setDeshabilitado] = useState(true);
 
   const updateText = (e, setState) => {
     const value = e.target.value;
     setState(value);
   };
+
+  useEffect(() => {
+    if (
+      nombre !== "" &&
+      email !== "" &&
+      password !== "" &&
+      numero_hijos !== ""
+    ) {
+      setDeshabilitado(false);
+    } else {
+      setDeshabilitado(true);
+    }
+  });
 
   const onSave = async () => {
     const body = JSON.stringify({
@@ -47,7 +59,7 @@ export const Register = () => {
       <div className="container" id="containerRegister">
         <form className="row g-3">
           <div className="col-md-12">
-            <label className="form-label">Nombre Completo</label>
+            <label className="form-label ">Nombre Completo</label>
             <input
               onChange={(e) => updateText(e, setNombre)}
               value={nombre}
@@ -63,7 +75,7 @@ export const Register = () => {
                 onChange={(e) => updateText(e, setEmail)}
                 value={email}
                 type="email"
-                className="form-control"
+                className="form-control "
               ></input>
             </div>
             <div className="col-md-6">
@@ -148,10 +160,11 @@ export const Register = () => {
 
           <div className="col-12">
             <button
+              disabled={deshabilitado}
               onClick={onSave}
               id="buttonRegister"
               type="submit"
-              className="btn btn-info"
+              className="btn btn-info button"
             >
               Save
             </button>
