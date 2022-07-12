@@ -1,8 +1,9 @@
 #containerRegister {
-    background-color: rgb(187, 128, 233);
+    background-color: coral;
     width: 700px;
     height: 420px;
     margin-top: 100px;
+   
     border-radius: 5%;
   }
   #buttonRegister {
