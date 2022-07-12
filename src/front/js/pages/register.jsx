@@ -1,6 +1,7 @@
 import { resetWarningCache } from "prop-types";
 import React, { useState } from "react";
 import "../../styles/register.css";
+import { HOSTNAME } from "../component/config";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
@@ -24,16 +25,13 @@ export const Register = () => {
       numero_hijos,
       provincia,
     });
-    const resp = await fetch(
-      "https://3001-isarebollo-childwebappf-8o99k1xiioj.ws-eu53.gitpod.io/nuevo/registro",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body,
-      }
-    );
+    const resp = await fetch(HOSTNAME + "/nuevo/registro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    });
     const data = await resp.json();
     if (data.message === "ok") {
       alert("Usuario Creado Con exito");
