@@ -8,9 +8,8 @@ class Usuario(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     nombre = db.Column(db.String(250), nullable=False)
     password = db.Column(db.String(250), nullable=False)
-    provincia_id = db.Column(db.Integer, db.ForeignKey('provincia.id'), nullable=False)
+    provincia = db.Column(db.String(250), nullable=False)
     numero_hijos = db.Column(db.Integer, nullable=False)
-    provincia = db.relationship('Provincia')
 
     def __repr__(self):
         return '<Usuario %r>' % self.email
@@ -20,9 +19,8 @@ class Usuario(db.Model):
             "id": self.id,
             "email": self.email,
             "nombre": self.nombre,
-            "provincia": self.provincia_id,
+            "provincia": self.provincia,
             "numero_hijos": self.numero_hijos
-            # do not serialize the password, its a security breach
             }
 
 class Actividad(db.Model):
@@ -35,7 +33,7 @@ class Actividad(db.Model):
     tipo_de_actividad = db.relationship('Tipo_De_Actividad')
 
     def __repr__(self):
-        return '<Actividad %r>' % self.nombre
+        return '%r' % self.nombre
 
     def serialize(self):
         return {
@@ -52,25 +50,12 @@ class Tipo_De_Actividad(db.Model):
     tipo = db.Column(db.String(120), nullable=False)
 
     def __repr__(self):
-        return '<Tipo_De_Actividad %r>' % self.tipo
+        return '%r' % self.tipo
 
     def serialize(self):
         return {
             "id": self.id,
             "tipo": self.tipo
-            }
-class Estados(db.Model):
-    __tablename__='estados'
-    id = db.Column(db.Integer, primary_key=True) 
-    estado = db.Column(db.String(120), nullable=False)
-
-    def __repr__(self):
-        return '<Estados %r>' % self.estado
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "estado": self.estado
             }
         
 class Evento(db.Model):
@@ -83,11 +68,10 @@ class Evento(db.Model):
     edad_minima = db.Column(db.Integer)
     edad_maxima = db.Column(db.Integer)
     direccion = db.Column(db.String(250), nullable=False)
-    estado_id = db.Column(db.Integer, db.ForeignKey('estados.id'), nullable=False)
+    estado = db.Column(db.String(250), nullable=False)
     actividad_id = db.Column(db.Integer, db.ForeignKey('actividad.id'), nullable=False)
     creador = db.relationship('Usuario')# provincia a partir de usuario
     actividad = db.relationship('Actividad')
-    estado = db.relationship('Estados')
 
     def __repr__(self):
         return '<Evento %r>' % self.id
@@ -100,22 +84,8 @@ class Evento(db.Model):
             "minimo_participantes": self.minimo_participantes,
             "maximo_participantes": self.maximo_participantes,
             "direccion": self.direccion,
-            "estado": repr(self.estado),
+            "estado": self.estado,
             "actividad": repr(self.actividad)
-            }
-
-class Provincia(db.Model):
-    __tablename__='provincia'
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), nullable=False) 
-
-    def __repr__(self):
-        return '<Provincia %r>' % self.nombre
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "nombre": self.nombre
             }
 
 class Participantes_Evento(db.Model):

@@ -1,7 +1,7 @@
 
 import click
 from flask.cli import AppGroup
-from api.models import db, Usuario, Actividad, Evento, Provincia, Participantes_Evento, Tipo_De_Actividad, Estados
+from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -18,38 +18,6 @@ def setup_commands(app):
     #Para agregar a información de las tablas poner en la terminal "flask" + el nombre del comando ej. insert-provincias (para agregar las provincias)
     # $ flask insert-provincias
         
-    @app.cli.command("insert-provincias") # name of our command
-    def insert_provincias_data():
-        if len(Provincia.query.all()) == 0:
-            provincias = ["Barcelona", "Madrid", "Tarragona", "Valencia", "Girona", "Málaga"]
-            for nombre_provincia in provincias:
-                provincia = Provincia()
-                provincia.nombre = nombre_provincia
-                db.session.add(provincia)
-                print("Provincia: ", provincia.nombre, " created.")
-            db.session.commit()
-            
-            print("All provincias created")
-
-        else:
-            print("La tabla Provincia ya está llena.")
-
-    @app.cli.command("insert-estados") 
-    def insert_estados_data():
-        if len(Estados.query.all()) == 0:
-            estados = ["Disponible", "Cerrado", "Cancelado", "Lleno"]
-            for tipo_estado in estados:
-                estado = Estados()
-                estado.estado = tipo_estado
-                db.session.add(estado)
-                print("Estado: ", estado.estado, " created.")
-            db.session.commit()
-            
-            print("All estados created")
-
-        else:
-            print("La tabla Estados ya está llena.")
-
     @app.cli.command("insert-tipo_de_actividad") 
     def insert_tipo_de_actividad_data():
         if len(Tipo_De_Actividad.query.all()) == 0:
@@ -83,7 +51,7 @@ def setup_commands(app):
                 actividad = Actividad()
                 actividad.nombre = obj_actividad["nombre"]
                 actividad.descripcion = obj_actividad["descripcion"]
-                actividad.tipo_de_actividad = Tipo_De_Actividad.query.filter_by(id=obj_actividad["tipo_de_actividad_id"]).first()
+                actividad.tipo_de_actividad_id = obj_actividad["tipo_de_actividad_id"]
                 actividad.imagen = obj_actividad["imagen"]
                 db.session.add(actividad)
                 print("Actividad: ", actividad.nombre, " created.")
