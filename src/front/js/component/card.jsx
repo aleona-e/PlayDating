@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import propTypes from "prop-types";
 import { func } from "prop-types";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Card = (props) => {
+  const navigate = useNavigate();
+  useEffect (() => {
+    if (localStorage.getItem('token') !== "") {
+      console.log(props.route);
+      navigate(`/${props.route}`, { replace: true });
+    } else {
+      console.log("sigue probando");
+    }
+  })  
   return (
     <>
       <div className="card-group">
@@ -22,11 +32,11 @@ export const Card = (props) => {
                 {props.text}
               </p>
               <div className="card-footer bg-body">
-              <Link to={`/${props.route}`}>  
+              {/* <Link to={`/${props.route}`}>   */}
                 <a href="#" className="btn btn-primary btn-lg" role="button">
                   {props.button}
                 </a>
-              </Link>
+              {/* </Link> */}
               </div>
             </div></div>
         </div>
