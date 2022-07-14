@@ -4,6 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import os
 import re 
 import bcrypt
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -17,11 +18,19 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
+
 api = Blueprint('api', __name__)
 CODE = "utf-8"
 email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
 #Comentar/descomentar los decoradores de jwt_required para probar
+
+#Obtener id de usuairo a partir de token jwt (requiere token)
+def obtener_usuario_id():
+    informacion_usuario = get_jwt_identity()
+    if informacion_usuario is None:
+        raise APIException('Se espera jwt token')
+    return informacion_usuario["usuario_id"]
 
 #Funciones para validar desde el back campos de registro y login
 def validacion_email_password(email,password):
@@ -82,22 +91,23 @@ def login():
         'usuario_id': usuario.id
     }
     token = create_access_token(identity=data)
-    return jsonify(token)
+    return jsonify({'message':'Login exitoso','data':token})
 
 #Obtener informacion del perfil del current user
-@api.route('/perfil/usuario/<int:usuario_id>', methods=['GET'])
-#@jwt_required()
-def get_info_usuario(usuario_id):
-    if request.method == 'GET':
-        usuario = Usuario.query.get(usuario_id)
-        if usuario is None:
-            raise APIException("Usuario no encontrado")
-        return jsonify(usuario.serialize())
+@api.route('/perfil', methods=['GET'])
+@jwt_required()
+def get_info_usuario():
+    usuario_id = obtener_usuario_id()
+    usuario = Usuario.query.get(usuario_id)
+    if usuario is None:
+        raise APIException("Usuario no encontrado")
+    return jsonify({'message':'Informacion solicitada con exito','data':usuario.serialize()})
 
 #Modificar informacion del perfil del current user
-@api.route('/perfil/usuario/<int:usuario_id>', methods=['POST'])
-#@jwt_required()
-def modificar_info_usuario(usuario_id):
+@api.route('/perfil/modificar', methods=['POST'])
+@jwt_required()
+def modificar_info_usuario():
+    usuario_id = obtener_usuario_id()
     body = request.get_json()
     usuario = Usuario.query.get(usuario_id)
     if usuario is None:
@@ -123,49 +133,54 @@ def get_tipos_de_actividad():
 def get_actividades():
     actividades = Actividad.query.all()
     all_actividades = list(map(lambda actividad: actividad.serialize(), actividades))
-    return jsonify(all_actividades)
+    return jsonify({'message':'Información de todas las actividades solicitada exitosamente','data':all_actividades})
 
 #Obtener detalle de actividad por id de actividad
 @api.route('/actividades/<int:actividad_id>', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_actividad(actividad_id):
-    if request.method == 'GET':
-        actividad = Actividad.query.get(actividad_id)
-        if actividad is None:
-            raise APIException("Actividad no encontrada")
-        return jsonify(actividad.serialize())
+    actividad = Actividad.query.get(actividad_id)
+    if actividad is None:
+        raise APIException("Actividad no encontrada")
+    return jsonify({'message':'Información de actividad solicitada con exito','data':actividad.serialize()})
 
 #Crear evento
 @api.route('/crear/evento', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def crear_evento():
-    if request.method == 'POST':
-        body = request.get_json()
-        fecha_y_hora = body['fecha_y_hora']
-        creador_id = body['creador_id']
-        creador = Usuario.query.filter_by(id=creador_id).first()
-        minimo_participantes = body['minimo_participantes']
-        maximo_participantes = body['maximo_participantes']
-        edad_minima = body['edad_minima']
-        edad_maxima = body['edad_maxima']
-        direccion = body['direccion']
-        estado = body['estado']
-        actividad_id = body['actividad_id']
-        actividad = Actividad.query.filter_by(id=actividad_id).first()
-        validacion_creacion_evento(creador, estado, actividad)
-        evento = Evento(
-            fecha_y_hora=fecha_y_hora,
-            creador_id=creador_id,
-            minimo_participantes=minimo_participantes,
-            maximo_participantes=maximo_participantes,
-            edad_minima=edad_minima,
-            edad_maxima=edad_maxima,
-            direccion=direccion,
-            estado=estado,
-            actividad_id=actividad_id)
-        db.session.add(evento)
-        db.session.commit()
-        return jsonify(evento.serialize())
+    body = request.get_json()
+    fecha_y_hora = body['fecha_y_hora']
+    creador_id = obtener_usuario_id()
+    creador = Usuario.query.filter_by(id=creador_id).first()
+    minimo_participantes = body['minimo_participantes']
+    maximo_participantes = body['maximo_participantes']
+    participantes_creador = body['participantes_creador']
+    edad_minima = body['edad_minima']
+    edad_maxima = body['edad_maxima']
+    direccion = body['direccion']
+    estado = 'Disponible'
+    actividad_id = body['actividad_id']
+    actividad = Actividad.query.filter_by(id=actividad_id).first()
+    validacion_creacion_evento(creador, estado, actividad)
+    evento = Evento(
+        fecha_y_hora=fecha_y_hora,
+        creador_id=creador_id,
+        minimo_participantes=minimo_participantes,
+        maximo_participantes=maximo_participantes,
+        edad_minima=edad_minima,
+        edad_maxima=edad_maxima,
+        direccion=direccion,
+        estado=estado,
+        actividad_id=actividad_id)
+    aux_evento = Evento.query.filter_by(fecha_y_hora=fecha_y_hora,creador_id=creador_id,direccion=direccion,actividad_id=actividad_id).first()
+    if aux_evento is not None:
+        raise APIException('Evento duplicado')
+    db.session.add(evento)
+    db.session.commit()
+    participantes_evento = Participantes_Evento(usuario_id=evento.creador_id, evento_id=evento.id, num_participantes_por_usuario=participantes_creador)
+    db.session.add(participantes_evento)
+    db.session.commit()
+    return jsonify({'message':'Evento creado exitosamente, el usuario se ha añadido a este evento','data':evento.serialize()})
 
 #Función para validar campos creación de evento
 def validacion_creacion_evento(creador,estado,actividad):
@@ -178,7 +193,7 @@ def validacion_creacion_evento(creador,estado,actividad):
 
 #Obtener eventos en provincia especifica  con la provincia id que sale a partir del registro del usuario y ligarlo a la tabla provincias
 @api.route('/eventos/<provincia>', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_eventos(provincia):
     usuarios = Usuario.query.filter_by(provincia = provincia).all()
     all_eventos = []
@@ -187,25 +202,25 @@ def get_eventos(provincia):
         for evento in eventos:
             all_eventos.append(evento) 
     all_eventos_serialized = list(map(lambda evento: evento.serialize(), all_eventos))
-    return jsonify(all_eventos_serialized)
+    return jsonify({'message':'Informacion de eventos por provincia solicitada exitosamente','data':all_eventos_serialized})
 
 #Obtener informacion detalle de evento por id
 @api.route('/evento/<int:evento_id>', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_evento(evento_id):
-    if request.method == 'GET':
-        evento = Evento.query.get(evento_id)
-        if evento is None:
-            raise APIException("Evento no encontrado")
-        return jsonify(evento.serialize())
+    evento = Evento.query.get(evento_id)
+    if evento is None:
+        raise APIException("Evento no encontrado")
+    return jsonify({'message':'Informacion detalle de evento solicitada exitosamente','data':evento.serialize()})
     
 #Unirse a evento ya creado, usuario añadido a tabla participantes_evento
-@api.route('/unirse/<int:usuario_id>/evento/<int:evento_id>', methods=['POST'])
-#@jwt_required() 
-def unirse_a_evento(usuario_id, evento_id):
+@api.route('/unirse/evento/<int:evento_id>', methods=['POST'])
+@jwt_required() 
+def unirse_a_evento(evento_id):
     body = request.get_json()
-    evento_id = body['evento_id']
+    evento_id = evento_id
     evento = Evento.query.filter_by(id=evento_id)
+    usuario_id = obtener_usuario_id()
     usuario = Usuario.query.filter_by(id=usuario_id)
     num_participantes_por_usuario = body['num_participantes_por_usuario']
     participante_aux = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
@@ -217,9 +232,10 @@ def unirse_a_evento(usuario_id, evento_id):
     return jsonify({'message':'El usuario se ha unido al evento exitosamente', 'data':participante_evento.serialize()})
 
 #Retirar participacion de current user de evento asociado
-@api.route('/retirarse/<int:usuario_id>/evento/<int:evento_id>', methods=['DELETE'])
-#@jwt_required()
-def retirarse_de_evento(usuario_id, evento_id):
+@api.route('/retirarse/evento/<int:evento_id>', methods=['DELETE'])
+@jwt_required()
+def retirarse_de_evento(evento_id):
+    usuario_id = obtener_usuario_id()
     participante_evento = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_evento == None:
         raise APIException('Usuario NO registrado en evento')
@@ -230,18 +246,19 @@ def retirarse_de_evento(usuario_id, evento_id):
     })
 
 #Obtener todos los eventos creados por el current user con el usuario_id
-@api.route('/eventoscreados/usuario/<int:usuario_id>', methods=['GET'])
-#@jwt_required()
-def get_eventos_creados_usuario(usuario_id):
+@api.route('/eventoscreados/usuario', methods=['GET'])
+@jwt_required()
+def get_eventos_creados_usuario():
+    usuario_id = obtener_usuario_id()
     eventos = Evento.query.filter_by(creador_id = usuario_id).all()
     eventos_creados = list(map(lambda evento: evento.serialize(), eventos))
     if len(eventos) == 0:
             raise APIException("Usuario no encontrado")
-    return jsonify(eventos_creados)
+    return jsonify({'message':'Informacion de eventos creados por el usuario solicitada exitosamente','data':eventos_creados})
 
 #Cancelar un evento creado por el current user con el evento_id
 @api.route('/cancelarevento/<int:evento_id>', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def cancelar_evento_creado_usuario(evento_id):
     evento_a_modificar = Evento.query.filter_by(id= evento_id).first()
     if evento_a_modificar is None:
@@ -254,9 +271,10 @@ def cancelar_evento_creado_usuario(evento_id):
     'data': evento_a_modificar.serialize()})
 
 #Obtener todos los eventos asociados al current user
-@api.route('/eventos/usuario/<int:usuario_id>', methods=['GET'])
-#@jwt_required()
-def get_eventos_usuario(usuario_id):
+@api.route('/eventos/usuario', methods=['GET'])
+@jwt_required()
+def get_eventos_usuario():
+    usuario_id = obtener_usuario_id()
     participante_eventos = Participantes_Evento.query.filter_by(usuario_id = usuario_id).all()
     all_eventos_usuario = []
     for participante_evento in participante_eventos:
@@ -266,8 +284,6 @@ def get_eventos_usuario(usuario_id):
     if len(all_eventos_usuario) == 0:
         return jsonify({'message':'El usuario no se ha unido a ningún evento'})
     all_eventos_serialized = list(map(lambda evento: evento.serialize(), all_eventos_usuario))
-    return jsonify(all_eventos_serialized)
-
-
+    return jsonify({'message':'Informacion de eventos asociados al usuario solicitada exitosamente','data':all_eventos_serialized})
        
 #hasta aquí todos los endpoints están probados.     
