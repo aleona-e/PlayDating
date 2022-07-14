@@ -1,7 +1,16 @@
 
 import click
+import cloudinary.uploader
+import cloudinary.api
 from flask.cli import AppGroup
 from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
+
+cloudinary.config( 
+  cloud_name = "daint2d1l", 
+  api_key = "628783722917876", 
+  api_secret = "Csb_-ttIflLqaB_SdRrpcEPpSuU" 
+)
+
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -61,6 +70,26 @@ def setup_commands(app):
 
         else:
             print("La tabla Actividad ya está llena.")
+
+    @app.cli.command("insert-imagenes_actividades") 
+    def insert_imagenes_data():
+        imagenes_actividades = [
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739997/Actividades/Juegos_de_agua_2_yv9fxx.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740005/Actividades/Jugar_futbol_fgc9oh.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740014/Actividades/picnic_ld4xkh.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740761/Actividades/ruta_en_ruedas_2_xeyvhz.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739995/Actividades/juego_libre_parque_dawbus.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740011/Actividades/manualidades_2_agwbqz.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740008/Actividades/lectura_dqkyzu.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740002/Actividades/juegos_de_mesa_2_zqjk4p.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739992/Actividades/juego_libre_interior_2_pez56h.jpg"]
+
+        todas_actividades = Actividad.query.all()
+        for i,actividad in enumerate(todas_actividades):
+            actividad.imagen = imagenes_actividades[i]
+        db.session.commit()
+
+        print("Imagenes cargadas correctamente")
 
     
     
