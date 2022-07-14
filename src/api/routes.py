@@ -5,6 +5,8 @@ import os
 import re 
 import bcrypt
 
+from api.estados import ESTADO_CANCELADO, ESTADO_CERRADO, ESTADO_DISPONIBLE, ESTADO_LLENO
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -158,7 +160,7 @@ def crear_evento():
     edad_minima = body['edad_minima']
     edad_maxima = body['edad_maxima']
     direccion = body['direccion']
-    estado = 'Disponible'
+    estado = ESTADO_DISPONIBLE
     actividad_id = body['actividad_id']
     actividad = Actividad.query.filter_by(id=actividad_id).first()
     validacion_creacion_evento(creador, estado, actividad)
@@ -218,16 +220,23 @@ def get_evento(evento_id):
 @jwt_required() 
 def unirse_a_evento(evento_id):
     body = request.get_json()
-    evento_id = evento_id
-    evento = Evento.query.filter_by(id=evento_id)
+    evento = Evento.query.filter_by(id=evento_id).first()
     usuario_id = obtener_usuario_id()
     usuario = Usuario.query.filter_by(id=usuario_id)
     num_participantes_por_usuario = body['num_participantes_por_usuario']
     participante_aux = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_aux != None:
         raise APIException('Usuario ya registrado en evento')
+    total_participantes = 0
+    participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
+    for participante_evento in participantes_evento_aux:
+        total_participantes += participante_evento.num_participantes_por_usuario
+    if total_participantes + num_participantes_por_usuario > evento.maximo_participantes:
+        raise APIException('No es posible unirse al evento, supera el limite maximo de participantes de este evento')
     participante_evento = Participantes_Evento(evento_id=evento_id, usuario_id=usuario_id, num_participantes_por_usuario=num_participantes_por_usuario)
     db.session.add(participante_evento)
+    if total_participantes + num_participantes_por_usuario == evento.maximo_participantes:
+        evento.estado = ESTADO_LLENO
     db.session.commit()
     return jsonify({'message':'El usuario se ha unido al evento exitosamente', 'data':participante_evento.serialize()})
 
@@ -263,9 +272,9 @@ def cancelar_evento_creado_usuario(evento_id):
     evento_a_modificar = Evento.query.filter_by(id= evento_id).first()
     if evento_a_modificar is None:
         raise APIException('Evento no existe')
-    if evento_a_modificar.estado == 'Cancelado':
+    if evento_a_modificar.estado == ESTADO_CANCELADO:
         raise APIException('El evento ya ha sido cancelado')
-    evento_a_modificar.estado = 'Cancelado'
+    evento_a_modificar.estado = ESTADO_CANCELADO
     db.session.commit()
     return jsonify({'message': 'Evento cancelado exitosamente',
     'data': evento_a_modificar.serialize()})
