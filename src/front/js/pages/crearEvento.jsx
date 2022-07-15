@@ -3,15 +3,22 @@ import DateTimePicker from "react-datetime-picker";
 import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
+import { useNavigate } from "react-router-dom";
 
 export const CrearEvento = (props) => {
-  // if (localStorage.getItem("token") !== "") {
+  const navigate = useNavigate();
+    useEffect (() => {
+      if (!localStorage.token) {
 
-  //   navigate("/register");
-  // } else {
-  //   que haga todo el codigo de debajo. ORGANIZAR AL FINAL.
-  // }
+        navigate("/zonaPrivada");
+      } 
+      else {
 
+      }
+    }
+  ,[]);
+     
+ 
   // ..................llegan por PROPS..................................
   const actividad = "Juegos de agua";
   const actividad_id = 1;
@@ -21,11 +28,11 @@ export const CrearEvento = (props) => {
 
   // inputs a rellenar por usuario
   const [direccion, setDireccion] = useState("");
-  const [edad_maxima, setEdadMaxima] = useState(0);
-  const [edad_minima, setEdadMinima] = useState(0);
-  const [maximo_participantes, setMaxParticipantes] = useState(0);
-  const [minimo_participantes, setMinParticipantes] = useState(0);
-  const [participantes_creador, setAñadirParticipantes] = useState(0);
+  const [edad_maxima, setEdadMaxima] = useState("");
+  const [edad_minima, setEdadMinima] = useState("");
+  const [maximo_participantes, setMaxParticipantes] = useState("");
+  const [minimo_participantes, setMinParticipantes] = useState("");
+  const [participantes_creador, setAñadirParticipantes] = useState("");
   const [fecha_y_hora, setfechayhora] = useState(new Date());
 
   //ciclo de vida de boton.
@@ -122,7 +129,7 @@ export const CrearEvento = (props) => {
                 className="form-control"
               ></input>
             </div>
-            <form className="was-validated ">
+            <form className="was-validated">
               <label className="col-sm-2 col-form-label">Participantes</label>
               <div
                 className="input-sm mb-2 d-flex"
@@ -200,3 +207,4 @@ export const CrearEvento = (props) => {
     </>
   );
 };
+

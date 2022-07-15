@@ -27,9 +27,9 @@ export const Card = (props) => {
               </p>
               <div className="card-footer bg-body">
               <Link to={`/${props.route}`}>  
-                <a href="#" className="btn btn-primary btn-lg" role="button">
+                <button href="#" className="btn btn-primary btn-lg" role="button">
                   {props.button}
-                </a>
+                </button>
               </Link>
               </div>
             </div></div>
