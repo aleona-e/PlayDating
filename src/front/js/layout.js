@@ -12,17 +12,20 @@ import { EventosCreados } from "./component/eventoscreados.jsx";
 import { Learnmore } from "./component/learnmore.jsx";
 import { MisEventos } from "./component/miseventos.jsx";
 import { MiPerfil } from "./component/miperfil.jsx";
+import { CrearEvento } from "./pages/crearEvento.jsx";
 
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer.jsx";
 
+
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
+
 
   return (
     <div>
@@ -31,11 +34,11 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
-
             <Route element={<Register />} path="/register" />
             <Route element={<Login />} path="/login" />
             <Route element={<HomeCardGroup />} path="/homecardgroup" />
             <Route element={<Actividades />} path="/actividades" />
+            <Route element={<CrearEvento />} path="/crearevento" />
             <Route element={<EventosCreados />} path="/eventoscreados" />
             <Route element={<Learnmore />} path="/learnmore" />
             <Route element={<MisEventos />} path="/miseventos" />

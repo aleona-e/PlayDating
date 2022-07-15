@@ -16,8 +16,11 @@ export const Navbar = () => {
         </div>
 
         <div>
-          <h5>Mi eventos</h5>
+          <h5>Mis eventos</h5>
         </div>
+        <Link to="/crearevento">
+          <span className="navbar-brand mb-0 h1">Crear Evento</span>
+        </Link>
 
         <div className="ml-auto">
           <Link to="/login">

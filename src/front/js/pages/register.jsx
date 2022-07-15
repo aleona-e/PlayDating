@@ -37,6 +37,7 @@ export const Register = () => {
       numero_hijos,
       provincia,
     });
+    
     const resp = await fetch(HOSTNAME + "/nuevo/registro", {
       method: "POST",
       headers: {
@@ -56,8 +57,9 @@ export const Register = () => {
 
   return (
     <>
+    
       <div className="container" id="containerRegister">
-        <form className="row g-3">
+        <form className="row g-3 was-validated">
           <div className="col-md-12">
             <label className="form-label ">Nombre Completo</label>
             <input
@@ -65,6 +67,7 @@ export const Register = () => {
               value={nombre}
               type="text"
               className="form-control"
+              required
             ></input>
           </div>
 
@@ -76,6 +79,7 @@ export const Register = () => {
                 value={email}
                 type="email"
                 className="form-control "
+                required
               ></input>
             </div>
             <div className="col-md-6">
@@ -85,6 +89,7 @@ export const Register = () => {
                 value={password}
                 type="password"
                 className="form-control"
+                required
               ></input>
             </div>
           </div>
@@ -96,6 +101,7 @@ export const Register = () => {
               value={numero_hijos}
               type="text"
               className="form-control"
+              required
             ></input>
           </div>
 
@@ -105,6 +111,7 @@ export const Register = () => {
               onChange={(e) => updateText(e, setProvincia)}
               value={provincia}
               className="form-select"
+              required
             >
               <option selected>Álava</option>
               <option selected>Albacete</option>
