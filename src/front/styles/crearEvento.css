@@ -1,0 +1,32 @@
+#containerCrearEvento {
+  background-color: cornflowerblue;
+  /* text-align: center; */
+  width: 900px;
+  height: auto;
+  margin-top: 80px;
+  border-radius: 20px;
+}
+#buttonCrearEvento {
+  margin-bottom: 10px;
+  width: 150px;
+}
+#imgCrearEvento {
+  width: 250px;
+  height: 200px;
+  margin-left: 100px;
+
+  border-radius: 10px;
+}
+#input-group-crear-evento {
+  width: 200px;
+  margin-left: 125px;
+}
+#h2CrearEvento {
+  text-align: center;
+}
+#descripcionCrearEvento {
+  text-align: justify;
+}
+#columnaDerecha {
+  text-align: center;
+}
