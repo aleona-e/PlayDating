@@ -5,13 +5,6 @@ import cloudinary.api
 from flask.cli import AppGroup
 from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
 
-cloudinary.config( 
-  cloud_name = "daint2d1l", 
-  api_key = "628783722917876", 
-  api_secret = "Csb_-ttIflLqaB_SdRrpcEPpSuU" 
-)
-
-
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
 Flask commands are usefull to run cronjobs or tasks outside of the API but sill in integration 
@@ -47,14 +40,14 @@ def setup_commands(app):
     def insert_actividades_data():
         if len(Actividad.query.all()) == 0:
             actividades = [
-                {"nombre": "Juegos de agua", "descripcion": "Planea refrescantes juegos de agua en verano para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
+                {"nombre": "Juegos de Agua", "descripcion": "Planea refrescantes juegos de agua en verano para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Jugar Futbol", "descripcion": "Organiza una jugada al futbol con tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable. ", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Picnic", "descripcion": "Ten un picnic con tus hijos y sus nuevos amigos. Cada participante lleva algo para compartir entre todos. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
-                {"nombre": "Ruta en ruedas", "descripcion": "Montar en Bici, patines o patineta. Cada participante lleva su vehiculo. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
+                {"nombre": "Ruta en Ruedas", "descripcion": "Montar en Bici, patines o patineta. Cada participante lleva su vehiculo. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Juego Libre", "descripcion": "Tus hijos y sus nuevos amigos podrán jugar libremente en el parque. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Manualidades", "descripcion": "Organiza una sesión de manualidades para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
-                {"nombre": "Lectura de cuentos/libros", "descripcion": "Planea una sesión de lectura para tus hijos y sus nuevos amigos. Cada participante puede llevar un libro. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
-                {"nombre": "Juegos de mesa/puzzles", "descripcion": "Organiza una sesión de juegos de mesa  y/o puzzles para tus hijos y sus nuevos amigos. Cada participante puede llevar un juego/puzzle. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
+                {"nombre": "Lectura de Cuentos/libros", "descripcion": "Planea una sesión de lectura para tus hijos y sus nuevos amigos. Cada participante puede llevar un libro. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
+                {"nombre": "Juegos de Mesa/puzzles", "descripcion": "Organiza una sesión de juegos de mesa  y/o puzzles para tus hijos y sus nuevos amigos. Cada participante puede llevar un juego/puzzle. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
                 {"nombre": "Juego Libre", "descripcion": "Tus hijos y sus nuevos amigos podrán jugar libremente. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"}]
             for obj_actividad in actividades:
                 actividad = Actividad()

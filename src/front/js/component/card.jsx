@@ -1,5 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
+import "../../styles/actividades.css";
 import { func } from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -8,9 +9,9 @@ export const Card = (props) => {
     <>
       <div className="card-group">
         <div className="col">
-          <div className="card">
+          <div className="card text-center">
             <img
-              className="card-img-top"
+              className="card-img-top imagenCard rounded"
               src={props.src}
               alt="Card image cap"
             ></img>
@@ -20,6 +21,9 @@ export const Card = (props) => {
               </h5>
               <p className="card-text">
                 {props.text}
+              </p>
+              <p className="card-text">
+                {props.tipo}
               </p>
               <div className="card-footer bg-body">
               <Link to={`/${props.route}`}>  
@@ -38,6 +42,7 @@ Card.propTypes = {
   name: propTypes.string,
   src: propTypes.string,
   text: propTypes.string,
+  tipo: propTypes.string,
   route: propTypes.string,
 };
 
