@@ -35,9 +35,9 @@ export const Login = (props) => {
 
       if (localStorage.getItem("token") !== "") {
         // console.log("acertaste");
-        navigate("/miperfil", { replace: true });
+        navigate("/miperfil");
       } else {
-        console.log("sigue probando suerte"); // hay que cambiarlo por la ruta de la pagina de privado o registro, a decidir.
+        navigate("/zonaPrivada");
       }
     }
   };
@@ -58,7 +58,7 @@ export const Login = (props) => {
             </div>
           </div>
           <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">Password</label>
+            <label className="col-sm-2 col-form-label">Contraseña</label>
             <div className="col-sm-10">
               <input
                 onChange={(e) => updateText(e, setPassword)}
@@ -75,7 +75,7 @@ export const Login = (props) => {
             className="btn btn-info"
             id="buttonLogin"
           >
-            Sign in
+            Iniciar Sesión
           </button>
         </form>
       </div>
