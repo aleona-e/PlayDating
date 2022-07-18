@@ -75,6 +75,7 @@
 	"dependencies": {
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
+		"react-bootstrap": "^2.4.0",
 		"react-datetime-bootstrap": "^1.4.7",
 		"react-datetime-picker": "^3.5.0",
 		"react-dom": "^16.8.4",

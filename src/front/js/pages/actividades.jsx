@@ -19,7 +19,7 @@ export const Actividades = () => {
             text={actividad.descripcion}
             tipo={actividad.tipo_de_actividad}
             button=" Crear Evento "
-            route={"crearevento/"}
+            route={"crearevento/" + actividad.id}
           />
         );
       });
