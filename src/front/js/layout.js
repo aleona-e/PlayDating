@@ -8,7 +8,6 @@ import { Register } from "./pages/register.jsx";
 import { Login } from "./pages/login.jsx";
 import { HomeCardGroup } from "./component/homecardgroup.jsx";
 import { Actividades } from "./pages/actividades.jsx";
-
 import { MisEventos } from "./component/miseventos.jsx";
 import { MiPerfil } from "./component/miperfil.jsx";
 import { CrearEvento } from "./pages/crearEvento.jsx";

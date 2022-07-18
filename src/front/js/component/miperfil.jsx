@@ -1,8 +1,12 @@
 import { resetWarningCache } from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../styles/register.css";
 import { HOSTNAME } from "../component/config";
 import FormularioHijos from "./formulariohijos.jsx";
+import { Context } from "../store/appContext.js";
+import { obtenerDatosperfil } from "../api.js";
+import { useNavigate } from "react-router-dom";
+import { config } from "../component/config.js";
 
 export const MiPerfil = () => {
   const [email, setEmail] = useState("");
@@ -12,42 +16,87 @@ export const MiPerfil = () => {
   const [provincia, setProvincia] = useState(1);
   const [deshabilitado, setDeshabilitado] = useState(true);
 
-  const updateText = (e, setState) => {
-    const value = e.target.value;
-    setState(value);
-  };
+  const { store, actions } = useContext(Context)
 
+  const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate()
+
+  // OBTENER DATOS USUARIO
   useEffect(() => {
-    if (
-      nombre !== "" &&
-      email !== "" &&
-      password !== "" &&
-      numero_hijos !== ""
-    ) {
-      setDeshabilitado(false);
-    } else {
-      setDeshabilitado(true);
+    const token = localStorage.getItem(config.jwt.nameToken);
+    if (!token) {
+      navigate("/login");
     }
-  });
+
+    fetch(HOSTNAME + "/perfil", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // setLoading(true)
+
+        console.log("soy la data", data.data);
+        setTasks(data.data)
+        // localStorage.setItem("token", data.token)
+        // data.user_id
+        // navegar para /user/id
+
+      })
+      .catch((e) => {
+        console.error(e);
+        navigate(`/zonaprivada`);
+
+      });
+
+  }, []);
+
+
+
+  // MODIFICAR DATOS
+    const updateText = (e, setState) => {
+      const value = e.target.value;
+      setState(value);
+    };
+
+    useEffect(() => {
+      if (
+        nombre !== "" &&
+        email !== "" &&
+        password !== "" &&
+        numero_hijos !== ""
+      ) {
+        setDeshabilitado(false);
+      } else {
+        setDeshabilitado(true);
+      }
+    });
 
   const onSave = async () => {
     const body = JSON.stringify({
-      email,
-      password,
-      nombre,
+      // email,
+      // password,
+      // nombre,
       numero_hijos,
-      provincia,
+      // provincia,
     });
-    const resp = await fetch(HOSTNAME + "/nuevo/registro", {
+    const resp = await fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body,
     });
     const data = await resp.json();
     if (data.message === "ok") {
-      alert("Usuario Creado Con exito");
+      alert("Campos actualizados exitosamente");
     }
 
     if (data.message === "Usuario ya existe.") {
@@ -60,53 +109,51 @@ export const MiPerfil = () => {
       <div className="container" id="containerRegister">
         <div className="row g-3">
           <div className="col-md-12">
-            <label className="form-label ">Nombre Completo</label>
-            <input
-              onChange={(e) => updateText(e, setNombre)}
-              value={nombre}
-              type="text"
-              className="form-control"
-            ></input>
+            <label className="form-label">Nombre Completo: </label>
+
+            <h5>{tasks.nombre}</h5>
           </div>
 
           <div className="row g-3">
             <div className="col-md-6">
               <label className="form-label">Email</label>
-              <input
-                onChange={(e) => updateText(e, setEmail)}
-                value={email}
-                type="email"
-                className="form-control "
-              ></input>
+              <h5>{tasks.email}</h5>
             </div>
-            <div className="col-md-6">
+
+            {/* <div className="col-md-6">
               <label className="form-label">Contraseña</label>
               <input
-                onChange={(e) => updateText(e, setPassword)}
-                value={password}
+                // onChange={(e) => updateText(e, setPassword)}
+                // value={password}
                 type="password"
                 className="form-control"
               ></input>
+            </div> */}
+
+            <div className="col-md-6">
+              <label className="form-label">Hijos</label>
+              <h5>{tasks.numero_hijos}</h5>
             </div>
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Hijos</label>
+            <label className="form-label">Numero Hijos</label>
             <input
               onChange={(e) => updateText(e, setNumero_hijos)}
+              // placeholder= {tasks.numero_hijos}
               value={numero_hijos}
               type="text"
               className="form-control"
+                            
             ></input>
           </div>
 
           <div className="col-md-6">
             <label className="form-label">Lista Hijos</label>
-            {/* <FormularioHijos/> */}
-            <div><FormularioHijos/></div>
+            <div><FormularioHijos /></div>
           </div>
 
-          
+
           {/* <div className="col-md-4">
             <label className="form-label">Provincia</label>
             <select
@@ -180,7 +227,18 @@ export const MiPerfil = () => {
         </div>
       </div>
       
-     
+            <button
+              disabled={deshabilitado}
+              onClick={onSave}
+              id="buttonRegister"
+              type="submit"
+              className="btn btn-info button"
+            >
+              Saveform
+            </button>
+         
+
+
     </>
   );
 };
