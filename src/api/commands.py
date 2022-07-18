@@ -1,5 +1,7 @@
 
 import click
+import cloudinary.uploader
+import cloudinary.api
 from flask.cli import AppGroup
 from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
 
@@ -38,14 +40,14 @@ def setup_commands(app):
     def insert_actividades_data():
         if len(Actividad.query.all()) == 0:
             actividades = [
-                {"nombre": "Juegos de agua", "descripcion": "Planea refrescantes juegos de agua en verano para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
-                {"nombre": "Jugar Futbol", "descripcion": "Organiza una jugada al futbol con tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable. ", "tipo_de_actividad_id":1, "imagen":"url"},
+                {"nombre": "Juegos de Agua", "descripcion": "Planea refrescantes juegos de agua en verano para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
+                {"nombre": "Jugar Fútbol", "descripcion": "Organiza una jugada al futbol con tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable. ", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Picnic", "descripcion": "Ten un picnic con tus hijos y sus nuevos amigos. Cada participante lleva algo para compartir entre todos. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
-                {"nombre": "Ruta en ruedas", "descripcion": "Montar en Bici, patines o patineta. Cada participante lleva su vehiculo. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
+                {"nombre": "Ruta en Ruedas", "descripcion": "Montar en Bici, patines o patineta. Cada participante lleva su vehiculo. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Juego Libre", "descripcion": "Tus hijos y sus nuevos amigos podrán jugar libremente en el parque. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":1, "imagen":"url"},
                 {"nombre": "Manualidades", "descripcion": "Organiza una sesión de manualidades para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
-                {"nombre": "Lectura de cuentos/libros", "descripcion": "Planea una sesión de lectura para tus hijos y sus nuevos amigos. Cada participante puede llevar un libro. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
-                {"nombre": "Juegos de mesa/puzzles", "descripcion": "Organiza una sesión de juegos de mesa  y/o puzzles para tus hijos y sus nuevos amigos. Cada participante puede llevar un juego/puzzle. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
+                {"nombre": "Lectura de Cuentos/Libros", "descripcion": "Planea una sesión de lectura para tus hijos y sus nuevos amigos. Cada participante puede llevar un libro. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
+                {"nombre": "Juegos de Mesa/Puzzles", "descripcion": "Organiza una sesión de juegos de mesa  y/o puzzles para tus hijos y sus nuevos amigos. Cada participante puede llevar un juego/puzzle. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"},
                 {"nombre": "Juego Libre", "descripcion": "Tus hijos y sus nuevos amigos podrán jugar libremente. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.", "tipo_de_actividad_id":2, "imagen":"url"}]
             for obj_actividad in actividades:
                 actividad = Actividad()
@@ -61,6 +63,26 @@ def setup_commands(app):
 
         else:
             print("La tabla Actividad ya está llena.")
+
+    @app.cli.command("insert-imagenes_actividades") 
+    def insert_imagenes_data():
+        imagenes_actividades = [
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739997/Actividades/Juegos_de_agua_2_yv9fxx.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740005/Actividades/Jugar_futbol_fgc9oh.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740014/Actividades/picnic_ld4xkh.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740761/Actividades/ruta_en_ruedas_2_xeyvhz.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739995/Actividades/juego_libre_parque_dawbus.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740011/Actividades/manualidades_2_agwbqz.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740008/Actividades/lectura_dqkyzu.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740002/Actividades/juegos_de_mesa_2_zqjk4p.jpg",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739992/Actividades/juego_libre_interior_2_pez56h.jpg"]
+
+        todas_actividades = Actividad.query.all()
+        for i,actividad in enumerate(todas_actividades):
+            actividad.imagen = imagenes_actividades[i]
+        db.session.commit()
+
+        print("Imagenes cargadas correctamente")
 
     
     
