@@ -37,7 +37,7 @@ const Layout = () => {
             <Route element={<ZonaPrivada />} path="/zonaprivada"/>
             <Route element={<HomeCardGroup />} path="/homecardgroup" />
             <Route element={<Actividades />} path="/actividades" />
-            <Route element={<CrearEvento />} path="/crearevento" />
+            <Route element={<CrearEvento />} path="/crearevento/:actividadId" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<MisEventos />} path="/miseventos" />
             <Route element={<MiPerfil />} path="/miperfil" />

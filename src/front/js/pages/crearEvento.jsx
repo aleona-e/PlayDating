@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 import DateTimePicker from "react-datetime-picker";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
-import { useNavigate } from "react-router-dom";
 
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
-    useEffect (() => {
-      if (!localStorage.token) {
-
-        navigate("/zonaPrivada");
-      } 
-      else {
-
-      }
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/zonaPrivada");
+    } else {
     }
-  ,[]);
-     
- 
+  }, []);
   // ..................llegan por PROPS..................................
-  const actividad = "Juegos de agua";
-  const actividad_id = 1;
-  const descripcion =
-    "Planea refrescantes juegos de agua en verano para tus hijos y sus nuevos amigos. Cada participante lleva los implementos necesarios. Tú eliges el lugar. Cada participante requiere de la compañia de un adulto responsable.";
+  const { store } = useContext(Context);
+  const { actividadId } = useParams();
+  const actividadEscojida = store.actividades.find(
+    (actividad) => actividadId == actividad.id
+  );
+  console.log(actividadEscojida);
+
   // .................. FIN llegan por PROPS.....................................
 
   // inputs a rellenar por usuario
@@ -37,6 +37,9 @@ export const CrearEvento = (props) => {
 
   //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
+
+  //modal creación de evento exitosa
+  const [modal, setModal] = useState(false);
 
   const updateText = (e, setState) => {
     const value = e.target.value;
@@ -60,7 +63,7 @@ export const CrearEvento = (props) => {
 
   const onSave = async () => {
     const body = JSON.stringify({
-      actividad_id,
+      actividad_id: actividadEscojida.id,
       direccion,
       fecha_y_hora,
       edad_maxima,
@@ -80,6 +83,9 @@ export const CrearEvento = (props) => {
       body,
     });
     const data = await resp.json();
+    if (resp.ok) {
+      setModal(true);
+    }
   };
 
   return (
@@ -89,18 +95,15 @@ export const CrearEvento = (props) => {
         <div className="row   g-3">
           {/* ................................COLUMNA IZQUIERDA....................................................... */}
           <div className="col-6 col-md-6">
-            <h2 id="h2CrearEvento"> {actividad} </h2>
-
-            <img
-              id="imgCrearEvento"
-              src="https://img.freepik.com/foto-gratis/casa-escalera-azul-hermosa-reflexion_1203-4859.jpg?w=2000"
-              alt=""
-            />
+            <h2 id="h2CrearEvento"> {actividadEscojida.nombre} </h2>
+            <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
             <div className="mb-3">
-              <p id="descripcionCrearEvento"> {descripcion} </p>
+              <p id="descripcionCrearEvento">
+                {" "}
+                {actividadEscojida.descripcion}{" "}
+              </p>
             </div>
           </div>
-
           <div className="col-6 col-md-6 " id="columnaDerecha">
             {/* ................................DIRECCION....................................................... */}
             <form className="was-validated ">
@@ -203,8 +206,24 @@ export const CrearEvento = (props) => {
             Crear Evento
           </button>
         </div>
+        {/* ................................MODAL....................................................... */}
+        <Modal show={modal} onHide={() => setModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Evento Creado</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Tu evento se ha añadido a la lista de eventos.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => navigate("/eventos")}
+            >
+              Ir a eventos
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );
 };
-
