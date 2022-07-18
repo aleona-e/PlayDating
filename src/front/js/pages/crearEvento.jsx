@@ -72,7 +72,7 @@ export const CrearEvento = (props) => {
       maximo_participantes,
       minimo_participantes,
     });
-    console.log(body);
+    // console.log(body);
 
     const resp = await fetch(HOSTNAME + "/crear/evento", {
       method: "POST",

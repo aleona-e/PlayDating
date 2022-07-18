@@ -8,18 +8,19 @@ export const Navbar = () => {
     <nav className="navbar navbar-ligth bg-light">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1"> 
-          <img
-            src={logoDosUrl}
-            alt=""
-            width="120"
-            height="100"
-            className="d-inline-block align-text-top">
-          </img></span>
+          <span className="navbar-brand mb-0 h1">
+            <img
+              src={logoDosUrl}
+              alt=""
+              width="120"
+              height="100"
+              className="d-inline-block align-text-top"
+            ></img>
+          </span>
         </Link>
         <div>
-        <Link to="/actividades"> 
-          <h5>Actividades</h5>
+          <Link to="/actividades">
+            <h5>Actividades</h5>
           </Link>
         </div>
         <Link to="/eventos">
@@ -29,9 +30,6 @@ export const Navbar = () => {
         <div>
           <h5>Mis eventos</h5>
         </div>
-        <Link to="/crearevento">
-          <span className="navbar-brand mb-0 h1">Crear Evento</span>
-        </Link>
 
         <div className="ml-auto">
           <Link to="/login">
