@@ -217,7 +217,7 @@ export const CrearEvento = (props) => {
           <Modal.Footer>
             <Button
               variant="primary"
-              onClick={() => navigate("/eventoscreados")}
+              onClick={() => navigate("/eventos")}
             >
               Ir a eventos
             </Button>
