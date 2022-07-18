@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import propTypes from "prop-types";
 import "../../styles/actividades.css";
 import { func } from "prop-types";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Card = (props) => {
+  const navigate = useNavigate();
+  useEffect (() => {
+    if (localStorage.getItem('token') !== "") {
+      console.log(props.route);
+      navigate(`/${props.route}`, { replace: true });
+    } else {
+      console.log("sigue probando");
+    }
+  })  
   return (
     <>
       <div className="card-group">
