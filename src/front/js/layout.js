@@ -8,7 +8,7 @@ import { Register } from "./pages/register.jsx";
 import { Login } from "./pages/login.jsx";
 import { HomeCardGroup } from "./component/homecardgroup.jsx";
 import { Actividades } from "./pages/actividades.jsx";
-import { EventosCreados } from "./component/eventoscreados.jsx";
+// import { EventosCreados } from "./component/eventoscreados.jsx";
 import { MisEventos } from "./component/miseventos.jsx";
 import { MiPerfil } from "./component/miperfil.jsx";
 import { CrearEvento } from "./pages/crearEvento.jsx";
@@ -37,7 +37,7 @@ const Layout = () => {
             <Route element={<HomeCardGroup />} path="/homecardgroup" />
             <Route element={<Actividades />} path="/actividades" />
             <Route element={<CrearEvento />} path="/crearevento" />
-            <Route element={<EventosCreados />} path="/eventoscreados" />
+            {/* <Route element={<EventosCreados />} path="/eventoscreados" /> */}
             <Route element={<MisEventos />} path="/miseventos" />
             <Route element={<MiPerfil />} path="/miperfil" />
            
