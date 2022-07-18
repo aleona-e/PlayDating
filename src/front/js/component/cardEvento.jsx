@@ -38,7 +38,7 @@ export const CardEvento = (props) => {
                   {props.button}
                 </button>
               </Link> 
-              {/* cuando se pulsa boton unir, que ponga solo ok. sin redirigir a pagina.  */}
+              {/* cuando se pulsa boton unir, que ponga solo ok. sin redirigir a pagina */}
               </div>
             </div>
           </div>
