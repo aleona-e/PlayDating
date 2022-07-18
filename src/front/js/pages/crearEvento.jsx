@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import DateTimePicker from "react-datetime-picker";
-import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
 
 export const CrearEvento = (props) => {
-  
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -29,11 +28,11 @@ export const CrearEvento = (props) => {
 
   // inputs a rellenar por usuario
   const [direccion, setDireccion] = useState("");
-  const [edad_maxima, setEdadMaxima] = useState(0);
-  const [edad_minima, setEdadMinima] = useState(0);
-  const [maximo_participantes, setMaxParticipantes] = useState(0);
-  const [minimo_participantes, setMinParticipantes] = useState(0);
-  const [participantes_creador, setAñadirParticipantes] = useState(0);
+  const [edad_maxima, setEdadMaxima] = useState("");
+  const [edad_minima, setEdadMinima] = useState("");
+  const [maximo_participantes, setMaxParticipantes] = useState("");
+  const [minimo_participantes, setMinParticipantes] = useState("");
+  const [participantes_creador, setAñadirParticipantes] = useState("");
   const [fecha_y_hora, setfechayhora] = useState(new Date());
 
   //ciclo de vida de boton.
@@ -106,7 +105,6 @@ export const CrearEvento = (props) => {
             </div>
           </div>
           <div className="col-6 col-md-6 " id="columnaDerecha">
-
             {/* ................................DIRECCION....................................................... */}
             <form className="was-validated ">
               <div className="mb-2">
@@ -134,7 +132,7 @@ export const CrearEvento = (props) => {
                 className="form-control"
               ></input>
             </div>
-            <form className="was-validated ">
+            <form className="was-validated">
               <label className="col-sm-2 col-form-label">Participantes</label>
               <div
                 className="input-sm mb-2 d-flex"
@@ -213,8 +211,17 @@ export const CrearEvento = (props) => {
           <Modal.Header closeButton>
             <Modal.Title>Evento Creado</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Tu evento se ha añadido a la lista de eventos.</Modal.Body>
-          <Modal.Footer><Button variant="primary" onClick={() => navigate("/eventoscreados")}>Ir a eventos</Button></Modal.Footer>  
+          <Modal.Body>
+            Tu evento se ha añadido a la lista de eventos.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => navigate("/eventoscreados")}
+            >
+              Ir a eventos
+            </Button>
+          </Modal.Footer>
         </Modal>
       </div>
     </>

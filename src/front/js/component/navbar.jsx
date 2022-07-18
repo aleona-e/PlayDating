@@ -22,9 +22,9 @@ export const Navbar = () => {
           <h5>Actividades</h5>
           </Link>
         </div>
-        <div>
-          <h5>Eventos</h5>
-        </div>
+        <Link to="/eventoscreados">
+          <span className="navbar-brand mb-0 h1">Eventos</span>
+        </Link>
 
         <div>
           <h5>Mis eventos</h5>
@@ -35,10 +35,10 @@ export const Navbar = () => {
 
         <div className="ml-auto">
           <Link to="/login">
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary">Iniciar Sesión</button>
           </Link>
           <Link to="/register">
-            <button className="btn btn-primary">REGISTRO</button>
+            <button className="btn btn-primary">Registro</button>
           </Link>
         </div>
       </div>
