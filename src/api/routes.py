@@ -194,10 +194,12 @@ def validacion_creacion_evento(creador,estado,actividad):
             raise APIException('Usuario no existe')
 
 #Obtener eventos en provincia especifica  con la provincia id que sale a partir del registro del usuario y ligarlo a la tabla provincias
-@api.route('/eventos/<provincia>', methods=['GET'])
+@api.route('/eventos', methods=['GET'])
 @jwt_required()
-def get_eventos(provincia):
-    usuarios = Usuario.query.filter_by(provincia = provincia).all()
+def get_eventos():
+    creador_id = obtener_usuario_id()
+    creador = Usuario.query.filter_by(id = creador_id).first()
+    usuarios = Usuario.query.filter_by(provincia = creador.provincia).all()
     all_eventos = []
     for usuario in usuarios:
         eventos = Evento.query.filter_by(creador_id = usuario.id).all()

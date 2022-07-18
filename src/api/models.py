@@ -85,7 +85,7 @@ class Evento(db.Model):
             "maximo_participantes": self.maximo_participantes,
             "direccion": self.direccion,
             "estado": self.estado,
-            "actividad": repr(self.actividad)
+            "actividad": self.actividad.serialize()
             }
 
 class Participantes_Evento(db.Model):

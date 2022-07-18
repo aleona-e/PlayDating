@@ -22,7 +22,7 @@ export const Navbar = () => {
           <h5>Actividades</h5>
           </Link>
         </div>
-        <Link to="/eventoscreados">
+        <Link to="/eventos">
           <span className="navbar-brand mb-0 h1">Eventos</span>
         </Link>
 
