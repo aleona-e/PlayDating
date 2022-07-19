@@ -93,7 +93,7 @@ def login():
         'usuario_id': usuario.id
     }
     token = create_access_token(identity=data)
-    return jsonify({'message':'Login exitoso','data':token})
+    return jsonify({'message':'Login exitoso','data':token,'usuario_id':usuario.id})
 
 #Obtener informacion del perfil del current user
 @api.route('/perfil', methods=['GET'])

@@ -22,7 +22,7 @@ export const CrearEvento = (props) => {
   const actividadEscojida = store.actividades.find(
     (actividad) => actividadId == actividad.id
   );
-  console.log(actividadEscojida);
+  // console.log(actividadEscojida);
 
   // .................. FIN llegan por PROPS.....................................
 

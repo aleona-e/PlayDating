@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { HOSTNAME } from "../component/config";
+import { Context } from "../store/appContext.js";
 
 import "../../styles/login.css";
 
 export const Login = (props) => {
+  const { store, actions } = useContext(Context);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,9 +35,11 @@ export const Login = (props) => {
       });
       const data = await resp.json();
       localStorage.setItem("token", data.data);
+      console.log(data)
 
       if (localStorage.getItem("token") !== "") {
-        // console.log("acertaste");
+        actions.guardarUsuario(data.usuario_id)
+        console.log(store.usuario_id)
         navigate("/miperfil");
       } else {
         navigate("/zonaPrivada");
