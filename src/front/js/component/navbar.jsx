@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logoTresUrl from "../../img/logo-bloques.png";
 import logoUrl from "../../img/logo-circulo.png";
 import logoDosUrl from "../../img/logo-castillo.png";
 
@@ -10,10 +11,10 @@ export const Navbar = () => {
         <Link to="/">
           <span className="navbar-brand mb-0 h1">
             <img
-              src={logoDosUrl}
+              src={logoTresUrl}
               alt=""
               width="120"
-              height="100"
+              height="120"
               className="d-inline-block align-text-top"
             ></img>
           </span>

@@ -30,6 +30,7 @@ export const Register = () => {
   });
 
   const onSave = async () => {
+    console.log("si, se está ejecutando")
     const body = JSON.stringify({
       email,
       password,

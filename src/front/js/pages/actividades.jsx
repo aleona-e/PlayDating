@@ -5,8 +5,8 @@ import { Context } from "../store/appContext.js";
 
 export const Actividades = () => {
   const {store,actions} = useContext(Context)
-
   const [actividadesCards, setActividadesCards] = useState([]);
+  
   useEffect(() => {
     obtenerActividades().then((data) => {
       const actividades = data.data;

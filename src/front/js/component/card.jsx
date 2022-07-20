@@ -19,6 +19,7 @@ export const Card = (props) => {
               <h5 className="card-title">
                 {props.name}
               </h5>
+              <hr></hr>
               <p className="card-text">
                 {props.text}
               </p>

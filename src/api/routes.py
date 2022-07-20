@@ -22,6 +22,7 @@ from flask_jwt_extended import JWTManager
 
 
 api = Blueprint('api', __name__)
+CORS(api)
 CODE = "utf-8"
 email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
@@ -210,7 +211,7 @@ def get_eventos():
 
 #Obtener informacion detalle de evento por id
 @api.route('/evento/<int:evento_id>', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_evento(evento_id):
     evento = Evento.query.get(evento_id)
     if evento is None:
