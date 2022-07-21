@@ -223,7 +223,7 @@ def get_eventos():
 
 #Obtener informacion detalle de evento por id
 @api.route('/evento/<int:evento_id>', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_evento(evento_id):
     evento = Evento.query.get(evento_id)
     if evento is None:
