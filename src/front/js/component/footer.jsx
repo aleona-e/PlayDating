@@ -7,7 +7,7 @@ export const Footer = () => (
       <a href="https://github.com/isarebollo">Isabel Rebollo, </a>
        <a href="https://github.com/aleona-e">Alejandra Elsin, </a> 
       <a href="https://github.com/Vero2112">Verónica Rodríguez</a>
-       <a >Pon un@ Ale en tu vida!!</a> 
+       {/* <a >Pon un@ Ale en tu vida!!</a>  */}
     </p>
   </footer>
 );

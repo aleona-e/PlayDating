@@ -1,12 +1,13 @@
 import { resetWarningCache } from "prop-types";
 import React, { useEffect, useState, useContext } from "react";
 import "../../styles/register.css";
-import { HOSTNAME } from "../component/config";
+import { HOSTNAME } from "../component/config.js";
 import FormularioHijos from "./formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
 import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";
 import { config } from "../component/config.js";
+
 
 export const MiPerfil = () => {
   const [email, setEmail] = useState("");

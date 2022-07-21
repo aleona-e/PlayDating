@@ -23,7 +23,7 @@ export const Actividades = () => {
           />
         );
       });
-      console.log("Estamos aquí" + cardsActividades);
+      
       setActividadesCards(cardsActividades);
     });
   }, []);
