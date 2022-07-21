@@ -33,7 +33,7 @@ export const CrearEvento = (props) => {
   const [maximo_participantes, setMaxParticipantes] = useState("");
   const [minimo_participantes, setMinParticipantes] = useState("");
   const [participantes_creador, setAñadirParticipantes] = useState("");
-  const [fecha_y_hora, setfechayhora] = useState(new Date());
+  const [fecha_y_hora, setfechayhora] = useState(new Date().toISOString());
 
   //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
@@ -209,16 +209,15 @@ export const CrearEvento = (props) => {
         {/* ................................MODAL....................................................... */}
         <Modal show={modal} onHide={() => setModal(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Evento Creado</Modal.Title>
+            <Modal.Title >
+              Evento Creado
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             Tu evento se ha añadido a la lista de eventos.
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={() => navigate("/eventos")}
-            >
+            <Button variant="primary" onClick={() => navigate("/eventos")}>
               Ir a eventos
             </Button>
           </Modal.Footer>

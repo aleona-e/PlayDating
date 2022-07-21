@@ -23,6 +23,9 @@ export const CardEvento = (props) => {
   };
 
   if (props.creador !== store.usuario_id) {
+    //logearse cuando no se muestren ambas. mirar como solucionar
+    const date = new Date(props.fecha_y_hora).toISOString();
+
     return (
       <>
         <div className="card-group">
@@ -35,11 +38,13 @@ export const CardEvento = (props) => {
               ></img>
               <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
-                <p className="card-text">{props.fecha_y_hora}</p>
+                <p className="card-text">{date}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
-                  MAX Y MIN PARTICIPANTES
+                  Max Participantes:
                   {props.max_participantes}
+                  <br />
+                  Min Participantes:
                   {props.min_participantes}
                 </p>
                 <p className="card-text">{props.estado}</p>
@@ -82,8 +87,10 @@ export const CardEvento = (props) => {
                 <p className="card-text">{props.fecha_y_hora}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
-                  MAX Y MIN PARTICIPANTES
+                  Max Participantes:
                   {props.max_participantes}
+                  <br />
+                  Min Participantes:
                   {props.min_participantes}
                 </p>
                 <p className="card-text">{props.estado}</p>
@@ -125,5 +132,5 @@ CardEvento.propTypes = {
   estado: propTypes.string,
   // edadMaxima: propTypes.number,
   // edadMinima: propTypes.number,
-  fecha_y_hora: propTypes.dateTime,
+  fecha_y_hora: propTypes.string,
 };
