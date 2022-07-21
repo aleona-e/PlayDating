@@ -42,7 +42,8 @@ export const Login = (props) => {
         // console.log(store.usuario_id)
         navigate("/homecardgroup");
       } else {
-        navigate("/zonaPrivada");
+        // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
+        navigate("/zonaprivada");
       }
     }
   };

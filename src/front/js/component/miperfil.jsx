@@ -18,9 +18,8 @@ export const MiPerfil = () => {
   const [deshabilitado, setDeshabilitado] = useState(true);
 
   const { store, actions } = useContext(Context)
-
-  const [tasks, setTasks] = useState([]);
-  const navigate = useNavigate()
+  const [datos, obtenerDatos] = useState([]);
+   const navigate = useNavigate()
 
   // OBTENER DATOS USUARIO
   useEffect(() => {
@@ -44,7 +43,7 @@ export const MiPerfil = () => {
         // setLoading(true)
 
         console.log("soy la data", data.data);
-        setTasks(data.data)
+        obtenerDatos(data.data)
         // localStorage.setItem("token", data.token)
         // data.user_id
         // navegar para /user/id
@@ -112,13 +111,13 @@ export const MiPerfil = () => {
           <div className="col-md-12">
             <label className="form-label">Nombre Completo: </label>
 
-            <h5>{tasks.nombre}</h5>
+            <h5>{datos.nombre}</h5>
           </div>
 
           <div className="row g-3">
             <div className="col-md-6">
               <label className="form-label">Email</label>
-              <h5>{tasks.email}</h5>
+              <h5>{datos.email}</h5>
             </div>
 
             {/* <div className="col-md-6">
@@ -133,7 +132,7 @@ export const MiPerfil = () => {
 
             <div className="col-md-6">
               <label className="form-label">Hijos</label>
-              <h5>{tasks.numero_hijos}</h5>
+              <h5>{datos.numero_hijos}</h5>
             </div>
           </div>
 
@@ -141,7 +140,7 @@ export const MiPerfil = () => {
             <label className="form-label">Numero Hijos</label>
             <input
               onChange={(e) => updateText(e, setNumero_hijos)}
-              // placeholder= {tasks.numero_hijos}
+              placeholder= {datos.numero_hijos}
               value={numero_hijos}
               type="text"
               className="form-control"
@@ -227,19 +226,7 @@ export const MiPerfil = () => {
           </div>
         </div>
       </div>
-      
-            <button
-              disabled={deshabilitado}
-              onClick={onSave}
-              id="buttonRegister"
-              type="submit"
-              className="btn btn-info button"
-            >
-              Saveform
-            </button>
-         
-
-
+  
     </>
   );
 };

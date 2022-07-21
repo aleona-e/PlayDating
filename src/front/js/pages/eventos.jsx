@@ -10,7 +10,8 @@ export const Eventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaPrivada");
+       // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
+      navigate("/zonaprivada");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventos", {

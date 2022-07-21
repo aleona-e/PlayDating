@@ -27,16 +27,28 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1">Eventos</span>
         </Link>
 
+
+        
         <div>
+          <Link to="/miseventos">
           <h5>Mis eventos</h5>
+          </Link>
         </div>
 
-        <div className="ml-auto">
+        <div className="text-end">
           <Link to="/login">
-            <button className="btn btn-primary">Iniciar Sesión</button>
+            <button className="btn btn-primary me-2">Iniciar Sesión</button>
           </Link>
           <Link to="/register">
-            <button className="btn btn-primary">Registro</button>
+            <button className="btn btn-primary me-2">Registro</button>
+          </Link>
+
+          <Link to="">
+            <button className="btn btn-danger me-2">Cerrar sesión</button>
+          </Link>
+
+          <Link to="/miperfil">
+            <button className="btn btn-success me-2">Mi Perfil</button>
           </Link>
         </div>
       </div>

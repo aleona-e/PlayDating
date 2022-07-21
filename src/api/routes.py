@@ -264,7 +264,7 @@ def get_eventos_creados_usuario():
     eventos = Evento.query.filter_by(creador_id = usuario_id).all()
     eventos_creados = list(map(lambda evento: evento.serialize(), eventos))
     if len(eventos) == 0:
-            raise APIException("Usuario no encontrado")
+            raise APIException("Usuario no tiene eventos")
     return jsonify({'message':'Informacion de eventos creados por el usuario solicitada exitosamente','data':eventos_creados})
 
 #Cancelar un evento creado por el current user con el evento_id

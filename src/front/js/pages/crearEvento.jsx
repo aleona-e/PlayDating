@@ -12,7 +12,7 @@ export const CrearEvento = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/zonaPrivada");
+      navigate("/zonaprivada");
     } else {
     }
   }, []);
