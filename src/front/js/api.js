@@ -20,10 +20,13 @@ export const unirseEvento = (eventoId, numParticipantesPorUsuario) => {
         Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify({
-        num_participantes_por_usuario: numParticipantesPorUsuario
+        num_participantes_por_usuario: parseInt(numParticipantesPorUsuario)
       })
     })
         .then((resp) => {
+          if (!resp.ok){
+            throw new Error(`http error ${resp.status}`)
+          } 
           return resp.json();
         })
         .catch((error) => {

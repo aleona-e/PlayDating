@@ -36,25 +36,28 @@ export const Eventos = () => {
   return (
     <>
       <div className="container">
+        <div className="text-center">
         <h1>Eventos</h1>
-        <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        </div>
+        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
           {eventos.map((evento, index) => {
-            if (a.estado !== "Cancelado") {
+            if (evento.estado !== "Cancelado") {
               return (
                 <div key={index}>
                   <CardEvento
+                    evento_id={evento.id}
+                    creador={evento.creador.id}
                     name={evento.actividad.nombre}
                     src={evento.actividad.imagen}
                     text={evento.actividad.descripcion}
                     tipo={evento.actividad.tipo_de_actividad}
-                    max_participantes={evento.maximo_participantes}
-                    min_participantes={evento.minimo_participantes}
+                    cupos_disponibles={evento.cupos_disponibles}
+                    max_participantes= {evento.maximo_participantes}
+                    estado={evento.estado}
                     // edadMaxima={evento.edadMaxima}
                     // edadMinima={evento.edadMinima}
                     fecha_y_hora={evento.fecha_y_hora}
-
-                    //button="Unirme"
-                    //route={"unirseEvento/" + evento.id}
+                    route={"/unirseEvento/" + evento.id}
                   />
                 </div>
               );
