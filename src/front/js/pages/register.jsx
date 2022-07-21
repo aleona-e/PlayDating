@@ -1,36 +1,41 @@
 import { resetWarningCache } from "prop-types";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { HOSTNAME } from "../component/config";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 export const Register = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nombre, setNombre] = useState(""); //nombre completo
   const [numero_hijos, setNumero_hijos] = useState("");
-  const [provincia, setProvincia] = useState(1);
-  const [deshabilitado, setDeshabilitado] = useState(true);
+  const [provincia, setProvincia] = useState("");
+
+  const [textoAlerta, setTextoAlerta] = useState("");
+  const [navegar, setNavegar] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const updateText = (e, setState) => {
     const value = e.target.value;
     setState(value);
   };
 
-  useEffect(() => {
-    if (
-      nombre !== "" &&
-      email !== "" &&
-      password !== "" &&
-      numero_hijos !== ""
-    ) {
-      setDeshabilitado(false);
-    } else {
-      setDeshabilitado(true);
-    }
-  });
+  const modalManager = (texto, canNavigate) => {
+    setTextoAlerta(texto);
+    setNavegar(canNavigate);
+    handleShow();
+  };
 
-  const onSave = async () => {
-    console.log("si, se está ejecutando")
+  const onSave = async (e) => {
+    e.preventDefault(); //contarselo a ALE y vero
+
     const body = JSON.stringify({
       email,
       password,
@@ -38,7 +43,7 @@ export const Register = () => {
       numero_hijos,
       provincia,
     });
-    
+
     const resp = await fetch(HOSTNAME + "/nuevo/registro", {
       method: "POST",
       headers: {
@@ -46,19 +51,25 @@ export const Register = () => {
       },
       body,
     });
-    const data = await resp.json();
-    if (data.message === "ok") {
-      alert("Usuario Creado Con exito");
+
+    if (!resp.ok) {
+      modalManager("Error al conectar con el Servidor", false);
     }
 
-    if (data.message === "Usuario ya existe.") {
-      alert(data.message);
+    const data = await resp.json();
+
+    console.log("resp" + resp);
+    console.log("data" + data);
+
+    if (data.message === "Usuario creado exitosamente") {
+      modalManager(data.message, true);
+    } else {
+      modalManager(data.message, false);
     }
   };
 
   return (
     <>
-    
       <div className="container" id="containerRegister">
         <form className="row g-3 was-validated">
           <div className="col-md-12">
@@ -168,7 +179,6 @@ export const Register = () => {
 
           <div className="col-12">
             <button
-              disabled={deshabilitado}
               onClick={onSave}
               id="buttonRegister"
               type="submit"
@@ -178,6 +188,35 @@ export const Register = () => {
             </button>
           </div>
         </form>
+        {/* <Button variant="primary" onClick={handleShow}>
+          Launch static backdrop modal
+        </Button> */}
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Registro</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoAlerta}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (navegar) {
+                  navigate("/login");
+                } else {
+                  handleClose();
+                }
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

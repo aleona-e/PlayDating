@@ -35,12 +35,12 @@ export const Login = (props) => {
       });
       const data = await resp.json();
       localStorage.setItem("token", data.data);
-      console.log(data)
+      // console.log(data)
 
       if (localStorage.getItem("token") !== "") {
         actions.guardarUsuario(data.usuario_id)
-        console.log(store.usuario_id)
-        navigate("/miperfil");
+        // console.log(store.usuario_id)
+        navigate("/homecardgroup");
       } else {
         navigate("/zonaPrivada");
       }
