@@ -8,6 +8,7 @@ import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
 import { unirseEvento } from "../api.js";
+import { object } from "prop-types";
 
 export const UnirseEvento = (props) => {
   const navigate = useNavigate();
@@ -29,8 +30,24 @@ export const UnirseEvento = (props) => {
   //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
 
-  //modal de unirse a evento exitosa
+  //modal de unirse a evento 
   const [modal, setModal] = useState(false);
+  const [textoModal, setTextoModal] = useState("")
+
+  //mostrando opciones de selecion basado en cupos disponibles
+  const llenarOpcionesSelect = () => {
+    let cuposDisponibles = eventoEscojido.cupos_disponibles
+    let cupos = []
+    while (cuposDisponibles > 0) {
+    let currentCupo = cuposDisponibles --
+    cupos.push(currentCupo)
+    }
+    cupos = cupos.reverse()
+    const opcionesSelect = cupos.map((cupo)=>{
+      return <option value={cupo}>{cupo}</option>
+    })
+    return opcionesSelect
+  }
 
   const updateSelect = (e) => {
     const value = e.target.value;
@@ -47,9 +64,16 @@ export const UnirseEvento = (props) => {
 
   const onUnirse = () => {
     unirseEvento(eventoId, numParticipantesPorUsuario).then((data) => {
+      setTextoModal("Se ha añadido la participación del usuario al evento con exito.")
       setModal(true);
+      
     }).catch((error) => {
       console.log("error " + error);
+      const errorStr = JSON.stringify(error)
+      console.log(errorStr)
+      setTextoModal(error.message)
+      setModal(true)
+      
     });
   };
   return (
@@ -64,7 +88,7 @@ export const UnirseEvento = (props) => {
                 <div className="col mt-3">
                   <img
                     src={eventoEscojido.actividad.imagen}
-                    className="img-fluid rounded-start"
+                    className="img-fluid rounded-start unirseImg"
                   />
                 </div>
                 <div className="col mt-3">
@@ -74,12 +98,11 @@ export const UnirseEvento = (props) => {
                   <p>Actividad: {eventoEscojido.actividad.nombre}</p>
                   <p>Descripción: {eventoEscojido.actividad.descripcion}</p>
                   <p>Dirección: {eventoEscojido.direccion}</p>
+                  {eventoEscojido.estado != "Lleno"?
                   <div className="input-group">
                     <select className="form-select" onChange={updateSelect} value={numParticipantesPorUsuario}>
                       <option selected>Añadir participantes</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
+                      {llenarOpcionesSelect()}
                     </select>
                     <button
                       className="btn btn-warning"
@@ -89,7 +112,8 @@ export const UnirseEvento = (props) => {
                     >
                       Unirse
                     </button>
-                  </div>
+                  </div>:
+                  <p><strong>No hay cupos disponibles para unirse a este evento</strong></p>}
                 </div>
               </div>
               <hr></hr>
@@ -120,7 +144,7 @@ export const UnirseEvento = (props) => {
           <Modal.Header closeButton>
             <Modal.Title>Unirme a este evento</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Se ha añadido tu participación a este evento.</Modal.Body>
+          <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={() => navigate("/eventos")}>
               Ir a eventos

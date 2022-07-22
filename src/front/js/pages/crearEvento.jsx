@@ -51,8 +51,11 @@ export const CrearEvento = (props) => {
       direccion !== "" &&
       edad_maxima !== "" &&
       edad_minima !== "" &&
-      maximo_participantes !== "" &&
+      maximo_participantes !== "" && 
+      maximo_participantes !== "0" &&
+      parseInt(maximo_participantes) > parseInt(minimo_participantes) &&
       minimo_participantes !== "" &&
+      minimo_participantes !== "0" &&
       fecha_y_hora !== ""
     ) {
       setDeshabilitado(false);
@@ -69,8 +72,8 @@ export const CrearEvento = (props) => {
       edad_maxima,
       edad_minima,
       participantes_creador,
-      maximo_participantes,
-      minimo_participantes,
+      maximo_participantes: parseInt(maximo_participantes),
+      minimo_participantes: parseInt(minimo_participantes),
     });
     // console.log(body);
 

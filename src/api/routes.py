@@ -175,6 +175,12 @@ def crear_evento():
         direccion=direccion,
         estado=estado,
         actividad_id=actividad_id)
+    if not (maximo_participantes > 0):
+        raise APIException('Maximo participantes no puede ser 0')
+    if maximo_participantes < minimo_participantes:
+        raise APIException('Maximo participantes no puede ser menor que minimo participantes')
+    if not (minimo_participantes > 0):
+        raise APIException('Minimo participantes no puede ser 0')
     aux_evento = Evento.query.filter_by(fecha_y_hora=fecha_y_hora,creador_id=creador_id,direccion=direccion,actividad_id=actividad_id).first()
     if aux_evento is not None:
         raise APIException('Evento duplicado')
@@ -242,7 +248,7 @@ def unirse_a_evento(evento_id):
     participante_aux = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_aux != None:
         print("error. usuario ya registrado en este evento")
-        raise APIException('Usuario ya registrado en evento')
+        raise APIException('El usuario ya está registrado en este evento.')
     total_participantes = 0
     participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
     for participante_evento in participantes_evento_aux:
