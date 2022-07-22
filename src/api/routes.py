@@ -22,6 +22,7 @@ from flask_jwt_extended import JWTManager
 
 
 api = Blueprint('api', __name__)
+CORS(api)
 CODE = "utf-8"
 email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
@@ -174,6 +175,12 @@ def crear_evento():
         direccion=direccion,
         estado=estado,
         actividad_id=actividad_id)
+    if not (maximo_participantes > 0):
+        raise APIException('Maximo participantes no puede ser 0')
+    if maximo_participantes < minimo_participantes:
+        raise APIException('Maximo participantes no puede ser menor que minimo participantes')
+    if not (minimo_participantes > 0):
+        raise APIException('Minimo participantes no puede ser 0')
     aux_evento = Evento.query.filter_by(fecha_y_hora=fecha_y_hora,creador_id=creador_id,direccion=direccion,actividad_id=actividad_id).first()
     if aux_evento is not None:
         raise APIException('Evento duplicado')
@@ -201,11 +208,23 @@ def get_eventos():
     creador = Usuario.query.filter_by(id = creador_id).first()
     usuarios = Usuario.query.filter_by(provincia = creador.provincia).all()
     all_eventos = []
+    all_cupos_disponibles = []
     for usuario in usuarios:
         eventos = Evento.query.filter_by(creador_id = usuario.id).all()
         for evento in eventos:
-            all_eventos.append(evento) 
-    all_eventos_serialized = list(map(lambda evento: evento.serialize(), all_eventos))
+            total_participantes = 0
+            cupos_disponibles = 0
+            participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento.id).all()
+            for participante_evento in participantes_evento_aux:
+                total_participantes += participante_evento.num_participantes_por_usuario
+            cupos_disponibles = evento.maximo_participantes - total_participantes
+            all_eventos.append(evento)
+            all_cupos_disponibles.append(cupos_disponibles)
+    all_eventos_serialized = []
+    for index,evento in enumerate(all_eventos):
+        evento_serialized = evento.serialize()
+        evento_serialized.update({'cupos_disponibles': all_cupos_disponibles[index]})
+        all_eventos_serialized.append(evento_serialized)
     return jsonify({'message':'Informacion de eventos por provincia solicitada exitosamente','data':all_eventos_serialized})
 
 #Obtener informacion detalle de evento por id
@@ -228,7 +247,8 @@ def unirse_a_evento(evento_id):
     num_participantes_por_usuario = body['num_participantes_por_usuario']
     participante_aux = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_aux != None:
-        raise APIException('Usuario ya registrado en evento')
+        print("error. usuario ya registrado en este evento")
+        raise APIException('El usuario ya está registrado en este evento.')
     total_participantes = 0
     participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
     for participante_evento in participantes_evento_aux:

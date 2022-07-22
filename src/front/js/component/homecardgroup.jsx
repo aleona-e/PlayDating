@@ -9,7 +9,9 @@ export const HomeCardGroup = () => {
             <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
                 <Card
                     name="Actividades"
-                    src={logoDosUrl}
+
+                    src="https://res.cloudinary.com/daint2d1l/image/upload/v1658477832/Home/11_zt2ju9.png"
+
                     text={
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }
@@ -18,7 +20,7 @@ export const HomeCardGroup = () => {
                 />
                 <Card
                     name="Eventos Creados"
-                    src={logoDosUrl}
+                    src="https://res.cloudinary.com/daint2d1l/image/upload/v1658496142/Home/5_yvbobb.png"
                     text={
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }
@@ -27,7 +29,7 @@ export const HomeCardGroup = () => {
                 />
                 <Card
                     name="Mi perfil"
-                    src={logoDosUrl}
+                    src="https://res.cloudinary.com/daint2d1l/image/upload/v1658495567/Home/6_tarplu.png"
                     text={
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }
@@ -36,7 +38,7 @@ export const HomeCardGroup = () => {
                 />
                 <Card
                     name="Mis Eventos"
-                    src={logoDosUrl}
+                    src="https://res.cloudinary.com/daint2d1l/image/upload/v1658496145/Home/3_d12ocd.png"
                     text={
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }

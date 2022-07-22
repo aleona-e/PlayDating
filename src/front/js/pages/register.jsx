@@ -35,6 +35,7 @@ export const Register = () => {
 
   const onSave = async (e) => {
     e.preventDefault(); //contarselo a ALE y vero
+
     const body = JSON.stringify({
       email,
       password,

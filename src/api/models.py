@@ -80,7 +80,9 @@ class Evento(db.Model):
         return {
             "id": self.id,
             "fecha_y_hora": self.fecha_y_hora,
-            "creador": self.creador_id,
+            "creador": self.creador.serialize(),
+            "edad_minima": self.edad_minima,
+            "edad_maxima": self.edad_maxima,
             "minimo_participantes": self.minimo_participantes,
             "maximo_participantes": self.maximo_participantes,
             "direccion": self.direccion,

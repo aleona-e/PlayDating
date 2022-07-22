@@ -5,14 +5,15 @@ import { Context } from "../store/appContext.js";
 
 export const Actividades = () => {
   const {store,actions} = useContext(Context)
-
   const [actividadesCards, setActividadesCards] = useState([]);
+  
   useEffect(() => {
     obtenerActividades().then((data) => {
       const actividades = data.data;
       actions.agregarActividades(actividades)
-      let cardsActividades = actividades.map((actividad) => {
+      let cardsActividades = actividades.map((actividad, index) => {
         return (
+          <div key={index}>
           <Card
             name={actividad.nombre}
             src={actividad.imagen}
@@ -21,6 +22,7 @@ export const Actividades = () => {
             button=" Crear Evento "
             route={"crearevento/" + actividad.id}
           />
+          </div>
         );
       });
       setActividadesCards(cardsActividades);
