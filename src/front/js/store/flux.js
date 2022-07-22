@@ -3,6 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			actividades:[],
 			usuario_id:"",
+			eventos:[],
+
 		},
 		actions: {
 			agregarActividades: (listaDeActividades) => {
@@ -10,6 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			guardarUsuario:(usuario_id)=>{
 				setStore({usuario_id:usuario_id})
+			},
+			agregarEventos: (listaDeEventos) => {
+				setStore({eventos:listaDeEventos});
 			}
 		}
 	};

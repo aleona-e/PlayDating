@@ -22,10 +22,9 @@ export const CardEvento = (props) => {
     const json = await response.json();
   };
 
-  if (props.creador !== store.usuario_id) {
+  if (props.creador != store.usuario_id) {
     //logearse cuando no se muestren ambas. mirar como solucionar
     const date = new Date(props.fecha_y_hora).toISOString();
-
     return (
       <>
         <div className="card-group">
@@ -38,14 +37,14 @@ export const CardEvento = (props) => {
               ></img>
               <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
-                <p className="card-text">{date}</p>
+                <hr></hr>
+                <p className="card-text">{props.fecha_y_hora}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
-                  Max Participantes:
-                  {props.max_participantes}
-                  <br />
-                  Min Participantes:
-                  {props.min_participantes}
+                  Max participantes: {props.max_participantes}
+                </p>
+                <p className="card-text">
+                  Cupos disponibles: {props.cupos_disponibles}
                 </p>
                 <p className="card-text">{props.estado}</p>
                 {/* <p className="card-text"> EDAD MAX Y MIN
@@ -54,13 +53,9 @@ export const CardEvento = (props) => {
                 </p> */}
 
                 <div className="card-footer bg-body">
-                  <Link to="/crearevento">
-                    <button
-                      href="#"
-                      className="btn btn-primary btn-lg"
-                      role="button"
-                    >
-                      Unirme
+                  <Link to={props.route}>
+                    <button href="#" className="btn btn-primary" role="button">
+                      Ver Detalles
                     </button>
                   </Link>
                   {/* cuando se pulsa boton unir, que ponga solo ok. sin redirigir a pagina */}
@@ -84,14 +79,14 @@ export const CardEvento = (props) => {
               ></img>
               <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
+                <hr></hr>
                 <p className="card-text">{props.fecha_y_hora}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
-                  Max Participantes:
-                  {props.max_participantes}
-                  <br />
-                  Min Participantes:
-                  {props.min_participantes}
+                  Max participantes: {props.max_participantes}
+                </p>
+                <p className="card-text">
+                  Cupos disponibles: {props.cupos_disponibles}
                 </p>
                 <p className="card-text">{props.estado}</p>
                 {/* <p className="card-text"> EDAD MAX Y MIN
@@ -100,16 +95,20 @@ export const CardEvento = (props) => {
                 </p> */}
 
                 <div className="card-footer bg-body">
+                  <Link to={props.route}>
+                    <button href="#" className="btn btn-primary" role="button">
+                      Ver Detalles
+                    </button>
+                  </Link>
+
                   <button
                     onClick={onCancel}
                     href="#"
-                    className="btn btn-primary btn-lg"
+                    className="btn btn-danger"
                     role="button"
                   >
-                    CANCELAR
+                    Cancelar Evento
                   </button>
-
-                  {/* cuando se pulsa boton unir, que ponga solo ok. sin redirigir a pagina */}
                 </div>
               </div>
             </div>

@@ -11,6 +11,7 @@ import { Actividades } from "./pages/actividades.jsx";
 import { MisEventos } from "./component/miseventos.jsx";
 import { MiPerfil } from "./component/miperfil.jsx";
 import { CrearEvento } from "./pages/crearEvento.jsx";
+import { UnirseEvento } from "./pages/unirseEvento.jsx";
 import { Eventos } from "./pages/eventos.jsx";
 import ZonaPrivada from "./pages/zonaPrivada.jsx";
 import injectContext from "./store/appContext";
@@ -37,6 +38,7 @@ const Layout = () => {
             <Route element={<HomeCardGroup />} path="/homecardgroup" />
             <Route element={<Actividades />} path="/actividades" />
             <Route element={<CrearEvento />} path="/crearevento/:actividadId" />
+            <Route element={<UnirseEvento />} path="/unirseEvento/:eventoId" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<MisEventos />} path="/miseventos" />
             <Route element={<MiPerfil />} path="/miperfil" />

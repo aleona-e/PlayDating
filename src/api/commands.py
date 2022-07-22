@@ -67,15 +67,15 @@ def setup_commands(app):
     @app.cli.command("insert-imagenes_actividades") 
     def insert_imagenes_data():
         imagenes_actividades = [
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739997/Actividades/Juegos_de_agua_2_yv9fxx.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740005/Actividades/Jugar_futbol_fgc9oh.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740014/Actividades/picnic_ld4xkh.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740761/Actividades/ruta_en_ruedas_2_xeyvhz.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739995/Actividades/juego_libre_parque_dawbus.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740011/Actividades/manualidades_2_agwbqz.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740008/Actividades/lectura_dqkyzu.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657740002/Actividades/juegos_de_mesa_2_zqjk4p.jpg",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1657739992/Actividades/juego_libre_interior_2_pez56h.jpg"]
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303042/Actividades/8_blsifn.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303039/Actividades/7_gpcjmy.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303029/Actividades/4_j1yemg.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303045/Actividades/9_kfvczv.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658302989/Actividades/2_yrgzy6.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303032/Actividades/5_kq1tgf.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303026/Actividades/3_sb5ibo.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658302986/Actividades/1_nanc3k.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303036/Actividades/6_dcpkjw.png"]
 
         todas_actividades = Actividad.query.all()
         for i,actividad in enumerate(todas_actividades):
