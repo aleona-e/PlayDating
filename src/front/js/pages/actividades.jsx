@@ -11,8 +11,9 @@ export const Actividades = () => {
     obtenerActividades().then((data) => {
       const actividades = data.data;
       actions.agregarActividades(actividades)
-      let cardsActividades = actividades.map((actividad) => {
+      let cardsActividades = actividades.map((actividad, index) => {
         return (
+          <div key={index}>
           <Card
             name={actividad.nombre}
             src={actividad.imagen}
@@ -21,6 +22,7 @@ export const Actividades = () => {
             button=" Crear Evento "
             route={"crearevento/" + actividad.id}
           />
+          </div>
         );
       });
       

@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
+import { ImagenesCarrusel } from "../component/ImagenesCarrusel.jsx";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -11,37 +12,13 @@ export const Home = () => {
     <>
       <div className="container">
         <div className="text-center mt-5">
-          <h1>HOLA MUNDO</h1>
           <div
             id="carouselExampleInterval"
             className="carousel slide"
             data-bs-ride="carousel"
           >
             <div className="carousel-inner">
-              <div className="carousel-item active" data-bs-interval="1000">
-                <img
-                  id="imgCarrusel"
-                  src="https://www.etapainfantil.com/wp-content/uploads/2021/02/cuentacuentos.jpg"
-                  className="d-block w-100"
-                  alt="..."
-                ></img>
-              </div>
-              <div className="carousel-item" data-bs-interval="2000">
-                <img
-                  id="imgCarrusel"
-                  src="https://www.etapainfantil.com/wp-content/uploads/2021/02/cuentacuentos.jpg"
-                  className="d-block w-100"
-                  alt="..."
-                ></img>
-              </div>
-              <div className="carousel-item">
-                <img
-                  id="imgCarrusel"
-                  src="https://www.etapainfantil.com/wp-content/uploads/2021/02/cuentacuentos.jpg"
-                  className="d-block w-100"
-                  alt="..."
-                ></img>
-              </div>
+              <ImagenesCarrusel/>
             </div>
             <button
               className="carousel-control-prev"
