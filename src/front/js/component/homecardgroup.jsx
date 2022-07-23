@@ -2,11 +2,14 @@ import React from "react";
 import { Card } from "./card.jsx";
 import logoUrl from "../../img/logo-circulo.png";
 import logoDosUrl from "../../img/logo-castillo.png";
+import { Navbar } from "../component/navbar.jsx";
 
 export const HomeCardGroup = () => {
     return (
         <>
-            <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        <Navbar/>
+        <div className="card-group mt-4">
+        
                 <Card
                     name="Actividades"
 
@@ -45,6 +48,7 @@ export const HomeCardGroup = () => {
                     button="Ir"
                     route={"miseventos"}
                 />
+            
             </div>
         </>
     );

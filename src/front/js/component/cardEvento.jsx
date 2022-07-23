@@ -4,6 +4,7 @@ import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
+import { Navbar } from "../component/navbar.jsx";
 
 export const CardEvento = (props) => {
   const { store, actions } = useContext(Context);
@@ -27,6 +28,7 @@ export const CardEvento = (props) => {
     const date = new Date(props.fecha_y_hora).toISOString();
     return (
       <>
+      <Navbar/>
         <div className="card-group">
           <div className="col">
             <div className="card text-center">

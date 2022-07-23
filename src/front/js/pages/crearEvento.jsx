@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
-
+import { Navbar } from "../component/navbar.jsx";
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -43,6 +43,7 @@ export const CrearEvento = (props) => {
 
   const updateText = (e, setState) => {
     const value = e.target.value;
+    // if (value <= 0 ) value=1
     setState(value);
   };
 
@@ -93,6 +94,7 @@ export const CrearEvento = (props) => {
 
   return (
     <>
+    <Navbar/>
       <h2 id="h2CrearEvento">Crea tu Evento</h2>
       <div className="container " id="containerCrearEvento">
         <div className="row   g-3">
@@ -130,7 +132,7 @@ export const CrearEvento = (props) => {
               <input
                 onChange={(e) => updateText(e, setAñadirParticipantes)}
                 value={participantes_creador}
-                type="number"
+                type="number" min="1"
                 aria-label="First name"
                 className="form-control"
               ></input>
@@ -144,7 +146,7 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setMaxParticipantes)}
                   value={maximo_participantes}
-                  type="number"
+                  type="number" min="2"
                   aria-label="First name"
                   className="form-control"
                   placeholder="Max"
@@ -153,7 +155,7 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setMinParticipantes)}
                   value={minimo_participantes}
-                  type="number"
+                  type="number" min="1"
                   aria-label="Last name"
                   className="form-control"
                   placeholder="Min"
@@ -169,7 +171,7 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setEdadMaxima)}
                   value={edad_maxima}
-                  type="number"
+                  type="number" min="1"
                   aria-label="First name"
                   className="form-control"
                   placeholder="Max"
@@ -178,7 +180,7 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setEdadMinima)}
                   value={edad_minima}
-                  type="number"
+                  type="number" min="0"
                   aria-label="Last name"
                   className="form-control"
                   placeholder="Min"

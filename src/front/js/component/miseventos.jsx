@@ -3,114 +3,124 @@ import { Card } from "./card.jsx";
 import { useNavigate } from "react-router-dom";
 import { config } from "../component/config.js";
 import { CardEvento } from "../component/cardEvento.jsx";
-
+import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "../component/config";
-
+import { Navbar } from "../component/navbar.jsx";
 export const MisEventos = () => {
-    // const [datos, obtenerDatos] = useState([]);
-    // const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem(config.jwt.nameToken);
-    //     if (!token) {
-    //       navigate("/login");
-    //     }
-    
-    //     fetch(HOSTNAME + "/eventoscreados/usuario", {
-    //       method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    
-    //     })
-    //       .then((res) => {
-    //         return res.json();
-    //       })
-    //       .then((data) => {
-    //         // setLoading(true)
-    
-    //         console.log("soy la data", data.data);
-    //         obtenerDatos(data.data)
-    //         // localStorage.setItem("token", data.token)
-    //         // data.user_id
-    //         // navegar para /user/id
-    
-    //       })
-    //       .catch((e) => {
-    //         console.error(e);
-    //         navigate(`/zonaprivada`);
-    
-    //       });
-    
-    //   }, []);
+{/* ------ FORMA1 -------------------------------- */}
 
-    const [actividades, setActividades] = useState([]);
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-      if (!localStorage.token) {
-         // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
-        navigate("/zonaprivada");
-      } else {
-        const fetchData = async () => {
-          const response = await fetch(HOSTNAME + "/eventos", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.token}`,
-            },
-          });
-          const json = await response.json();
-          setActividades(json.data);
-        };
-  
-        fetchData().catch((error) => {
-          console.log(error);
+  const { store, actions } = useContext(Context);
+  const [eventos, setEventos] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.token) {
+       // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
+      navigate("/zonaprivada");
+    } else {
+      const fetchData = async () => {
+        const response = await fetch(HOSTNAME + "/eventoscreados/usuario", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.token}`,
+          },
         });
-      }
-    }, []);
-    
-    return (
-        <>
-        {/* <h1>Mis eventos</h1> */}
-            {/* <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
-                <Card
-                    name="Evento Cuentos"
-                    src="https://img.freepik.com/vector-gratis/parque-infantil-blanco-toboganes-escena_1308-53112.jpg?w=360"
-                    text={
-                        "Some quick example text to build on the card title and make up the bulk of the card's content."
-                    }
-                    button="+ Información"
-                    route={"card"}
-                />
-                <Card
-                    name="Evento Baloncesto"
-                    src="https://img.freepik.com/vector-gratis/parque-infantil-blanco-toboganes-escena_1308-53112.jpg?w=360"
-                    text={
-                        "Some quick example text to build on the card title and make up the bulk of the card's content."
-                    }
-                    button="+ Información"
-                />
-                <Card
-                    name="Evento Parque"
-                    src="https://img.freepik.com/vector-gratis/parque-infantil-blanco-toboganes-escena_1308-53112.jpg?w=360"
-                    text={
-                        "Some quick example text to build on the card title and make up the bulk of the card's content."
-                    }
-                    button="+ Información"
-                />
-                <Card
-                    name="Evento futbol"
-                    src="https://img.freepik.com/vector-gratis/parque-infantil-blanco-toboganes-escena_1308-53112.jpg?w=360"
-                    text={
-                        "Some quick example text to build on the card title and make up the bulk of the card's content."
-                    }
-                    button="+ Información"
-                />
-            </div> */}
+
+        const response1 = await fetch(HOSTNAME + "/eventos/usuario", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.token}`,
+          },
+        });
+
+        const json = await response.json();
+        const json1 = await response1.json();
+        setEventos(json.data);
+        setEventos(json1.data);
+        actions.agregarEventos(json.data);
+        actions.agregarEventos(json1.data);
+
+      };
+
+      fetchData().catch((error) => {
+        console.log(error);
+      });
+    }
+  }, []);
+
+
+
+
+
+{/* ------ FORMA2 -------------------------------- */}
+  // const [actividades, setActividades] = useState([]);
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (!localStorage.token) {
+  //      // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
+  //     navigate("/zonaprivada");
+  //   } else {
+  //     const fetchData = async () => {
+  //       const response = await fetch(HOSTNAME + "/eventoscreados/usuario", {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${localStorage.token}`,
+  //         },
+  //       });
+  //       const json = await response.json();
+  //       setActividades(json.data);
+  //     };
+
+  //     fetchData().catch((error) => {
+  //       console.log(error);
+  //     });
+  //   }
+  // }, []);
+
+  return (
+    <>
+    <Navbar/>
+      {/* <h1>Mis eventos</h1> */}
+{/* ------ FORMA1 -------------------------------- */}
 
 <div className="container">
+        <div className="text-center">
+        <h1> Mis eventos</h1>
+        </div>
+        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
+          {eventos.map((evento, index) => {
+            if (evento.estado !== "Cancelado") {
+              return (
+                <div key={index}>
+                  <CardEvento
+                    evento_id={evento.id}
+                    creador={evento.creador.id}
+                    name={evento.actividad.nombre}
+                    src={evento.actividad.imagen}
+                    text={evento.actividad.descripcion}
+                    tipo={evento.actividad.tipo_de_actividad}
+                    cupos_disponibles={evento.cupos_disponibles}
+                    max_participantes= {evento.maximo_participantes}
+                    estado={evento.estado}
+                    // edadMaxima={evento.edadMaxima}
+                    // edadMinima={evento.edadMinima}
+                    fecha_y_hora={evento.fecha_y_hora}
+                    route={"/unirseEvento/" + evento.id}
+                  />
+                </div>
+              );
+            }
+          })}
+        </div>
+      </div>
+      {/* ------ FORMA2 -------------------------------- */}
+
+      {/* <div className="container">
         <div className="text-center">
           <h1 className="my-3"> Mis eventos</h1>
         </div>
@@ -138,7 +148,7 @@ export const MisEventos = () => {
             }
           })}
         </div>
-      </div>
-        </>
-    );
+      </div> */}
+    </>
+  );
 };

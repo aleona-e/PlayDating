@@ -4,7 +4,7 @@ import { CardEvento } from "../component/cardEvento.jsx";
 import { HOSTNAME } from "../component/config";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
-
+import { Navbar } from "../component/navbar.jsx";
 export const Eventos = () => {
   const { store, actions } = useContext(Context);
   const [eventos, setEventos] = useState([]);
@@ -36,6 +36,7 @@ export const Eventos = () => {
 
   return (
     <>
+    <Navbar/>
       <div className="container">
         <div className="text-center">
         <h1>Eventos</h1>

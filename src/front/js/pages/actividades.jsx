@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { obtenerActividades } from "../api.js";
 import { Card } from "../component/card.jsx";
 import { Context } from "../store/appContext.js";
-
+import { Navbar } from "../component/navbar.jsx";
 export const Actividades = () => {
   const {store,actions} = useContext(Context)
   const [actividadesCards, setActividadesCards] = useState([]);
@@ -30,6 +30,7 @@ export const Actividades = () => {
   }, []);
   return (
     <div>
+      <Navbar/>
       <div className="container">
         <div className="text-center">
           <h1 className="my-3">Actividades</h1>

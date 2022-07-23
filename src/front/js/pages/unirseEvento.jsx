@@ -9,6 +9,7 @@ import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
 import { unirseEvento } from "../api.js";
 import { object } from "prop-types";
+import { Navbar } from "../component/navbar.jsx";
 
 export const UnirseEvento = (props) => {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ export const UnirseEvento = (props) => {
   };
   return (
     <>
+    <Navbar/>
       <div className="container">
         <div className="mt-3">
           <h2 id="h2CrearEvento">Detalles de este evento</h2>

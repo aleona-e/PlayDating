@@ -7,7 +7,7 @@ import { Context } from "../store/appContext.js";
 import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";
 import { config } from "../component/config.js";
-
+import { Navbar } from "../component/navbar.jsx";
 
 export const MiPerfil = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +15,10 @@ export const MiPerfil = () => {
   const [nombre, setNombre] = useState(""); //nombre completo
   const [numero_hijos, setNumero_hijos] = useState("");
   const [provincia, setProvincia] = useState(1);
-  const [deshabilitado, setDeshabilitado] = useState(true);
-
+ 
   const { store, actions } = useContext(Context)
   const [datos, obtenerDatos] = useState([]);
-   const navigate = useNavigate()
+  const navigate = useNavigate()
 
   // OBTENER DATOS USUARIO
   useEffect(() => {
@@ -40,13 +39,9 @@ export const MiPerfil = () => {
         return res.json();
       })
       .then((data) => {
-        // setLoading(true)
 
         console.log("soy la data", data.data);
         obtenerDatos(data.data)
-        // localStorage.setItem("token", data.token)
-        // data.user_id
-        // navegar para /user/id
 
       })
       .catch((e) => {
@@ -57,36 +52,69 @@ export const MiPerfil = () => {
 
   }, []);
 
+  // MODIFICAR DATOS 1
+
+  // const updateText = (e, setState) => {
+  //   const value = e.target.value;
+  //   console.log("soy el nuevo value:", value)
+  //   setState(value);
+  // };
+
+  // const onSave = async () => {
+  //   const body = JSON.stringify({
+  //     numero_hijos,
+  //    });
 
 
-  // MODIFICAR DATOS
-    const updateText = (e, setState) => {
-      const value = e.target.value;
-      setState(value);
-    };
+  //   useEffect(() => {
+  //     const token = localStorage.getItem(config.jwt.nameToken);
+  //     if (!token) {
+  //       navigate("/login");
+  //     }
 
-    useEffect(() => {
-      if (
-        nombre !== "" &&
-        email !== "" &&
-        password !== "" &&
-        numero_hijos !== ""
-      ) {
-        setDeshabilitado(false);
-      } else {
-        setDeshabilitado(true);
-      }
-    });
+  //     fetch(HOSTNAME + "/perfil/modificar", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body,
+  //     })
 
-  const onSave = async () => {
+  //       // .then((res) => {
+  //       //   return res.json();
+  //       // })
+  //       // .then((data) => {
+  //       //   console.log("soy la nueva data", data.data);
+  //       //   setNumero_hijos(data.data)
+  //       // })
+  //       // .catch((e) => {
+  //       //   console.error(e);
+  //       //   navigate(`/zonaprivada`);
+
+  //       // });
+  //   }, []);
+  // };
+
+
+  // MODIFICAR DATOS 2
+  const updateText = (e, setState) => {
+    // if (defaultValue == value) defaultValue = value
+    const value = e.target.value;
+    console.log("soy el nuevo value:", value)
+    setState(value);
+  };
+
+  const onSave = () => {
+   
+    const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
-      // email,
-      // password,
-      // nombre,
+
       numero_hijos,
-      // provincia,
+      provincia
     });
-    const resp = await fetch(HOSTNAME + "/perfil/modificar", {
+
+   fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,139 +122,129 @@ export const MiPerfil = () => {
       },
       body,
     });
-    const data = await resp.json();
-    if (data.message === "ok") {
-      alert("Campos actualizados exitosamente");
-    }
 
-    if (data.message === "Usuario ya existe.") {
-      alert(data.message);
-    }
   };
 
-  return (
-    <>
-      <div className="container" id="containerRegister">
+return (
+  <>
+  <Navbar/>
+    <div className="container" id="containerRegister">
+      <div className="row g-3">
+        <div className="col-md-12">
+          <label className="form-label">Nombre Completo: </label>
+
+          <h5>{datos.nombre}</h5>
+        </div>
+
         <div className="row g-3">
-          <div className="col-md-12">
-            <label className="form-label">Nombre Completo: </label>
-
-            <h5>{datos.nombre}</h5>
-          </div>
-
-          <div className="row g-3">
-            <div className="col-md-6">
-              <label className="form-label">Email</label>
-              <h5>{datos.email}</h5>
-            </div>
-
-            {/* <div className="col-md-6">
-              <label className="form-label">Contraseña</label>
-              <input
-                // onChange={(e) => updateText(e, setPassword)}
-                // value={password}
-                type="password"
-                className="form-control"
-              ></input>
-            </div> */}
-
-            <div className="col-md-6">
-              <label className="form-label">Hijos</label>
-              <h5>{datos.numero_hijos}</h5>
-            </div>
+          <div className="col-md-6">
+            <label className="form-label">Email</label>
+            {/* <h5>{datos.email}</h5> */}
+            <h5>{datos.provincia}</h5>
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Numero Hijos</label>
-            <input
-              onChange={(e) => updateText(e, setNumero_hijos)}
-              placeholder= {datos.numero_hijos}
-              value={numero_hijos}
-              type="text"
-              className="form-control"
-                            
-            ></input>
+            <label className="form-label">Hijos</label>
+            <h5>{datos.numero_hijos}</h5>
           </div>
+        </div>
 
-          <div className="col-md-6">
-            <label className="form-label">Lista Hijos</label>
-            <div><FormularioHijos /></div>
-          </div>
+        <div className="col-md-6">
+          <label className="form-label">Numero Hijos</label>
+          <input
+            onChange={(e) => updateText(e, setNumero_hijos)}
+            // placeholder= {datos.numero_hijos}
+            // value={numero_hijos}
+            defaultValue={datos.numero_hijos}
+            type="text"
+            className="form-control"
+
+          ></input>
+        </div>
+
+        <div className="col-md-6">
+          <label className="form-label">Lista Hijos</label>
+          <div><FormularioHijos /></div>
+        </div>
 
 
-          {/* <div className="col-md-4">
+         <div className="col-md-4">
             <label className="form-label">Provincia</label>
             <select
               onChange={(e) => updateText(e, setProvincia)}
-              value={provincia}
+              // value={provincia}
+              // value={datos.provincia}
+              // defaultValue={datos.provincia}
               className="form-select"
             >
-              <option selected>Álava</option>
-              <option selected>Albacete</option>
-              <option selected>Alicante</option>
-              <option selected>Almería</option>
-              <option selected>Asturias</option>
-              <option selected>Ávila</option>
-              <option selected>Badajoz</option>
-              <option selected>Barcelona</option>
-              <option selected>Burgos</option>
-              <option selected>Cáceres</option>
-              <option selected>Cádiz</option>
-              <option selected>Cantabria</option>
-              <option selected>Castellón</option>
-              <option selected>Ciudad Real</option>
-              <option selected>Córdoba</option>
-              <option selected>A Coruña</option>
-              <option selected>Cuenca</option>
-              <option selected>Girona</option>
-              <option selected>Granada</option>
-              <option selected>Guadalajara</option>
-              <option selected>Gipuzkoa</option>
-              <option selected>Huelva</option>
-              <option selected>Huesca</option>
-              <option selected>Illes Balears</option>
-              <option selected>Jaén</option>
-              <option selected>León</option>
-              <option selected>Lleida</option>
-              <option selected>Lugo</option>
-              <option selected>Madrid</option>
-              <option selected>Málaga</option>
-              <option selected>Murcia</option>
-              <option selected>Navarra</option>
-              <option selected>Ourense</option>
-              <option selected>Palencia</option>
-              <option selected>Las Palmas</option>
-              <option selected>Pontevedra</option>
-              <option selected>La Rioja</option>
-              <option selected>Segovia</option>
-              <option selected>Sevilla</option>
-              <option selected>Soria</option>
-              <option selected>Tarragona</option>
-              <option selected>Santa Cruz de Tenerife</option>
-              <option selected>Teruel</option>
-              <option selected>Toledo</option>
-              <option selected>Valencia</option>
-              <option selected>Valladolid</option>
-              <option selected>Bizkaia</option>
-              <option selected>Zamora</option>
-              <option selected>Zaragoza</option>
+              
+              <option defaultValue= {datos.provincia}>{datos.provincia}</option> 
+              <option value="Álava">Álava</option>
+              <option value="Albacete">Albacete</option>
+              <option value="Alicante">Alicante</option>
+              <option value="Almería">Almería</option>
+              <option value="Asturias">Asturias</option>
+              <option value="Ávila">Ávila</option>
+              <option value="Badajoz">Badajoz</option>
+              <option value="Barcelona">Barcelona</option>
+              <option value="Burgos">Burgos</option>
+              <option value="Cáceres">Cáceres</option>
+              <option value="Cádiz">Cádiz</option>
+              <option value="Cantabria">Cantabria</option>
+              <option value="Castellón">Castellón</option>
+              <option value="Ciudad Real">Ciudad Real</option>
+              <option value="Córdoba">Córdoba</option>
+              <option value="A Coruña">A Coruña</option>
+              <option value="Cuenca">Cuenca</option>
+              <option value="Girona">Girona</option>
+              <option value="Granada">Granada</option>
+              <option value="Guadalajara">Guadalajara</option>
+              <option value="Gipuzkoa">Gipuzkoa</option>
+              <option value="Huelva">Huelva</option>
+              <option value="Huesca">Huesca</option>
+              <option value="Illes Balears">Illes Balears</option>
+              <option value="Jaén">Jaén</option>
+              <option value="León">León</option>
+              <option value="Lleida<">Lleida</option>
+              <option value="Lugo">Lugo</option>
+              <option value="Madrid">Madrid</option>
+              <option value="Málaga">Málaga</option>
+              <option value="Murcia">Murcia</option>
+              <option value="Navarra">Navarra</option>
+              <option value="Ourense">Ourense</option>
+              <option value="Palencia">Palencia</option>
+              <option value="Las Palmas">Las Palmas</option>
+              <option value="Pontevedra">Pontevedra</option>
+              <option value="La Rioja">La Rioja</option>
+              <option value="Segovia">Segovia</option>
+              <option value="Sevilla">Sevilla</option>
+              <option value="Soria">Soria</option>
+              <option value="Tarragona">Tarragona</option>
+              <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+              <option value="Teruel">Teruel</option>
+              <option value="Toledo">Toledo</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Valladolid">Valladolid</option>
+              <option value="Bizkaia">Bizkaia</option>
+              <option value="Zamora">Zamora</option>
+              <option value="Zaragoza">Zaragoza</option>
             </select>
-          </div> */}
-
-          <div className="col-12">
-            <button
-              disabled={deshabilitado}
-              onClick={onSave}
-              id="buttonRegister"
-              type="submit"
-              className="btn btn-info button"
-            >
-              Save
-            </button>
           </div>
+
+        <div className="col-12">
+          <button
+            // disabled={deshabilitado}
+            onClick={onSave}
+            id="buttonRegister"
+            type="submit"
+            className="btn btn-info button"
+          >
+            Save
+          </button>
         </div>
       </div>
-  
-    </>
-  );
+    </div>
+
+  </>
+);
 };

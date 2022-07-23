@@ -4,25 +4,26 @@ import { obtenerActividades } from "../api.js";
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
 import { ImagenesCarrusel } from "../component/ImagenesCarrusel.jsx";
+import { Navbar } from "../component/navbar.jsx";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-
   const [actividadesCards, setActividadesCards] = useState([]);
+
   useEffect(() => {
     obtenerActividades().then((data) => {
       const actividades = data.data;
       actions.agregarActividades(actividades);
-      let cardsActividades = actividades.map((actividad) => {
+      let cardsActividades = actividades.map((actividad, index) => {
         return (
-          <Card
-            name={actividad.nombre}
-            src={actividad.imagen}
-            text={actividad.descripcion}
-            tipo={actividad.tipo_de_actividad}
-            button=" Logeate y unete! "
-            route={"login"}
-          />
+            <Card
+              name={actividad.nombre}
+              src={actividad.imagen}
+              text={actividad.descripcion}
+              tipo={actividad.tipo_de_actividad}
+              button=" Logeate y unete! "
+              route={"login"}
+            />
         );
       });
       // console.log("actividadID:", actividades[0])
@@ -33,8 +34,9 @@ export const Home = () => {
 
   return (
     <>
-  {/* Forma 1 */}
- <div className="container ">
+      {/* Forma 1 */}
+      <Navbar/>
+      <div className="container ">
         <div
           id="carouselExampleInterval"
           className="carousel slide"
@@ -42,31 +44,33 @@ export const Home = () => {
         >
           <div className="carousel-inner mt-5">
             <div className="carousel-item active " data-bs-interval="3000">
-              {actividadesCards[0]}
+              <div className="card-group">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                  {actividadesCards[0]}
+                  {actividadesCards[1]}
+                  {actividadesCards[2]}
+                </div>
+              </div>
             </div>
+
             <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[1]}
+              <div className="card-group">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                  {actividadesCards[3]}
+                  {actividadesCards[4]}
+                  {actividadesCards[5]}
+                </div>
+              </div>
             </div>
+
             <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[2]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[3]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[4]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[5]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[6]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[7]}
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              {actividadesCards[8]}
+              <div className="card-group">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                  {actividadesCards[6]}
+                  {actividadesCards[7]}
+                  {actividadesCards[8]}
+                </div>
+              </div>
             </div>
           </div>
           <button
@@ -96,12 +100,10 @@ export const Home = () => {
         </div>
       </div>
 
-      
-    {/* --------
+      {/* --------
     Forma2 */}
 
-
-{/* <div className="container">
+      {/* <div className="container">
         <div className="text-center mt-5">
           <div
             id="carouselExampleInterval"
@@ -137,9 +139,8 @@ export const Home = () => {
             </button>
           </div>
         </div>
-      </div> */}
-{/* ---- */}
-
+      </div>  */}
+      {/* ---- */}
     </>
   );
 };
