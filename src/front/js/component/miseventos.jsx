@@ -111,6 +111,8 @@ export const MisEventos = () => {
                     // edadMinima={evento.edadMinima}
                     fecha_y_hora={evento.fecha_y_hora}
                     route={"/unirseEvento/" + evento.id}
+                    // boton1={"Unirse"}
+                    // boton2={"Cancelar evento"}
                   />
                 </div>
               );

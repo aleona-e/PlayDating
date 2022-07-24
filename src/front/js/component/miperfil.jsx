@@ -10,11 +10,9 @@ import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
 
 export const MiPerfil = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nombre, setNombre] = useState(""); //nombre completo
-  const [numero_hijos, setNumero_hijos] = useState("");
-  const [provincia, setProvincia] = useState(1);
+
+  const [numero_hijos, setNumero_hijos] = useState(0);
+  const [provincia, setProvincia] = useState("hola");
  
   const { store, actions } = useContext(Context)
   const [datos, obtenerDatos] = useState([]);
@@ -52,60 +50,23 @@ export const MiPerfil = () => {
 
   }, []);
 
-  // MODIFICAR DATOS 1
-
-  // const updateText = (e, setState) => {
-  //   const value = e.target.value;
-  //   console.log("soy el nuevo value:", value)
-  //   setState(value);
-  // };
-
-  // const onSave = async () => {
-  //   const body = JSON.stringify({
-  //     numero_hijos,
-  //    });
 
 
-  //   useEffect(() => {
-  //     const token = localStorage.getItem(config.jwt.nameToken);
-  //     if (!token) {
-  //       navigate("/login");
-  //     }
-
-  //     fetch(HOSTNAME + "/perfil/modificar", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body,
-  //     })
-
-  //       // .then((res) => {
-  //       //   return res.json();
-  //       // })
-  //       // .then((data) => {
-  //       //   console.log("soy la nueva data", data.data);
-  //       //   setNumero_hijos(data.data)
-  //       // })
-  //       // .catch((e) => {
-  //       //   console.error(e);
-  //       //   navigate(`/zonaprivada`);
-
-  //       // });
-  //   }, []);
-  // };
+  // MODIFICAR DATOS 
 
 
-  // MODIFICAR DATOS 2
   const updateText = (e, setState) => {
-    // if (defaultValue == value) defaultValue = value
+    // if (value == datos.numero_hijos) 
+    
     const value = e.target.value;
+    console.log("soy la e: ",e)
+    console.log("soy el numero de hijos: ", datos.numero_hijos )
+   
     console.log("soy el nuevo value:", value)
     setState(value);
   };
 
-  const onSave = () => {
+  const onSave = async (e) => {
    
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
@@ -114,7 +75,26 @@ export const MiPerfil = () => {
       provincia
     });
 
-   fetch(HOSTNAME + "/perfil/modificar", {
+    await fetch(HOSTNAME + "/perfil/modificar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body,
+    });
+
+  };
+
+  const guardarnumerohijos = async (e) => {
+   
+    const token = localStorage.getItem(config.jwt.nameToken);
+    const body = JSON.stringify({
+
+      numero_hijos
+    });
+
+    await fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -143,10 +123,10 @@ return (
             <h5>{datos.provincia}</h5>
           </div>
 
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <label className="form-label">Hijos</label>
             <h5>{datos.numero_hijos}</h5>
-          </div>
+          </div> */}
         </div>
 
         <div className="col-md-6">
@@ -155,11 +135,12 @@ return (
             onChange={(e) => updateText(e, setNumero_hijos)}
             // placeholder= {datos.numero_hijos}
             // value={numero_hijos}
-            defaultValue={datos.numero_hijos}
-            type="text"
+            value={datos.numero_hijos}
+            // defaultValue={datos.numero_hijos}
+            type="number"
             className="form-control"
 
-          ></input>
+          ></input><button className="btn btn-info button" onClick={guardarnumerohijos} >Guardar</button>
         </div>
 
         <div className="col-md-6">
