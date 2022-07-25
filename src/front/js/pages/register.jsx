@@ -5,6 +5,7 @@ import "../../styles/register.css";
 import { HOSTNAME } from "../component/config";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { Navbar } from "../component/navbar.jsx";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ export const Register = () => {
 
   return (
     <>
+    <Navbar/>
       <div className="container" id="containerRegister">
         <form className="row g-3 was-validated">
           <div className="col-md-12">

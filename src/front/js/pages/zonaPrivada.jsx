@@ -1,10 +1,11 @@
 import React from "react";
 import "../../styles/zonaPrivada.css";
 import { Link } from "react-router-dom";
-
+import { Navbar } from "../component/navbar.jsx";
 const ZonaPrivada = () => {
   return (
     <>
+    <Navbar/>
       <div className="container col-8  d-flex justify-content-center mt-3 mb-3">
         <img  src="https://sites.google.com/site/cpimatematicas2bacb/_/rsrc/1511371228206/zona-alumnos/zona-privada.png" />
       </div>

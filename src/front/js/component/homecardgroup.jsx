@@ -1,14 +1,20 @@
 import React from "react";
 import { Card } from "./card.jsx";
-
+import logoUrl from "../../img/logo-circulo.png";
+import logoDosUrl from "../../img/logo-castillo.png";
+import { Navbar } from "../component/navbar.jsx";
 
 export const HomeCardGroup = () => {
     return (
         <>
-            <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        <Navbar/>
+        <div className="card-group mt-4">
+        
                 <Card
                     name="Actividades"
+
                     src="https://res.cloudinary.com/daint2d1l/image/upload/v1658477832/Home/11_zt2ju9.png"
+
                     text={
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }
@@ -22,7 +28,7 @@ export const HomeCardGroup = () => {
                         "Some quick example text to build on the card title and make up the bulk of the card's content."
                     }
                     button="Ir"
-                    route={"eventoscreados"}
+                    route={"eventos"}
                 />
                 <Card
                     name="Mi perfil"
@@ -42,6 +48,7 @@ export const HomeCardGroup = () => {
                     button="Ir"
                     route={"miseventos"}
                 />
+            
             </div>
         </>
     );

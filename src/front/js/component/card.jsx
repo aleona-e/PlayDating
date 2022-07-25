@@ -7,8 +7,8 @@ export const Card = (props) => {
   
   return (
     <>
-      <div className="card-group">
-        <div className="col">
+      {/* <div className="card-group">
+        <div className="col"> */}
           <div className="card text-center">
             <img
               className="card-img-top imagenCard rounded"
@@ -25,7 +25,7 @@ export const Card = (props) => {
               </p>
               <p className="card-text">
                 {props.tipo}
-              </p>
+              </p></div>
               <div className="card-footer bg-body">
               <Link to={`/${props.route}`}>  
                 <button href="#" className="btn btn-primary btn-lg" role="button">
@@ -33,9 +33,9 @@ export const Card = (props) => {
                 </button>
               </Link>
               </div>
-            </div></div>
-        </div>
-      </div>
+            </div>
+        {/* </div>
+      </div> */}
     </>
   );
 };

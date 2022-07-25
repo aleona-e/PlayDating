@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
 
+
 export const CardEvento = (props) => {
   const { store, actions } = useContext(Context);
 
@@ -27,6 +28,7 @@ export const CardEvento = (props) => {
     const date = new Date(props.fecha_y_hora).toISOString();
     return (
       <>
+     
         <div className="card-group">
           <div className="col">
             <div className="card text-center">
@@ -56,6 +58,7 @@ export const CardEvento = (props) => {
                   <Link to={props.route}>
                     <button href="#" className="btn btn-primary" role="button">
                       Ver Detalles
+                      {/* {props.boton1} */}
                     </button>
                   </Link>
                   {/* cuando se pulsa boton unir, que ponga solo ok. sin redirigir a pagina */}
@@ -97,17 +100,19 @@ export const CardEvento = (props) => {
                 <div className="card-footer bg-body">
                   <Link to={props.route}>
                     <button href="#" className="btn btn-primary" role="button">
-                      Ver Detalles
+                      Ver Detalles 
+                      {/* {props.boton1} */}
                     </button>
                   </Link>
 
                   <button
                     onClick={onCancel}
                     href="#"
-                    className="btn btn-danger"
+                    className="btn btn-danger m-1"
                     role="button"
                   >
-                    Cancelar Evento
+                    Cancelar Evento 
+                    {/* {props.boton2} */}
                   </button>
                 </div>
               </div>
@@ -131,5 +136,7 @@ CardEvento.propTypes = {
   estado: propTypes.string,
   // edadMaxima: propTypes.number,
   // edadMinima: propTypes.number,
+  // boton1: propTypes.string,
+  // boton2: propTypes.string,
   fecha_y_hora: propTypes.string,
 };

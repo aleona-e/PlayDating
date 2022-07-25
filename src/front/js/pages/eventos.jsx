@@ -4,7 +4,7 @@ import { CardEvento } from "../component/cardEvento.jsx";
 import { HOSTNAME } from "../component/config";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
-
+import { Navbar } from "../component/navbar.jsx";
 export const Eventos = () => {
   const { store, actions } = useContext(Context);
   const [eventos, setEventos] = useState([]);
@@ -12,7 +12,8 @@ export const Eventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaPrivada");
+       // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
+      navigate("/zonaprivada");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventos", {
@@ -35,6 +36,7 @@ export const Eventos = () => {
 
   return (
     <>
+    <Navbar/>
       <div className="container">
         <div className="text-center">
         <h1>Eventos</h1>
@@ -58,6 +60,8 @@ export const Eventos = () => {
                     // edadMinima={evento.edadMinima}
                     fecha_y_hora={evento.fecha_y_hora}
                     route={"/unirseEvento/" + evento.id}
+                    // boton1={"Ver detalles"}
+                    // boton2={"Cancelar evento"}
                   />
                 </div>
               );
