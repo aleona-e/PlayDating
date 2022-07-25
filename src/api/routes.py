@@ -20,6 +20,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
+from datetime import timedelta
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -93,7 +94,8 @@ def login():
         'email': usuario.email,
         'usuario_id': usuario.id
     }
-    token = create_access_token(identity=data)
+       #token = create_access_token(identity=data)
+    token=create_access_token(identity=data, expires_delta=timedelta(weeks=4))
     return jsonify({'message':'Login exitoso','data':token,'usuario_id':usuario.id})
 
 #Obtener informacion del perfil del current user

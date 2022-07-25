@@ -33,7 +33,7 @@ export const CrearEvento = (props) => {
   const [maximo_participantes, setMaxParticipantes] = useState("");
   const [minimo_participantes, setMinParticipantes] = useState("");
   const [participantes_creador, setAñadirParticipantes] = useState("");
-  const [fecha_y_hora, setfechayhora] = useState(new Date().toISOString());
+  const [fecha_y_hora, setfechayhora] = useState(new Date());
 
   //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
@@ -104,8 +104,8 @@ export const CrearEvento = (props) => {
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
             <div className="mb-3">
               <p id="descripcionCrearEvento">
-                {" "}
-                {actividadEscojida.descripcion}{" "}
+                
+                {actividadEscojida.descripcion}
               </p>
             </div>
           </div>

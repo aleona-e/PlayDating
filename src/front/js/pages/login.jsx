@@ -6,8 +6,7 @@ import { Navbar } from "../component/navbar.jsx";
 import "../../styles/login.css";
 
 export const Login = (props) => {
-  const { store, actions } = useContext(Context);
-
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -38,8 +37,7 @@ export const Login = (props) => {
       // console.log(data)
 
       if (localStorage.getItem("token") !== "") {
-        actions.guardarUsuario(data.usuario_id)
-        // console.log(store.usuario_id)
+        localStorage.setItem("usuario",data.usuario_id)
         navigate("/homecardgroup");
       } else {
         // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
