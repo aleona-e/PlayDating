@@ -4,10 +4,11 @@ import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
+import moment from "moment";
 
 
 export const CardEvento = (props) => {
-  const { store, actions } = useContext(Context);
+
 
   const onCancel = async () => {
     const response = await fetch(
@@ -23,9 +24,11 @@ export const CardEvento = (props) => {
     const json = await response.json();
   };
 
-  if (props.creador != store.usuario_id) {
-    //logearse cuando no se muestren ambas. mirar como solucionar
-    const date = new Date(props.fecha_y_hora).toISOString();
+   
+  let date = moment(props.fecha_y_hora).format(" DD/MM/YYYY HH:mm");
+
+  if (props.creador!== parseInt(localStorage.getItem('usuario'), 10)) {
+    
     return (
       <>
      
@@ -40,7 +43,7 @@ export const CardEvento = (props) => {
               <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <hr></hr>
-                <p className="card-text">{props.fecha_y_hora}</p>
+                <p className="card-text">{date}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
                   Max participantes: {props.max_participantes}
@@ -83,7 +86,7 @@ export const CardEvento = (props) => {
               <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <hr></hr>
-                <p className="card-text">{props.fecha_y_hora}</p>
+                <p className="card-text">{date}</p>
                 <p className="card-text">{props.tipo}</p>
                 <p className="card-text">
                   Max participantes: {props.max_participantes}
