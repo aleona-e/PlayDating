@@ -77,7 +77,7 @@ export const Login = (props) => {
           <button
             onClick={onSave}
             type="button"
-            className="btn btn-info"
+            className="btn"
             id="buttonLogin"
           >
             Iniciar Sesión

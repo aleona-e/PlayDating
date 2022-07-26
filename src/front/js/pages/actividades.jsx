@@ -33,7 +33,7 @@ export const Actividades = () => {
       <Navbar/>
       <div className="container">
         <div className="text-center">
-          <h1 className="my-3">Actividades</h1>
+          <h1 className="my-3">ACTIVIDADES</h1>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
           {actividadesCards}

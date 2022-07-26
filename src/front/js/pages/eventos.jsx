@@ -39,7 +39,7 @@ export const Eventos = () => {
     <Navbar/>
       <div className="container">
         <div className="text-center">
-        <h1>Eventos</h1>
+        <h1>EVENTOS</h1>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
           {eventos.map((evento, index) => {

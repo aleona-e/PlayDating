@@ -6,10 +6,7 @@ import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
 import moment from "moment";
 
-
 export const CardEvento = (props) => {
-
-
   const onCancel = async () => {
     const response = await fetch(
       HOSTNAME + `/cancelarevento/${props.evento_id}`,
@@ -24,14 +21,11 @@ export const CardEvento = (props) => {
     const json = await response.json();
   };
 
-   
-  let date = moment(props.fecha_y_hora).format(" DD/MM/YYYY HH:mm");
+  let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
-  if (props.creador!== parseInt(localStorage.getItem('usuario'), 10)) {
-    
+  if (props.creador !== parseInt(localStorage.getItem("usuario"), 10)) {
     return (
       <>
-     
         <div className="card-group">
           <div className="col">
             <div className="card text-center">
@@ -59,7 +53,7 @@ export const CardEvento = (props) => {
 
                 <div className="card-footer bg-body">
                   <Link to={props.route}>
-                    <button href="#" className="btn btn-primary" role="button">
+                    <button id="buttonVerDetalles" href="#" className="btn" role="button">
                       Ver Detalles
                       {/* {props.boton1} */}
                     </button>
@@ -102,19 +96,25 @@ export const CardEvento = (props) => {
 
                 <div className="card-footer bg-body">
                   <Link to={props.route}>
-                    <button href="#" className="btn btn-primary" role="button">
-                      Ver Detalles 
+                    <button
+                      id="buttonVerDetalles"
+                      href="#"
+                      className="btn"
+                      role="button"
+                    >
+                      Ver Detalles
                       {/* {props.boton1} */}
                     </button>
                   </Link>
 
                   <button
+                    id="buttonCancelarEvento"
                     onClick={onCancel}
                     href="#"
-                    className="btn btn-danger m-1"
+                    className="btn m-1"
                     role="button"
                   >
-                    Cancelar Evento 
+                    Cancelar Evento
                     {/* {props.boton2} */}
                   </button>
                 </div>

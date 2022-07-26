@@ -33,7 +33,7 @@ export const Navbar = () => {
 
 
   return (
-    <nav className="navbar navbar-ligth bg-light">
+    <nav className="navbar navbar-ligth">
       <div className="container">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">
@@ -48,34 +48,34 @@ export const Navbar = () => {
         </Link>
         <div>
 
-          <Link to="/actividades">
-          <span className={"navbar-brand mb-0 h1 " + ocultarSinToken }>Actividades</span>
+          <Link id="link" to="/actividades">
+          <span id="LinkNavbar" className={"navbar-brand mb-0 h1 " + ocultarSinToken }>Actividades</span>
           </Link>
         </div>
-        <Link to="/eventos">
-          <span className={"navbar-brand mb-0 h1 " + ocultarSinToken }>Eventos</span>
+        <Link id="link" to="/eventos">
+          <span id="LinkNavbar" className={"navbar-brand mb-0 h1 " + ocultarSinToken }>Eventos</span>
         </Link>
 
        
-          <Link to="/miseventos">
-          <span className={"navbar-brand mb-0 h1 " + ocultarSinToken}>Mis eventos</span>
+          <Link id="link"  to="/miseventos">
+          <span id="LinkNavbar" className={"navbar-brand mb-0 h1 " + ocultarSinToken}>Mis eventos</span>
           </Link>
         
 
         <div className="text-end">
-          <Link to="/login">
-            <button className={"btn btn-primary me-2 " + ocultarConToken}>Iniciar Sesión</button>
+          <Link  to="/login">
+            <button id="buttonMiPerfil" className={"btn  me-2 " + ocultarConToken}>Iniciar Sesión</button>
           </Link>
           <Link to="/register">
-            <button className={"btn btn-primary me-2 " + ocultarConToken}>Registro</button>
+            <button id="buttonMiPerfil" className={"btn me-2 " + ocultarConToken}>Registro</button>
           </Link>
 
           <Link to="/">
-            <button className={"btn btn-danger me-2 " + ocultarSinToken} onClick={removeStorage}>Cerrar sesión</button>
+            <button id="buttonCerrarSesion" className={"btn me-2 " + ocultarSinToken} onClick={removeStorage}>Cerrar sesión</button>
           </Link>
 
           <Link to="/miperfil">
-            <button className={"btn btn-success me-2 " + ocultarSinToken}>Mi Perfil</button>
+            <button id="buttonMiPerfil" className={"btn me-2 " + ocultarSinToken}>Mi Perfil</button>
           </Link>
         </div>
       </div>

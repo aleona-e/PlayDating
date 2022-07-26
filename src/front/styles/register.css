@@ -1,11 +1,15 @@
 #containerRegister {
-    background-color: cornflowerblue;
-    width: 700px;
-    height: 420px;
-    margin-top: 100px;
-   
-    border-radius: 5%;
-  }
-  #buttonRegister {
-    margin-left: 300px;
-  }
+  background-color:rgb(255, 189, 89);
+
+  width: 700px;
+  height: 420px;
+  margin-top: 100px;
+
+  border-radius: 5%;
+}
+#buttonRegister {
+  margin-top: 30px;
+  margin-left: 300px;
+  background-color: rgb(3, 152, 158) ;
+  color: white;
+}

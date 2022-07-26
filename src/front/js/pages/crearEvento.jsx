@@ -100,7 +100,7 @@ export const CrearEvento = (props) => {
         <div className="row   g-3">
           {/* ................................COLUMNA IZQUIERDA....................................................... */}
           <div className="col-6 col-md-6">
-            <h2 id="h2CrearEvento"> {actividadEscojida.nombre} </h2>
+            <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
             <div className="mb-3">
               <p id="descripcionCrearEvento">
@@ -205,7 +205,7 @@ export const CrearEvento = (props) => {
             disabled={deshabilitado}
             onClick={onSave}
             id="buttonCrearEvento"
-            className="btn btn-warning"
+            className="btn"
             type="submit"
           >
             Crear Evento

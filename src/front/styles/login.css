@@ -1,8 +1,9 @@
 #containerLogin {
-  background-color:cornflowerblue;
+  background-color:rgb(255, 189, 89);
+  color: black;
   width: 500px;
   height: 190px;
-  margin-top: 200px;
+  margin-top: 160px;
   padding: 20px;
   text-align: center;
   border-radius: 20px;
@@ -11,61 +12,7 @@
 #inputLogin {
   justify-content: center;
 }
-
-/*---------------- ventana login flotante--------------------- */
-/* #popup {
-      background-color: rgba(0,0,0,0.8);
-      position: fixed;
-      top:0;
-      left:0;
-      right:0;
-      bottom:0;
-      margin:0;
-      -webkit-animation:autopopup 2s;
-      -moz-animation:autopopup 2s;
-      animation:autopopup 2s;
-    }
-    
-    @-webkit-keyframes autopopup {
-      from {opacity: 0;margin-top:-200px;}
-      to {opacity: 1;}
-    }
-    @-moz-keyframes autopopup {
-      from {opacity: 0;margin-top:-200px;}
-      to {opacity: 1;}
-    }
-    @keyframes autopopup {
-      from {opacity: 0;margin-top:-200px;}
-      to {opacity: 1;}
-    }
-    
-    #popup:target {
-      -webkit-transition:all 1s;
-      -moz-transition:all 1s;
-      transition:all 1s;
-      opacity: 0;
-      visibility: hidden;
-    }
-    
-    .popup-contenedor {
-      position: relative;
-      margin:7% auto;
-      padding:30px 50px;
-      background-color: #fafafa;
-      color:#333;
-      border-radius: 3px;
-      width:50%;
-    }
-    
-    a.popup-cerrar {
-      position: absolute;
-      top:3px;
-      right:3px;
-      background-color: #333;
-      padding:7px 10px;
-      font-size: 20px;
-      text-decoration: none;
-      line-height: 1;
-      color:#fff;
-    } */
-/*---------------- ventana login flotante fin--------------------- */
+#buttonLogin{
+  background-color: rgb(3, 152, 158) ;
+  color: white;
+}
