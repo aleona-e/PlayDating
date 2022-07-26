@@ -12,6 +12,26 @@ export const obtenerActividades = () => {
       console.log("error " + error);
     });
 };
+export const obtenerDetallesEvento = (eventoId) => {
+  let failed = false
+  return fetch (HOSTNAME + "/evento/" + eventoId, {
+    method: "GET",
+    headers:{
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  }).then((resp)=> {
+    if (!resp.ok){
+      failed = true
+    }
+    return resp.json();
+  }).then((data)=>{
+    if (failed){
+      throw new Error(`${data.message}`);
+    }
+    return Promise.resolve(data)
+  });
+}
 export const unirseEvento = (eventoId, numParticipantesPorUsuario) => {
   let failed = false
   return fetch(HOSTNAME + "/unirse/evento/" + eventoId, {
@@ -25,6 +45,26 @@ export const unirseEvento = (eventoId, numParticipantesPorUsuario) => {
     }),
   }).then((resp) => {
     if (!resp.ok) {
+      failed = true
+    }
+    return resp.json();
+  }).then((data)=>{
+    if (failed){
+      throw new Error(`${data.message}`);
+    }
+    return Promise.resolve(data)
+  });
+};
+export const retirarseDeEvento = (eventoId) => {
+  let failed = false
+  return fetch(HOSTNAME + "/retirarse/evento/" + eventoId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  }).then((resp) => {
+    if (!resp.ok){
       failed = true
     }
     return resp.json();

@@ -248,23 +248,31 @@ def get_eventos():
     usuarios = Usuario.query.filter_by(provincia=creador.provincia).all()
     all_eventos = []
     all_cupos_disponibles = []
+    all_participantes = []
+
     for usuario in usuarios:
         eventos = Evento.query.filter_by(creador_id=usuario.id).all()
         for evento in eventos:
             total_participantes = 0
             cupos_disponibles = 0
-            participantes_evento_aux = Participantes_Evento.query.filter_by(
-                evento_id=evento.id).all()
+            participantes_por_evento = []
+            participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento.id).all()
             for participante_evento in participantes_evento_aux:
-                total_participantes += participante_evento.num_participantes_por_usuario
+                nombre = participante_evento.usuario.nombre
+                cantidad = participante_evento.num_participantes_por_usuario
+                participante_id = participante_evento.usuario.id
+                participante = {"nombre":nombre, "cantidad":cantidad, "id":participante_id}
+                participantes_por_evento.append(participante)
+                total_participantes += cantidad
             cupos_disponibles = evento.maximo_participantes - total_participantes
             all_eventos.append(evento)
             all_cupos_disponibles.append(cupos_disponibles)
+            all_participantes.append(participantes_por_evento)
     all_eventos_serialized = []
     for index, evento in enumerate(all_eventos):
         evento_serialized = evento.serialize()
-        evento_serialized.update(
-            {'cupos_disponibles': all_cupos_disponibles[index]})
+        evento_serialized.update({'cupos_disponibles': all_cupos_disponibles[index]})
+        evento_serialized.update({'participantes': all_participantes[index]})
         all_eventos_serialized.append(evento_serialized)
     return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos_serialized})
 
@@ -275,13 +283,20 @@ def get_eventos():
 @jwt_required()
 def get_evento(evento_id):
     evento = Evento.query.get(evento_id)
+    participantes_Evento = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
+    all_participantes = []
+    for participante_Evento in participantes_Evento:
+        nombre = participante_Evento.usuario.nombre
+        cantidad = participante_Evento.num_participantes_por_usuario
+        participante = {"nombre":nombre, "cantidad":cantidad}
+        all_participantes.append(participante)
+    evento_serialized = evento.serialize()
+    evento_serialized.update({'participantes': all_participantes})
     if evento is None:
         raise APIException("Evento no encontrado")
-    return jsonify({'message': 'Informacion detalle de evento solicitada exitosamente', 'data': evento.serialize()})
-
-# Unirse a evento ya creado, usuario añadido a tabla participantes_evento
-
-
+    return jsonify({'message':'Informacion detalle de evento solicitada exitosamente','data':evento_serialized})
+    
+#Unirse a evento ya creado, usuario añadido a tabla participantes_evento
 @api.route('/unirse/evento/<int:evento_id>', methods=['POST'])
 @jwt_required()
 def unirse_a_evento(evento_id):
@@ -318,11 +333,17 @@ def unirse_a_evento(evento_id):
 @jwt_required()
 def retirarse_de_evento(evento_id):
     usuario_id = obtener_usuario_id()
-    participante_evento = Participantes_Evento.query.filter_by(
-        usuario_id=usuario_id, evento_id=evento_id).first()
+    evento = Evento.query.filter_by(id=evento_id).first()
+    participante_evento = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_evento == None:
         raise APIException('Usuario NO registrado en evento')
     db.session.delete(participante_evento)
+    total_participantes = 0
+    participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
+    for participante_evento in participantes_evento_aux:
+        total_participantes += participante_evento.num_participantes_por_usuario
+    if total_participantes < evento.maximo_participantes:
+        evento.estado = ESTADO_DISPONIBLE     
     db.session.commit()
     return jsonify({
         'message': "Se retiró exitosamente la participación de este usuario al evento"

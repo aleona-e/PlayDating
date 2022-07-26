@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import propTypes from "prop-types";
+import { retirarseDeEvento } from "../api.js";
 import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
@@ -19,6 +20,20 @@ export const CardEvento = (props) => {
       }
     );
     const json = await response.json();
+  };
+  const onRetirarse = () => {
+    retirarseDeEvento(eventoId)
+      .then((data) => {
+        setTextoModal(
+          "Se ha retirado la participación del usuario a este evento."
+        );
+        setModal(true);
+      })
+      .catch((error) => {
+        const errorStr = JSON.stringify(error);
+        setTextoModal(error.message);
+        setModal(true);
+      });
   };
 
   let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
@@ -89,34 +104,61 @@ export const CardEvento = (props) => {
                   Cupos disponibles: {props.cupos_disponibles}
                 </p>
                 <p className="card-text">{props.estado}</p>
-                {/* <p className="card-text"> EDAD MAX Y MIN
-                {props.edadMaxima}
-                {props.edadMinima}
-                </p> */}
 
                 <div className="card-footer bg-body">
-                  <Link to={props.route}>
-                    <button
-                      id="buttonVerDetalles"
-                      href="#"
-                      className="btn"
-                      role="button"
-                    >
-                      Ver Detalles
-                      {/* {props.boton1} */}
-                    </button>
-                  </Link>
-
-                  <button
-                    id="buttonCancelarEvento"
-                    onClick={onCancel}
-                    href="#"
-                    className="btn m-1"
-                    role="button"
-                  >
-                    Cancelar Evento
-                    {/* {props.boton2} */}
-                  </button>
+                  {props.participantes.filter(participante=>participante.id == localStorage.getItem("usuario")).first() ? (
+                    <div>
+                      <Link to="/unirseEvento">
+                        <button
+                          href="#"
+                          className="btn btn-primary"
+                          role="button"
+                        >
+                          Ver Detalles
+                        </button>
+                      </Link>
+                      <div className="text-center">
+                        <button
+                          className="btn btn-danger"
+                          onClick={onRetirarse}
+                        >
+                          Retirarse del evento
+                        </button>
+                      </div>
+                    </div>
+                  ) : props.creador == store.usuario_id ? (
+                    <div>
+                      <Link to={props.route}>
+                        <button
+                          href="#"
+                          className="btn btn-primary"
+                          role="button"
+                        >
+                          Ver Detalles
+                        </button>
+                      </Link>
+                      <button
+                        onClick={onCancel}
+                        href="#"
+                        className="btn btn-danger m-1"
+                        role="button"
+                      >
+                        Cancelar Evento
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <Link to={props.route}>
+                        <button
+                          href="#"
+                          className="btn btn-primary"
+                          role="button"
+                        >
+                          Ver Detalles
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

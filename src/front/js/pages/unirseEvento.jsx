@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import DateTimePicker from "react-datetime-picker";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
-import { HOSTNAME } from "../component/config";
 import { unirseEvento } from "../api.js";
-import { object } from "prop-types";
 import { Navbar } from "../component/navbar.jsx";
 import moment from "moment";
 
@@ -54,6 +50,22 @@ export const UnirseEvento = (props) => {
     });
     return opcionesSelect;
   };
+  const participantesEvento = () => {
+    let listaParticipantes = eventoEscojido.participantes;
+    let participantes = []
+    if (listaParticipantes.length === 0){
+      return <li>Aún no hay participantes</li>
+    } else {
+    participantes = listaParticipantes.map((participante, index) => {
+      return (
+        <li key={index}>
+          {participante.nombre} con {participante.cantidad} participante/s
+        </li>
+      );
+    });
+  }
+    return participantes;
+  };
 
   const updateSelect = (e) => {
     const value = e.target.value;
@@ -90,8 +102,8 @@ export const UnirseEvento = (props) => {
     <>
       <Navbar />
       <div className="container">
-        <div className="mt-3">
-          <h1 >Detalles de este evento</h1>
+        <div className="mt-3 mb-5">
+          <h2 id="h2CrearEvento">Detalles de este evento</h2>
           <hr></hr>
           <div>
             <div className="container">
@@ -103,15 +115,36 @@ export const UnirseEvento = (props) => {
                   />
                 </div>
                 <div className="col mt-3">
-                  <h5>{eventoEscojido.actividad.nombre}</h5>
+                  <h5><strong>{eventoEscojido.actividad.nombre}</strong></h5>
                   <hr></hr>
-                  <p>{date}</p>
-                  <p>Dirección: {eventoEscojido.direccion}</p>
-                  <p>Creador: {eventoEscojido.creador.nombre}</p>
-                  {/* <p>Actividad: {eventoEscojido.actividad.nombre}</p> */}
-                  <p>Descripción: {eventoEscojido.actividad.descripcion}</p>
-
+                  <p>
+                    <strong>Fecha:</strong> {eventoEscojido.fecha_y_hora}
+                  </p>
+                  <p>
+                  <strong>Creador:</strong>{" "}
+                    {eventoEscojido.creador.nombre}
+                  </p>
+                  <p>
+                  <strong>Descripción:</strong>{" "}
+                    {eventoEscojido.actividad.descripcion}
+                                     
+                  </p>
+                  <p>
+                    <strong>Dirección:</strong> {eventoEscojido.direccion}
+                  </p>
+                  <div className="row">
+                    <div className="col-4">
+                      <p>
+                        <strong> Se ha unido:</strong>
+                      </p>
+                    </div>
+                    <div className="col-8">
+                      <ul>{participantesEvento()}</ul>
+                    </div>
+                  </div>
                   {eventoEscojido.estado != "Lleno" ? (
+                    <div>
+                      <hr></hr>
                     <div className="input-group">
                       <select
                         className="form-select"
@@ -133,29 +166,37 @@ export const UnirseEvento = (props) => {
                         Unirse
                       </button>
                     </div>
+                    </div>
                   ) : (
+                    <div>
+                    <hr></hr>
                     <p>
                       <strong>
                         No hay cupos disponibles para unirse a este evento
                       </strong>
                     </p>
+                    </div>
                   )}
                 </div>
               </div>
               <hr></hr>
               <br></br>
               <div className="row row-cols-5 text-center">
-                <p>Estado: {eventoEscojido.estado}</p>
                 <p>
-                  {" "}
-                  Tipo de actividad:{" "}
+                  Estado:{eventoEscojido.estado}
+                </p>
+                <p>
+                  Tipo de actividad: 
                   {eventoEscojido.actividad.tipo_de_actividad}
                 </p>
                 <p>
-                  Cantidad máxima de participantes:{" "}
+                  Cantidad máxima de participantes: 
                   {eventoEscojido.maximo_participantes}
                 </p>
-                <p>Cupos disponibles: {eventoEscojido.cupos_disponibles}</p>
+                <p>
+                  Cupos disponibles:{" "}
+                  {eventoEscojido.cupos_disponibles}
+                </p>
                 <p>
                   Rango de edad: {eventoEscojido.edad_minima} -{" "}
                   {eventoEscojido.edad_maxima}
@@ -165,7 +206,6 @@ export const UnirseEvento = (props) => {
             </div>
           </div>
         </div>
-
         {/* ................................MODAL....................................................... */}
         <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
       centered>

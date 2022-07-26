@@ -48,6 +48,7 @@ export const Eventos = () => {
                 <div key={index}>
                   <CardEvento
                     evento_id={evento.id}
+                    participantes={evento.participantes}
                     creador={evento.creador.id}
                     name={evento.actividad.nombre}
                     src={evento.actividad.imagen}
