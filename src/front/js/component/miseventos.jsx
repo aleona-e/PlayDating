@@ -90,7 +90,7 @@ export const MisEventos = () => {
 
 <div className="container">
         <div className="text-center">
-        <h1> Mis eventos</h1>
+        <h1> MIS EVENTOS</h1>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
           {eventos.map((evento, index) => {

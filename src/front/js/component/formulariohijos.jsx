@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../../styles/miPerfil.css";
 
 const FormularioHijos = () => {
 	const [hijos, cambiarhijos] = useState([]);
@@ -50,9 +50,10 @@ const FormularioHijos = () => {
 					className="form-control"
 				/>
 				<button
-					className="btn btn-info button"
+				id="buttonAñadirHijos"
+					className="btn"
 					onClick={guardarNombre}>
-					añadir
+					Añadir
 				</button>
 			</div>
 			<div className="row d-flex justify-content-center align-items-center">
@@ -63,7 +64,8 @@ const FormularioHijos = () => {
 						{nombrehijos.label}
 
 						<button
-							className="btn btn-danger"
+						id="buttonEliminarHijo"
+							className="btn"
 							onClick={() =>
 								eliminarhijos(index)
 							}>

@@ -1,7 +1,26 @@
-.ocultarConToken {
-    display: none;
-  }
+.navbar{
+  background-color:rgba(255, 189, 89, 0.237);
+}
 
+.ocultarConToken {
+  display: none;
+}
 .ocultarSinToken {
-    display: none;
-  }
+  display: none;
+}
+#buttonCerrarSesion {
+  background-color: rgb(255, 87, 87);
+  color: white;
+}
+#buttonMiPerfil {
+  background-color: rgb(3, 152, 158);
+  color: white;
+}
+#LinkNavbar {
+  color:rgb(16, 60, 118);
+  font-size: 25px;
+}
+#link {
+  text-decoration: none;
+  color: rgb(255, 87, 87);
+}

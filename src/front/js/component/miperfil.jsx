@@ -1,6 +1,6 @@
 import { resetWarningCache } from "prop-types";
 import React, { useEffect, useState, useContext } from "react";
-import "../../styles/register.css";
+import "../../styles/miPerfil.css";
 import { HOSTNAME } from "../component/config.js";
 import FormularioHijos from "./formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
@@ -10,13 +10,12 @@ import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
 
 export const MiPerfil = () => {
-
   const [numero_hijos, setNumero_hijos] = useState(0);
-  const [provincia, setProvincia] = useState("hola");
- 
-  const { store, actions } = useContext(Context)
+  const [provincia, setProvincia] = useState("");
+
+  const { store, actions } = useContext(Context);
   const [datos, obtenerDatos] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // OBTENER DATOS USUARIO
   useEffect(() => {
@@ -31,48 +30,38 @@ export const MiPerfil = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-
         console.log("soy la data", data.data);
-        obtenerDatos(data.data)
-
+        obtenerDatos(data.data);
       })
       .catch((e) => {
         console.error(e);
         navigate(`/zonaprivada`);
-
       });
-
   }, []);
 
-
-
-  // MODIFICAR DATOS 
-
+  // MODIFICAR DATOS
 
   const updateText = (e, setState) => {
-    // if (value == datos.numero_hijos) 
-    
+    // if (value == datos.numero_hijos)
+
     const value = e.target.value;
-    console.log("soy la e: ",e)
-    console.log("soy el numero de hijos: ", datos.numero_hijos )
-   
-    console.log("soy el nuevo value:", value)
+    console.log("soy la e: ", e);
+    console.log("soy el numero de hijos: ", datos.numero_hijos);
+
+    console.log("soy el nuevo value:", value);
     setState(value);
   };
 
   const onSave = async (e) => {
-   
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
-
       numero_hijos,
-      provincia
+      provincia,
     });
 
     await fetch(HOSTNAME + "/perfil/modificar", {
@@ -83,15 +72,12 @@ export const MiPerfil = () => {
       },
       body,
     });
-
   };
 
   const guardarnumerohijos = async (e) => {
-   
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
-
-      numero_hijos
+      numero_hijos,
     });
 
     await fetch(HOSTNAME + "/perfil/modificar", {
@@ -102,54 +88,71 @@ export const MiPerfil = () => {
       },
       body,
     });
-
   };
 
-return (
-  <>
-  <Navbar/>
-    <div className="container" id="containerRegister">
-      <div className="row g-3">
-        <div className="col-md-12">
-          <label className="form-label">Nombre Completo: </label>
-
-          <h5>{datos.nombre}</h5>
-        </div>
-
-        <div className="row g-3">
+  return (
+    <>
+      <Navbar />
+      <div className="container" id="containerPerfil">
+        <div className="row g-2">
           <div className="col-md-6">
-            <label className="form-label">Email</label>
-            {/* <h5>{datos.email}</h5> */}
-            <h5>{datos.provincia}</h5>
+            <label className="form-label">Nombre Completo: </label>
+            <span>{datos.nombre}</span>
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Email: </label>
+            <span>{datos.provincia}</span>
+            <span>{datos.email}</span>
           </div>
 
+          <div className="col-md-6">
+            <label className="form-label">Lista Hijos</label>
+            <div>
+              <FormularioHijos />
+            </div>
+          </div>
           {/* <div className="col-md-6">
-            <label className="form-label">Hijos</label>
-            <h5>{datos.numero_hijos}</h5>
+            <label className="form-label">Numero Hijos</label>
+            <input
+              onChange={(e) => updateText(e, setNumero_hijos)}
+              // placeholder= {datos.numero_hijos}
+              // value={numero_hijos}
+              value={datos.numero_hijos}
+              // defaultValue={datos.numero_hijos}
+              type="number"
+              className="form-control"
+            ></input>
+            <button
+              className="btn btn-info button"
+              onClick={guardarnumerohijos}
+            >
+              Guardar
+            </button>
           </div> */}
-        </div>
 
-        <div className="col-md-6">
-          <label className="form-label">Numero Hijos</label>
-          <input
-            onChange={(e) => updateText(e, setNumero_hijos)}
-            // placeholder= {datos.numero_hijos}
-            // value={numero_hijos}
-            value={datos.numero_hijos}
-            // defaultValue={datos.numero_hijos}
-            type="number"
-            className="form-control"
+          {/* -------------------------------------------------------------------------- */}
+          <div className="col-md-6">
+            <label className="form-label">Numero Hijos </label>
+            <div className="input-group mb-3">
+              <input
+                id="inputGuardarhijos"
+                onChange={(e) => updateText(e, setNumero_hijos)}
+                value={datos.numero_hijos}
+                type="number"
+                className="form-control"
+              ></input>
+              <button
+                id="buttonguardarNumHijos"
+                onClick={guardarnumerohijos}
+                className="btn"
+                type="button"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
 
-          ></input><button className="btn btn-info button" onClick={guardarnumerohijos} >Guardar</button>
-        </div>
-
-        <div className="col-md-6">
-          <label className="form-label">Lista Hijos</label>
-          <div><FormularioHijos /></div>
-        </div>
-
-
-         <div className="col-md-4">
+          <div className="col-md-4">
             <label className="form-label">Provincia</label>
             <select
               onChange={(e) => updateText(e, setProvincia)}
@@ -158,8 +161,7 @@ return (
               // defaultValue={datos.provincia}
               className="form-select"
             >
-              
-              <option defaultValue= {datos.provincia}>{datos.provincia}</option> 
+              <option defaultValue={datos.provincia}>{datos.provincia}</option>
               <option value="Álava">Álava</option>
               <option value="Albacete">Albacete</option>
               <option value="Alicante">Alicante</option>
@@ -201,7 +203,9 @@ return (
               <option value="Sevilla">Sevilla</option>
               <option value="Soria">Soria</option>
               <option value="Tarragona">Tarragona</option>
-              <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+              <option value="Santa Cruz de Tenerife">
+                Santa Cruz de Tenerife
+              </option>
               <option value="Teruel">Teruel</option>
               <option value="Toledo">Toledo</option>
               <option value="Valencia">Valencia</option>
@@ -211,21 +215,21 @@ return (
               <option value="Zaragoza">Zaragoza</option>
             </select>
           </div>
+          {/* -------------------------------------------------------------------------- */}
 
-        <div className="col-12">
-          <button
-            // disabled={deshabilitado}
-            onClick={onSave}
-            id="buttonRegister"
-            type="submit"
-            className="btn btn-info button"
-          >
-            Save
-          </button>
+          <div className="col-12">
+            <button
+              // disabled={deshabilitado}
+              onClick={onSave}
+              id="buttonPerfil"
+              type="submit"
+              className="btn"
+            >
+              Guardar
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-  </>
-);
+    </>
+  );
 };

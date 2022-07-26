@@ -3,7 +3,6 @@ import { Context } from "../store/appContext";
 import { obtenerActividades } from "../api.js";
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
-import { ImagenesCarrusel } from "../component/ImagenesCarrusel.jsx";
 import { Navbar } from "../component/navbar.jsx";
 
 export const Home = () => {
@@ -16,26 +15,25 @@ export const Home = () => {
       actions.agregarActividades(actividades);
       let cardsActividades = actividades.map((actividad, index) => {
         return (
-            <Card
-              name={actividad.nombre}
-              src={actividad.imagen}
-              text={actividad.descripcion}
-              tipo={actividad.tipo_de_actividad}
-              button=" Logeate y unete! "
-              route={"login"}
-            />
+          <Card
+            name={actividad.nombre}
+            src={actividad.imagen}
+            text={actividad.descripcion}
+            tipo={actividad.tipo_de_actividad}
+            button=" Logeate y unete! "
+            route={"login"}
+          />
         );
       });
-      // console.log("actividadID:", actividades[0])
-      // console.log("actividadID:", actividades)
+
       setActividadesCards(cardsActividades);
     });
   }, []);
 
   return (
     <>
-      {/* Forma 1 */}
-      <Navbar/>
+
+      <Navbar />
       <div className="container ">
         <div
           id="carouselExampleInterval"
@@ -100,47 +98,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* --------
-    Forma2 */}
 
-      {/* <div className="container">
-        <div className="text-center mt-5">
-          <div
-            id="carouselExampleInterval"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div className="carousel-inner">
-              <ImagenesCarrusel/>
-            </div>
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleInterval"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleInterval"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div>
-        </div>
-      </div>  */}
-      {/* ---- */}
     </>
   );
 };
