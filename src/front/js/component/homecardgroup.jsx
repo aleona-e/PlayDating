@@ -7,7 +7,7 @@ import { Navbar } from "../component/navbar.jsx";
 export const HomeCardGroup = () => {
     return (
         <>
-        
+        <Navbar/>
         <div className="card-group mt-4">
         
                 <Card

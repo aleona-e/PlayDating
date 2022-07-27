@@ -4,23 +4,39 @@ import { obtenerActividades } from "../api.js";
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
 import { Navbar } from "../component/navbar.jsx";
+import { Link } from "react-router-dom";
+import { config } from "../component/config.js";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
   const [actividadesCards, setActividadesCards] = useState([]);
+  const [ocultarConToken, setOcultarConToken] = useState("ocultarConToken");
+  const [ocultarSinToken, setOcultarSinToken] = useState("ocultarSinToken");
 
   useEffect(() => {
+
+    const token = localStorage.getItem(config.jwt.nameToken);
+    if (!token) {
+      setOcultarSinToken("ocultarSinToken");
+      setOcultarConToken("")
+    }
+
+    else {
+      setOcultarSinToken("");
+    }
+
     obtenerActividades().then((data) => {
       const actividades = data.data;
       actions.agregarActividades(actividades);
       let cardsActividades = actividades.map((actividad, index) => {
         return (
-            <Card
-              name={actividad.nombre}
-              src={actividad.imagen}
-              text={actividad.descripcion}
+          <Card
+            forzarHeight={false}
+            name={actividad.nombre}
+            src={actividad.imagen}
+            text={actividad.descripcion}
 
-            />
+          />
         );
       });
 
@@ -30,8 +46,8 @@ export const Home = () => {
 
   return (
     <>
-      
-      <Navbar/>
+
+      <Navbar />
       <div className="container ">
         <div
           id="carouselExampleInterval"
@@ -95,9 +111,26 @@ export const Home = () => {
           </button>
         </div>
       </div>
-<button className="btn btn-info button"> </button>
 
-      
+      <div className="text-center mb-5">
+        <Link to="/login">
+          <div className="d-grid gap-2 col-6 mx-auto">
+            <button className={"btn btn-primary btn-lg "  + ocultarConToken}>
+              Entra para ver más!
+            </button>
+          </div>
+        </Link>
+      </div>
+
+      <div className="text-center mb-5">
+        <Link to="/login">
+          <div className="d-grid gap-2 col-6 mx-auto">
+            <button className={"btn btn-primary btn-lg "  + ocultarSinToken}>
+              Crear evento
+            </button>
+          </div>
+        </Link>
+      </div>
     </>
   );
 };
