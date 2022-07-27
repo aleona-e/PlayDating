@@ -46,8 +46,8 @@ export const Home = () => {
 
   return (
     <>
-      
-      <Navbar/>
+
+      <Navbar />
       <div className="container ">
         <div className="my-5">
           <div
