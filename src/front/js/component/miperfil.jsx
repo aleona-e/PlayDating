@@ -10,12 +10,13 @@ import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
 
 export const MiPerfil = () => {
-  const [numero_hijos, setNumero_hijos] = useState(0);
+
+  const [numero_hijos, setNumero_hijos] = useState(1);
   const [provincia, setProvincia] = useState("");
 
-  const { store, actions } = useContext(Context);
-  const [datos, obtenerDatos] = useState([]);
-  const navigate = useNavigate();
+  const { store, actions } = useContext(Context)
+  const [datos, obtenerDatos] = useState({});
+  const navigate = useNavigate()
 
   // OBTENER DATOS USUARIO
   useEffect(() => {
@@ -30,6 +31,7 @@ export const MiPerfil = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+
     })
       .then((res) => {
         return res.json();
@@ -37,23 +39,28 @@ export const MiPerfil = () => {
       .then((data) => {
         console.log("soy la data", data.data);
         obtenerDatos(data.data);
+        setNumero_hijos(data.data.numero_hijos);
+        setProvincia(data.data.provincia);
       })
       .catch((e) => {
         console.error(e);
         navigate(`/zonaprivada`);
+
       });
+
   }, []);
 
-  // MODIFICAR DATOS
+
+
+  // MODIFICAR DATOS 
+
 
   const updateText = (e, setState) => {
-    // if (value == datos.numero_hijos)
-
     const value = e.target.value;
-    console.log("soy la e: ", e);
-    console.log("soy el numero de hijos: ", datos.numero_hijos);
 
-    console.log("soy el nuevo value:", value);
+    console.log("soy el numero de hijos: ", datos.numero_hijos)
+
+    console.log("soy el nuevo value:", value)
     setState(value);
   };
 
@@ -61,7 +68,7 @@ export const MiPerfil = () => {
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
       numero_hijos,
-      provincia,
+      provincia
     });
 
     const res = await fetch(HOSTNAME + "/perfil/modificar", {
@@ -72,22 +79,25 @@ export const MiPerfil = () => {
       },
       body,
     });
-  };
 
-  const guardarnumerohijos = async (e) => {
-    const token = localStorage.getItem(config.jwt.nameToken);
-    const body = JSON.stringify({
-      numero_hijos,
-    });
+    if (res.status !== 200) {
+      alert("No se pudo actualizar la data"); // TODO: check it.
+      return;
+    }
 
-    await fetch(HOSTNAME + "/perfil/modificar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body,
-    });
+    else if (res.status == 200) {
+      alert("se actualizaron los campos correctamente"); // TODO: check it.
+      return;
+    }
+
+    const json = await res.json();
+    const data = json.data;
+    obtenerDatos({
+      ...datos,
+      provincia: data.provincia,
+      numero_hijos: data.numero_hijos,
+    })
+
   };
 
   return (
@@ -134,18 +144,10 @@ export const MiPerfil = () => {
               <input
                 id="inputGuardarhijos"
                 onChange={(e) => updateText(e, setNumero_hijos)}
-                value={datos.numero_hijos}
+                defaultValue={datos.numero_hijos}
                 type="number"
                 className="form-control"
               ></input>
-              <button
-                id="buttonguardarNumHijos"
-                onClick={guardarnumerohijos}
-                className="btn"
-                type="button"
-              >
-                Guardar
-              </button>
             </div>
           </div>
           <div className="col-md-4">
@@ -214,7 +216,7 @@ export const MiPerfil = () => {
           {/* -------------------------------------------------------------------------- */}
           <div className="col-12">
             <button
-              // disabled={deshabilitado}
+              
               onClick={onSave}
               id="buttonPerfil"
               type="submit"
@@ -227,4 +229,4 @@ export const MiPerfil = () => {
       </div>
     </>
   );
-        }
+};
