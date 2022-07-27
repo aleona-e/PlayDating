@@ -227,4 +227,4 @@ export const MiPerfil = () => {
       </div>
     </>
   );
-};
+        }

@@ -46,8 +46,8 @@ export const Home = () => {
 
   return (
     <>
-      {/* Forma 1 */}
-      <Navbar />
+      
+      <Navbar/>
       <div className="container ">
         <div className="my-5">
           <div
