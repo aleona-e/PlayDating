@@ -64,7 +64,7 @@ export const MiPerfil = () => {
       provincia,
     });
 
-    await fetch(HOSTNAME + "/perfil/modificar", {
+    const res = await fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,10 +101,8 @@ export const MiPerfil = () => {
           </div>
           <div className="col-md-6">
             <label className="form-label">Email: </label>
-            <span>{datos.provincia}</span>
             <span>{datos.email}</span>
           </div>
-
           <div className="col-md-6">
             <label className="form-label">Lista Hijos</label>
             <div>
@@ -129,7 +127,6 @@ export const MiPerfil = () => {
               Guardar
             </button>
           </div> */}
-
           {/* -------------------------------------------------------------------------- */}
           <div className="col-md-6">
             <label className="form-label">Numero Hijos </label>
@@ -151,7 +148,6 @@ export const MiPerfil = () => {
               </button>
             </div>
           </div>
-
           <div className="col-md-4">
             <label className="form-label">Provincia</label>
             <select
@@ -216,7 +212,6 @@ export const MiPerfil = () => {
             </select>
           </div>
           {/* -------------------------------------------------------------------------- */}
-
           <div className="col-12">
             <button
               // disabled={deshabilitado}
@@ -232,4 +227,4 @@ export const MiPerfil = () => {
       </div>
     </>
   );
-};
+        }

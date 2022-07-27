@@ -15,14 +15,12 @@ export const Home = () => {
       actions.agregarActividades(actividades);
       let cardsActividades = actividades.map((actividad, index) => {
         return (
-          <Card
-            name={actividad.nombre}
-            src={actividad.imagen}
-            text={actividad.descripcion}
-            tipo={actividad.tipo_de_actividad}
-            button=" Logeate y unete! "
-            route={"login"}
-          />
+            <Card
+              name={actividad.nombre}
+              src={actividad.imagen}
+              text={actividad.descripcion}
+
+            />
         );
       });
 
@@ -32,8 +30,8 @@ export const Home = () => {
 
   return (
     <>
-
-      <Navbar />
+      
+      <Navbar/>
       <div className="container ">
         <div
           id="carouselExampleInterval"
@@ -97,8 +95,9 @@ export const Home = () => {
           </button>
         </div>
       </div>
+<button className="btn btn-info button"> </button>
 
-
+      
     </>
   );
 };

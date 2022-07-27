@@ -31,7 +31,15 @@ export const Login = (props) => {
           Authorization: `Bearer ${localStorage.token}`,
         },
         body,
-      });
+      })
+      
+      console.log({ resp })
+      if (resp.status !== 200) {
+        // TODO: check it.
+        alert('Usuario no existe!!')
+        return;
+      }
+
       const data = await resp.json();
       localStorage.setItem("token", data.data);
       // console.log(data)
@@ -48,7 +56,7 @@ export const Login = (props) => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="container" id="containerLogin">
         <form id="inputLogin">
           <div className="row mb-3">
