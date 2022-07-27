@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 db = SQLAlchemy()
 
@@ -76,6 +77,27 @@ class Evento(db.Model):
     def __repr__(self):
         return '<Evento %r>' % self.id
 
+    @hybrid_property
+    def participantes(self):
+        all_participantes = []
+        participantes_evento = Participantes_Evento.query.filter_by(evento_id=self.id).all()
+        for participante_evento in participantes_evento:
+            nombre = participante_evento.usuario.nombre
+            cantidad = participante_evento.num_participantes_por_usuario
+            participante_id = participante_evento.usuario.id
+            participante = {"nombre":nombre, "cantidad":cantidad, "id":participante_id}
+            all_participantes.append(participante)
+        return all_participantes
+
+    @hybrid_property
+    def cupos_disponibles(self):
+        total_cupos_disponibles = self.maximo_participantes
+        participantes_evento = Participantes_Evento.query.filter_by(evento_id=self.id).all()    
+        for participante_evento in participantes_evento:
+            cantidad_participantes = participante_evento.num_participantes_por_usuario
+            total_cupos_disponibles -= cantidad_participantes
+        return total_cupos_disponibles
+
     def serialize(self):
         return {
             "id": self.id,
@@ -87,7 +109,9 @@ class Evento(db.Model):
             "maximo_participantes": self.maximo_participantes,
             "direccion": self.direccion,
             "estado": self.estado,
-            "actividad": self.actividad.serialize()
+            "actividad": self.actividad.serialize(),
+            "participantes": self.participantes,
+            "cupos_disponibles": self.cupos_disponibles
             }
 
 class Participantes_Evento(db.Model):

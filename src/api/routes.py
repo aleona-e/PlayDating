@@ -27,8 +27,6 @@ CORS(api)
 CODE = "utf-8"
 email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
-# Comentar/descomentar los decoradores de jwt_required para probar
-
 # Obtener id de usuairo a partir de token jwt (requiere token)
 
 
@@ -48,6 +46,8 @@ def validacion_email_password(email, password):
         raise APIException("Formato de email invalido")
     if password == "":
         raise APIException("Campo password vacio")
+
+
 # Funciones para validar desde el back campos de registro y login
 
 
@@ -59,6 +59,8 @@ def validacion_campos_registro(email, password, nombre, provincia, numero_hijos)
         raise APIException("Campo provincia vacio")
     if numero_hijos == "" or numero_hijos == 0:
         raise APIException("Campo numero_hijos vacio o invalido")
+
+
 # Funciones para validar desde el back campos de registro y login
 
 
@@ -237,44 +239,26 @@ def validacion_creacion_evento(creador, estado, actividad):
     if creador == None:
         raise APIException('Usuario no existe')
 
-# Obtener eventos en provincia especifica  con la provincia id que sale a partir del registro del usuario y ligarlo a la tabla provincias
+
+# Obtener eventos en provincia especifica  covincias
 
 
 @api.route('/eventos', methods=['GET'])
 @jwt_required()
 def get_eventos():
+    all_eventos = []
     creador_id = obtener_usuario_id()
     creador = Usuario.query.filter_by(id=creador_id).first()
-    usuarios = Usuario.query.filter_by(provincia=creador.provincia).all()
-    all_eventos = []
-    all_cupos_disponibles = []
-    all_participantes = []
-
+    usuarios = Usuario.query.filter_by(provincia=creador.provincia).all()    
     for usuario in usuarios:
         eventos = Evento.query.filter_by(creador_id=usuario.id).all()
         for evento in eventos:
-            total_participantes = 0
-            cupos_disponibles = 0
-            participantes_por_evento = []
-            participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento.id).all()
-            for participante_evento in participantes_evento_aux:
-                nombre = participante_evento.usuario.nombre
-                cantidad = participante_evento.num_participantes_por_usuario
-                participante_id = participante_evento.usuario.id
-                participante = {"nombre":nombre, "cantidad":cantidad, "id":participante_id}
-                participantes_por_evento.append(participante)
-                total_participantes += cantidad
-            cupos_disponibles = evento.maximo_participantes - total_participantes
             all_eventos.append(evento)
-            all_cupos_disponibles.append(cupos_disponibles)
-            all_participantes.append(participantes_por_evento)
-    all_eventos_serialized = []
-    for index, evento in enumerate(all_eventos):
-        evento_serialized = evento.serialize()
-        evento_serialized.update({'cupos_disponibles': all_cupos_disponibles[index]})
-        evento_serialized.update({'participantes': all_participantes[index]})
-        all_eventos_serialized.append(evento_serialized)
-    return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos_serialized})
+    all_eventos = list(map(lambda evento: evento.serialize(), all_eventos))
+    if len(all_eventos) == 0:
+        raise APIException("No hay eventos creados")
+    return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos})                
+    
 
 # Obtener informacion detalle de evento por id
 
@@ -297,6 +281,8 @@ def get_evento(evento_id):
     return jsonify({'message':'Informacion detalle de evento solicitada exitosamente','data':evento_serialized})
     
 #Unirse a evento ya creado, usuario añadido a tabla participantes_evento
+
+
 @api.route('/unirse/evento/<int:evento_id>', methods=['POST'])
 @jwt_required()
 def unirse_a_evento(evento_id):
@@ -354,7 +340,7 @@ def retirarse_de_evento(evento_id):
 
 @api.route('/eventoscreados/usuario', methods=['GET'])
 @jwt_required()
-def get_eventos_creados_usuario():
+def get_eventos_creados_usuario():    
     usuario_id = obtener_usuario_id()
     eventos = Evento.query.filter_by(creador_id=usuario_id).all()
     eventos_creados = list(map(lambda evento: evento.serialize(), eventos))
@@ -392,7 +378,8 @@ def get_eventos_usuario():
         eventos = Evento.query.filter_by(
             id=participante_evento.evento_id).all()
         for evento in eventos:
-            all_eventos_usuario.append(evento)
+            if not evento.creador.id == participante_evento.usuario_id:
+                all_eventos_usuario.append(evento)
     if len(all_eventos_usuario) == 0:
         return jsonify({'message': 'El usuario no se ha unido a ningún evento'})
     all_eventos_serialized = list(

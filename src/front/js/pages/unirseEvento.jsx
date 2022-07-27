@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../../styles/crearEvento.css";
-import { unirseEvento } from "../api.js";
+import { unirseEvento, retirarseDeEvento } from "../api.js";
 import { Navbar } from "../component/navbar.jsx";
 import moment from "moment";
 
@@ -31,8 +31,9 @@ export const UnirseEvento = (props) => {
   //modal de unirse a evento
   const [modal, setModal] = useState(false);
   const [textoModal, setTextoModal] = useState("");
+  const [tituloModal, setTituloModal] = useState("");
 
-  //mostrando opciones de selecion basado en cupos disponibles
+  //mostrar opciones de selecion basado en cupos disponibles
   const llenarOpcionesSelect = () => {
     let cuposDisponibles = eventoEscojido.cupos_disponibles;
     let cupos = [];
@@ -50,26 +51,106 @@ export const UnirseEvento = (props) => {
     });
     return opcionesSelect;
   };
-  const participantesEvento = () => {
-    let listaParticipantes = eventoEscojido.participantes;
-    let participantes = []
-    if (listaParticipantes.length === 0){
-      return <li>Aún no hay participantes</li>
-    } else {
-    participantes = listaParticipantes.map((participante, index) => {
-      return (
-        <li key={index}>
-          {participante.nombre} con {participante.cantidad} participante/s
-        </li>
-      );
-    });
-  }
-    return participantes;
-  };
 
   const updateSelect = (e) => {
     const value = e.target.value;
     setNumParticipantesPorUsuario(value);
+  };
+
+  const participantesEvento = () => {
+    let listaParticipantes = eventoEscojido.participantes;
+    let participantes = [];
+    if (listaParticipantes.length === 0) {
+      return <li>Aún no hay participantes</li>;
+    } else {
+      participantes = listaParticipantes.map((participante, index) => {
+        if (participante.id == localStorage.getItem("usuario")) {
+          return (
+            <li key={index}>
+              Te has unido con {participante.cantidad} participante/s
+            </li>
+          );
+        } else {
+          return (
+            <li key={index}>
+              {participante.nombre} con {participante.cantidad} participante/s
+            </li>
+          );
+        }
+      });
+    }
+    return participantes;
+  };
+  const comprobarUsuarioEnEvento = () => {
+    let usuarioEnEvento = eventoEscojido.participantes.find(
+      (participante) => participante.id == localStorage.getItem("usuario")
+    );
+    return usuarioEnEvento != undefined;
+  };
+
+  const noHaycupos = () => {
+    return (
+      <div>
+        <hr></hr>
+        <p>
+          <strong>No hay cupos disponibles para unirse a este evento</strong>
+        </p>
+      </div>
+    );
+  };
+
+  const unirse = () => {
+    return (
+      <div>
+        <hr></hr>
+        <div className="input-group">
+          <select
+            className="form-select"
+            onChange={updateSelect}
+            value={numParticipantesPorUsuario}
+          >
+            <option value="Añadir participantes">Añadir participantes</option>
+            {llenarOpcionesSelect()}
+          </select>
+          <button
+            id="buttonAñadirse"
+            className="btn"
+            disabled={deshabilitado}
+            onClick={onUnirse}
+            type="submit"
+          >
+            Unirse
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const noHayCuposRetirarse = () => {
+    return (
+      <div>
+        {noHaycupos()}
+        {retirarse()}
+      </div>
+    );
+  };
+
+  const retirarse = () => {
+    return (
+      <div>
+        <hr></hr>
+        <button
+          id="buttonRetirarse"
+          className="btn btn-warning"
+          onClick={() => {
+            onRetirarse();
+          }}
+          type="submit"
+        >
+          Retirarse
+        </button>
+      </div>
+    );
   };
 
   useEffect(() => {
@@ -79,6 +160,22 @@ export const UnirseEvento = (props) => {
       setDeshabilitado(true);
     }
   });
+  const onRetirarse = () => {
+    retirarseDeEvento(eventoId)
+      .then((data) => {
+        setTextoModal(
+          "Se ha retirado la participación del usuario a este evento."
+        );
+        setTituloModal("Retirarme de este evento");
+        setModal(true);
+      })
+      .catch((error) => {
+        const errorStr = JSON.stringify(error);
+        setTextoModal(error.message);
+        setModal(true);
+        setTituloModal("Retirarme de este evento");
+      });
+  };
 
   const onUnirse = () => {
     unirseEvento(eventoId, numParticipantesPorUsuario)
@@ -86,6 +183,7 @@ export const UnirseEvento = (props) => {
         setTextoModal(
           "Se ha añadido la participación del usuario al evento con exito."
         );
+        setTituloModal("Unirme a este evento");
         setModal(true);
       })
       .catch((error) => {
@@ -93,16 +191,18 @@ export const UnirseEvento = (props) => {
         const errorStr = JSON.stringify(error);
         console.log(errorStr);
         setTextoModal(error.message);
+        setTituloModal("Unirme a este evento");
         setModal(true);
       });
   };
+
   let date = moment(eventoEscojido.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
   return (
     <>
       <Navbar />
       <div className="container">
-        <div className="mt-3 mb-5">
+        <div className="mt-5 mb-5">
           <h2 id="h2CrearEvento">Detalles de este evento</h2>
           <hr></hr>
           <div>
@@ -115,88 +215,60 @@ export const UnirseEvento = (props) => {
                   />
                 </div>
                 <div className="col mt-3">
-                  <h5><strong>{eventoEscojido.actividad.nombre}</strong></h5>
+                  <h5>
+                    <strong>{eventoEscojido.actividad.nombre}</strong>
+                  </h5>
                   <hr></hr>
                   <p>
                     <strong>Fecha:</strong> {eventoEscojido.fecha_y_hora}
                   </p>
                   <p>
-                  <strong>Creador:</strong>{" "}
-                    {eventoEscojido.creador.nombre}
+                    <strong>Creador:</strong> {eventoEscojido.creador.nombre}
                   </p>
                   <p>
-                  <strong>Descripción:</strong>{" "}
+                    <strong>Descripción:</strong>{" "}
                     {eventoEscojido.actividad.descripcion}
-                                     
                   </p>
                   <p>
                     <strong>Dirección:</strong> {eventoEscojido.direccion}
                   </p>
                   <div className="row">
-                    <div className="col-4">
+                    <div className="col-3">
                       <p>
                         <strong> Se ha unido:</strong>
                       </p>
                     </div>
-                    <div className="col-8">
+                    <div className="col-9">
                       <ul>{participantesEvento()}</ul>
                     </div>
                   </div>
-                  {eventoEscojido.estado != "Lleno" ? (
-                    <div>
-                      <hr></hr>
-                    <div className="input-group">
-                      <select
-                        className="form-select"
-                        onChange={updateSelect}
-                        value={numParticipantesPorUsuario}
-                      >
-                        <option value="Añadir participantes">
-                          Añadir participantes
-                        </option>
-                        {llenarOpcionesSelect()}
-                      </select>
-                      <button
-                      id="buttonAñadirse"
-                        className="btn"
-                        disabled={deshabilitado}
-                        onClick={onUnirse}
-                        type="submit"
-                      >
-                        Unirse
-                      </button>
-                    </div>
-                    </div>
-                  ) : (
-                    <div>
-                    <hr></hr>
-                    <p>
-                      <strong>
-                        No hay cupos disponibles para unirse a este evento
-                      </strong>
-                    </p>
-                    </div>
-                  )}
+                  {eventoEscojido.estado != "Lleno" &&
+                    comprobarUsuarioEnEvento() &&
+                    retirarse()}
+                  {eventoEscojido.estado != "Lleno" &&
+                    !comprobarUsuarioEnEvento() &&
+                    unirse()}
+                  {eventoEscojido.estado == "Lleno" &&
+                    comprobarUsuarioEnEvento() &&
+                    noHayCuposRetirarse()}
+                  {eventoEscojido.estado == "Lleno" &&
+                    !comprobarUsuarioEnEvento() &&
+                    noHaycupos()}
                 </div>
               </div>
               <hr></hr>
               <br></br>
               <div className="row row-cols-5 text-center">
+                <p>Estado: {eventoEscojido.estado}</p>
                 <p>
-                  Estado:{eventoEscojido.estado}
-                </p>
-                <p>
-                  Tipo de actividad: 
+                  Tipo de actividad:{" "}
                   {eventoEscojido.actividad.tipo_de_actividad}
                 </p>
                 <p>
-                  Cantidad máxima de participantes: 
+                  Cantidad máxima de participantes:{" "}
                   {eventoEscojido.maximo_participantes}
                 </p>
-                <p>
-                  Cupos disponibles:{" "}
-                  {eventoEscojido.cupos_disponibles}
-                </p>
+                <p>Cupos disponibles: {eventoEscojido.cupos_disponibles}</p>
                 <p>
                   Rango de edad: {eventoEscojido.edad_minima} -{" "}
                   {eventoEscojido.edad_maxima}
@@ -210,7 +282,7 @@ export const UnirseEvento = (props) => {
         <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
       centered>
           <Modal.Header closeButton>
-            <Modal.Title>Unirme a este evento</Modal.Title>
+            <Modal.Title>{tituloModal}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
