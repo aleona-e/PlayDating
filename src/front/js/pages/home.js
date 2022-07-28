@@ -5,7 +5,7 @@ import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
 import { Link } from "react-router-dom";
 import { Navbar } from "../component/navbar.jsx";
-import { Link } from "react-router-dom";
+
 import { config } from "../component/config.js";
 
 export const Home = () => {
@@ -112,17 +112,7 @@ export const Home = () => {
             </button>
           </div>
         </div>
-        <div className="text-center mb-5">
-          <Link to="/login">
-            <div className="d-grid gap-2 col-6 mx-auto">
-              <button className="btn btn-primary btn-lg">
-                Entra para ver más!
-              </button>
-            </div>
-          </Link>
-        </div>
       </div>
-
       <div className="text-center mb-5">
         <Link to="/login">
           <div className="d-grid gap-2 col-6 mx-auto">
@@ -132,7 +122,6 @@ export const Home = () => {
           </div>
         </Link>
       </div>
-
       <div className="text-center mb-5">
         <Link to="/login">
           <div className="d-grid gap-2 col-6 mx-auto">

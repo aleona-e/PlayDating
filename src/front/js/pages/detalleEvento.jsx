@@ -261,7 +261,6 @@ export const DetalleEvento = (props) => {
                     </div>
                   </div>
                   {eventoEscojido.estado == "Cancelado" ? (
-                    
                     <p>
                       <hr></hr>
                       <strong>Este evento ha sido cancelado</strong>
@@ -293,9 +292,13 @@ export const DetalleEvento = (props) => {
             </div>
           </div>
         </div>
-        {/* ................................MODAL....................................................... */}
-        <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
-      centered>
+        {/* ................................MODAL.......................................................*/}
+        <Modal
+          show={modal}
+          onHide={() => setModal(false)}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>{tituloModal}</Modal.Title>
           </Modal.Header>
