@@ -15,6 +15,7 @@ export const Navbar = () => {
 
   const removeStorage = () => {
     localStorage.removeItem(config.jwt.nameToken);
+    localStorage.removeItem("usuario")
   }
 
   useEffect(() => {

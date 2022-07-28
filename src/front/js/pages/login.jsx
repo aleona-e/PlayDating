@@ -4,15 +4,31 @@ import { HOSTNAME } from "../component/config";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
 import "../../styles/login.css";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 export const Login = (props) => {
- 
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+
+  const [textoAlerta, setTextoAlerta] = useState("");
+  const [navegar, setNavegar] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const updateText = (e, setState) => {
     const value = e.target.value;
     setState(value);
+  };
+
+  const modalManager = (texto, canNavigate) => {
+    setTextoAlerta(texto);
+    setNavegar(canNavigate);
+    handleShow();
   };
 
   const onSave = async () => {
@@ -31,25 +47,24 @@ export const Login = (props) => {
           Authorization: `Bearer ${localStorage.token}`,
         },
         body,
-      })
-      
-      console.log({ resp })
-      if (resp.status !== 200) {
-        // TODO: check it.
-        alert('Usuario no existe!!')
-        return;
+      });
+
+      console.log({ resp });
+      if (!resp.ok) {
+        modalManager("Error en el servidor", false);
       }
-
       const data = await resp.json();
-      localStorage.setItem("token", data.data);
-      // console.log(data)
 
-      if (localStorage.getItem("token") !== "") {
-        localStorage.setItem("usuario",data.usuario_id)
+      console.log(data.data);
+
+      if (data.data !== undefined) {
+        localStorage.setItem("token", data.data);
+        localStorage.setItem("usuario", data.usuario_id);
         navigate("/homecardgroup");
       } else {
+        modalManager("El usuario no existe", true);
         // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
-        navigate("/zonaprivada");
+        // navigate("/zonaprivada");
       }
     }
   };
@@ -91,6 +106,33 @@ export const Login = (props) => {
             Iniciar Sesión
           </button>
         </form>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoAlerta}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (navegar) {
+                  navigate("/register");
+                } else {
+                  handleClose();
+                }
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

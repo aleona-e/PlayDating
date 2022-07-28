@@ -71,7 +71,8 @@ export const Register = () => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
+      <h1>REGISTRO</h1>
       <div className="container" id="containerRegister">
         <form className="row g-3 was-validated">
           <div className="col-md-12">
@@ -168,7 +169,9 @@ export const Register = () => {
               <option value="Sevilla">Sevilla</option>
               <option value="Soria">Soria</option>
               <option value="Tarragona">Tarragona</option>
-              <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+              <option value="Santa Cruz de Tenerife">
+                Santa Cruz de Tenerife
+              </option>
               <option value="Teruel">Teruel</option>
               <option value="Toledo">Toledo</option>
               <option value="Valencia">Valencia</option>
@@ -199,6 +202,8 @@ export const Register = () => {
           onHide={handleClose}
           backdrop="static"
           keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
         >
           <Modal.Header closeButton>
             <Modal.Title>Registro</Modal.Title>
