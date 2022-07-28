@@ -41,8 +41,6 @@ export const Eventos = () => {
   }, []);
 
   const onRetirarse = () => {
-    console.log("esta entrando por aqui");
-    console.log(eventoIdRetiro);
     retirarseDeEvento(eventoIdRetiro)
       .then((data) => {
         setModal1(false);
@@ -70,8 +68,8 @@ export const Eventos = () => {
     <>
       <Navbar />
       <div className="container">
-        <div className="text-center">
-          <h1>EVENTOS</h1>
+        <div className="text-center p-3">
+          <h3>Participa En Los Eventos Creados En Tu Zona</h3>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
           {eventos.map((evento, index) => {
@@ -91,7 +89,7 @@ export const Eventos = () => {
                     max_participantes={evento.maximo_participantes}
                     estado={evento.estado}
                     fecha_y_hora={evento.fecha_y_hora}
-                    route={"/unirseEvento/" + evento.id}
+                    route={"/detalleEvento/" + evento.id}
                     notificarSolicitudRetiro={notificarSolicitudRetiro}
                   />
                 </div>

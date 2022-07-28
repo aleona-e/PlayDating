@@ -8,7 +8,7 @@ import { unirseEvento, retirarseDeEvento } from "../api.js";
 import { Navbar } from "../component/navbar.jsx";
 import moment from "moment";
 
-export const UnirseEvento = (props) => {
+export const DetalleEvento = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -177,6 +177,24 @@ export const UnirseEvento = (props) => {
       });
   };
 
+  const pintarBotonesRetiroUnirse = () => {
+    if (eventoEscojido.estado != "Lleno" && comprobarUsuarioEnEvento()) {
+      return retirarse();
+    } else if (
+      eventoEscojido.estado != "Lleno" &&
+      !comprobarUsuarioEnEvento()
+    ) {
+      return unirse();
+    } else if (eventoEscojido.estado == "Lleno" && comprobarUsuarioEnEvento()) {
+      return noHayCuposRetirarse();
+    } else if (
+      eventoEscojido.estado == "Lleno" &&
+      !comprobarUsuarioEnEvento()
+    ) {
+      return noHaycupos();
+    }
+  };
+
   const onUnirse = () => {
     unirseEvento(eventoId, numParticipantesPorUsuario)
       .then((data) => {
@@ -242,18 +260,15 @@ export const UnirseEvento = (props) => {
                       <ul>{participantesEvento()}</ul>
                     </div>
                   </div>
-                  {eventoEscojido.estado != "Lleno" &&
-                    comprobarUsuarioEnEvento() &&
-                    retirarse()}
-                  {eventoEscojido.estado != "Lleno" &&
-                    !comprobarUsuarioEnEvento() &&
-                    unirse()}
-                  {eventoEscojido.estado == "Lleno" &&
-                    comprobarUsuarioEnEvento() &&
-                    noHayCuposRetirarse()}
-                  {eventoEscojido.estado == "Lleno" &&
-                    !comprobarUsuarioEnEvento() &&
-                    noHaycupos()}
+                  {eventoEscojido.estado == "Cancelado" ? (
+                    
+                    <p>
+                      <hr></hr>
+                      <strong>Este evento ha sido cancelado</strong>
+                    </p>
+                  ) : (
+                    pintarBotonesRetiroUnirse()
+                  )}
                 </div>
               </div>
               <hr></hr>

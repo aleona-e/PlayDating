@@ -33,18 +33,16 @@ export const Actividades = () => {
     <div>
       <Navbar />
       <div className="container">
-        <div className="text-center">
-          <h1 className="my-3">ACTIVIDADES</h1>
+        <div className="text-center py-4">
+          <h3 className="my-3">
+            Crea Eventos Con Las Actividades Favoritas De Tus Hijos
+          </h3>
         </div>
-        
         <div className="card-group mb-5">
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            
             {actividadesCards}
-            
           </div>
         </div>
-        
       </div>
     </div>
   );

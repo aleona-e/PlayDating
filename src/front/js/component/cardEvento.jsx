@@ -7,11 +7,6 @@ import { HOSTNAME } from "./config";
 import moment from "moment";
 
 export const CardEvento = (props) => {
-
-  const clase = props.forzarHeight
-    ? "card text-center h-100"
-    : "card text-center";
-
   const onCancel = async () => {
     const response = await fetch(
       HOSTNAME + `/cancelarevento/${props.evento_id}`,
@@ -25,7 +20,6 @@ export const CardEvento = (props) => {
     );
     const json = await response.json();
   };
-  
 
   let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
@@ -33,7 +27,7 @@ export const CardEvento = (props) => {
     <>
       <div className="card-group">
         <div className="col">
-          <div className={clase}>
+          <div className="card text-center">
             <img
               className="card-img-top imagenCard rounded"
               src={props.src}
@@ -50,7 +44,11 @@ export const CardEvento = (props) => {
               <p className="card-text">
                 Cupos disponibles: {props.cupos_disponibles}
               </p>
-              <p className="card-text">{props.estado}</p>
+              {props.estado == "Cancelado" ? (
+                <p className="card-text text-danger">{props.estado}</p>
+              ) : (
+                <p className="card-text">{props.estado}</p>
+              )}
               {props.creador ==
               parseInt(localStorage.getItem("usuario"), 10) ? (
                 <div className="card-footer bg-body">
@@ -64,19 +62,21 @@ export const CardEvento = (props) => {
                       Ver Detalles
                     </button>
                   </Link>
-                  <button
+                  {props.estado !== "Cancelado" && (
+                    <button
                       onClick={onCancel}
                       href="#"
                       className="btn btn-danger m-1"
                       role="button"
                     >
                       Cancelar Evento
-                    </button>                  
+                    </button>
+                  )}
                 </div>
               ) : undefined !=
                 props.participantes.find(
                   (participante) =>
-                    participante.id == localStorage.getItem("usuario")                    
+                    participante.id == localStorage.getItem("usuario")
                 ) ? (
                 <div>
                   <div className="card-footer bg-body">
@@ -90,15 +90,19 @@ export const CardEvento = (props) => {
                         Ver Detalles
                       </button>
                     </Link>
-                    <button
-                      className="btn btn-danger m-1"
-                      onClick={()=>{props.notificarSolicitudRetiro(props.evento_id)}}
-                    >
-                      Retirarse
-                    </button>
+                    {!props.estado !== "Cancelado" && (
+                      <button
+                        className="btn btn-danger m-1"
+                        onClick={() => {
+                          props.notificarSolicitudRetiro(props.evento_id);
+                        }}
+                      >
+                        Retirarse
+                      </button>
+                    )}
                   </div>
                 </div>
-              ) :  (
+              ) : (
                 <div>
                   <div className="card-footer bg-body">
                     <Link to={props.route}>
@@ -110,10 +114,10 @@ export const CardEvento = (props) => {
                       >
                         Ver Detalles
                       </button>
-                    </Link>                   
+                    </Link>
                   </div>
                 </div>
-              ) }
+              )}
             </div>
           </div>
         </div>
