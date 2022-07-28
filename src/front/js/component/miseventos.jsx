@@ -73,6 +73,20 @@ export const MisEventos = () => {
     setEventoIdRetiro(eventoId);
   };
 
+  const esEventoFuturo = (fecha) => {
+    const tiempoTrans = Date.now()
+    const fechaActual = new Date(tiempoTrans)
+    const fechaEvento = new Date(fecha)
+    return (fechaActual < fechaEvento)    
+    }
+  
+  const definirEstado = (evento) => {
+    let estado = evento.estado
+    if (!esEventoFuturo(evento.fecha_y_hora)){
+      estado = "Cerrado"
+    } 
+    return estado
+    }
 
   return (
     <>
@@ -82,7 +96,9 @@ export const MisEventos = () => {
           <h3>Maneja Todos Tus Eventos</h3>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5 pb-3">
-          {eventos.map((evento, index) => {
+          {eventos.length == 0 &&
+          <div><h5>Aún no tienes eventos</h5></div>}
+          {eventos.map((evento, index) => {           
             return (
               <div key={index}>
                 <CardEvento
@@ -95,13 +111,13 @@ export const MisEventos = () => {
                   tipo={evento.actividad.tipo_de_actividad}
                   cupos_disponibles={evento.cupos_disponibles}
                   max_participantes={evento.maximo_participantes}
-                  estado={evento.estado}
+                  estado={definirEstado(evento)}
                   fecha_y_hora={evento.fecha_y_hora}
                   route={"/detalleEvento/" + evento.id}
                   notificarSolicitudRetiro={notificarSolicitudRetiro}
                 />
               </div>
-            );
+            );             
           })}
         </div>
         {/*--------------------Modal Confirmación retiro----------------------*/}

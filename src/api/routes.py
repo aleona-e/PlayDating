@@ -344,8 +344,6 @@ def get_eventos_creados_usuario():
     usuario_id = obtener_usuario_id()
     eventos = Evento.query.filter_by(creador_id=usuario_id).all()
     eventos_creados = list(map(lambda evento: evento.serialize(), eventos))
-    if len(eventos) == 0:
-        raise APIException("Usuario no tiene eventos")
     return jsonify({'message': 'Informacion de eventos creados por el usuario solicitada exitosamente', 'data': eventos_creados})
 
 # Cancelar un evento creado por el current user con el evento_id
@@ -380,8 +378,6 @@ def get_eventos_usuario():
         for evento in eventos:
             if not evento.creador.id == participante_evento.usuario_id:
                 all_eventos_usuario.append(evento)
-    if len(all_eventos_usuario) == 0:
-        return jsonify({'message': 'El usuario no se ha unido a ningún evento'})
     all_eventos_serialized = list(
         map(lambda evento: evento.serialize(), all_eventos_usuario))
     return jsonify({'message': 'Informacion de eventos asociados al usuario solicitada exitosamente', 'data': all_eventos_serialized})

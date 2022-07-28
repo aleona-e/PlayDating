@@ -62,7 +62,7 @@ export const CardEvento = (props) => {
                       Ver Detalles
                     </button>
                   </Link>
-                  {props.estado !== "Cancelado" && (
+                  {props.estado !== "Cancelado" || props.estado !== "Este evento ya ha pasado" && (
                     <button
                       onClick={onCancel}
                       href="#"
@@ -90,7 +90,7 @@ export const CardEvento = (props) => {
                         Ver Detalles
                       </button>
                     </Link>
-                    {!props.estado !== "Cancelado" && (
+                    {!props.estado !== "Cancelado" || props.estado !== "Este evento ya ha pasado" && (
                       <button
                         className="btn btn-danger m-1"
                         onClick={() => {

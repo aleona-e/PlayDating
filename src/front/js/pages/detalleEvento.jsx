@@ -216,6 +216,13 @@ export const DetalleEvento = (props) => {
 
   let date = moment(eventoEscojido.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
+  const esEventoFuturo = (fecha) => {
+    const tiempoTrans = Date.now();
+    const fechaActual = new Date(tiempoTrans);
+    const fechaEvento = new Date(fecha);
+    return fechaActual < fechaEvento;
+  };
+
   return (
     <>
       <Navbar />
@@ -260,10 +267,11 @@ export const DetalleEvento = (props) => {
                       <ul>{participantesEvento()}</ul>
                     </div>
                   </div>
-                  {eventoEscojido.estado == "Cancelado" ? (
+                  <hr></hr>
+                  {eventoEscojido.estado == "Cancelado" ||
+                  !esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
                     <p>
-                      <hr></hr>
-                      <strong>Este evento ha sido cancelado</strong>
+                      <strong>Este evento ya no está disponible</strong>
                     </p>
                   ) : (
                     pintarBotonesRetiroUnirse()
@@ -273,7 +281,11 @@ export const DetalleEvento = (props) => {
               <hr></hr>
               <br></br>
               <div className="row row-cols-5 text-center">
-                <p>Estado: {eventoEscojido.estado}</p>
+                {!esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
+                  <p>Estado: Cerrado</p>
+                ) : (
+                  <p>Estado: {eventoEscojido.estado}</p>
+                )}
                 <p>
                   Tipo de actividad:{" "}
                   {eventoEscojido.actividad.tipo_de_actividad}

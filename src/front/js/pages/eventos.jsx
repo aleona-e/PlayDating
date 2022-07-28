@@ -64,6 +64,14 @@ export const Eventos = () => {
     setEventoIdRetiro(eventoId);
   };
 
+  const esEventoFuturo = (fecha) => {
+    const tiempoTrans = Date.now()
+    const fechaActual = new Date(tiempoTrans)
+    const fechaEvento = new Date(fecha)
+    return (fechaActual < fechaEvento)    
+    }
+  
+
   return (
     <>
       <Navbar />
@@ -73,7 +81,7 @@ export const Eventos = () => {
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
           {eventos.map((evento, index) => {
-            if (evento.estado !== "Cancelado") {
+            if (evento.estado !== "Cancelado" & esEventoFuturo(evento.fecha_y_hora)){             
               return (
                 <div key={index}>
                   <CardEvento
@@ -95,7 +103,8 @@ export const Eventos = () => {
                 </div>
               );
             }
-          })}
+          })
+          }
         </div>
         {/*--------------------Modal Confirmación retiro----------------------*/}
         <Modal show={modal1} onHide={() => setModal1(false)}>
