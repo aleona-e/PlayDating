@@ -212,7 +212,8 @@ export const CrearEvento = (props) => {
           </button>
         </div>
         {/* ................................MODAL....................................................... */}
-        <Modal show={modal} onHide={() => setModal(false)}>
+        <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
+      centered>
           <Modal.Header closeButton>
             <Modal.Title >
               Evento Creado

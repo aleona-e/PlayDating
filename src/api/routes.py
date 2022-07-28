@@ -99,6 +99,7 @@ def login():
     password = body['password']
     validacion_campos_login(email, password)
     usuario = Usuario.query.filter_by(email=email).first()
+    print(usuario)
     if usuario is None:
         raise APIException("Usuario no existe")
     hashed = usuario.password.encode(CODE)

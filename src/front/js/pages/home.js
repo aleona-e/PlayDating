@@ -4,24 +4,38 @@ import { obtenerActividades } from "../api.js";
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
 import { Navbar } from "../component/navbar.jsx";
+import { Link } from "react-router-dom";
+import { config } from "../component/config.js";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
   const [actividadesCards, setActividadesCards] = useState([]);
+  const [ocultarConToken, setOcultarConToken] = useState("ocultarConToken");
+  const [ocultarSinToken, setOcultarSinToken] = useState("ocultarSinToken");
 
   useEffect(() => {
+
+    const token = localStorage.getItem(config.jwt.nameToken);
+    if (!token) {
+      setOcultarSinToken("ocultarSinToken");
+      setOcultarConToken("")
+    }
+
+    else {
+      setOcultarSinToken("");
+    }
+
     obtenerActividades().then((data) => {
       const actividades = data.data;
       actions.agregarActividades(actividades);
       let cardsActividades = actividades.map((actividad, index) => {
         return (
           <Card
+            forzarHeight={false}
             name={actividad.nombre}
             src={actividad.imagen}
             text={actividad.descripcion}
-            tipo={actividad.tipo_de_actividad}
-            button=" Logeate y unete! "
-            route={"login"}
+
           />
         );
       });
@@ -98,7 +112,25 @@ export const Home = () => {
         </div>
       </div>
 
+      <div className="text-center mb-5">
+        <Link to="/login">
+          <div className="d-grid gap-2 col-6 mx-auto">
+            <button className={"btn btn-primary btn-lg "  + ocultarConToken}>
+              Entra para ver más!
+            </button>
+          </div>
+        </Link>
+      </div>
 
+      <div className="text-center mb-5">
+        <Link to="/login">
+          <div className="d-grid gap-2 col-6 mx-auto">
+            <button className={"btn btn-primary btn-lg "  + ocultarSinToken}>
+              Crear evento
+            </button>
+          </div>
+        </Link>
+      </div>
     </>
   );
 };

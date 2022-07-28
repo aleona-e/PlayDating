@@ -167,7 +167,8 @@ export const UnirseEvento = (props) => {
         </div>
 
         {/* ................................MODAL....................................................... */}
-        <Modal show={modal} onHide={() => setModal(false)}>
+        <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
+      centered>
           <Modal.Header closeButton>
             <Modal.Title>Unirme a este evento</Modal.Title>
           </Modal.Header>
