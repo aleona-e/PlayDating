@@ -2,7 +2,7 @@ import { resetWarningCache } from "prop-types";
 import React, { useEffect, useState, useContext } from "react";
 import "../../styles/miPerfil.css";
 import { HOSTNAME } from "../component/config.js";
-import FormularioHijos from "./formulariohijos.jsx";
+import FormularioHijos from "../component/formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
 import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";

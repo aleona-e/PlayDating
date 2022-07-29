@@ -52,7 +52,7 @@ export const CrearEvento = (props) => {
       direccion !== "" &&
       edad_maxima !== "" &&
       edad_minima !== "" &&
-      maximo_participantes !== "" && 
+      maximo_participantes !== "" &&
       maximo_participantes !== "0" &&
       parseInt(maximo_participantes) > parseInt(minimo_participantes) &&
       minimo_participantes !== "" &&
@@ -94,7 +94,7 @@ export const CrearEvento = (props) => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <h2 id="h2CrearEvento">Crea tu Evento</h2>
       <div className="container " id="containerCrearEvento">
         <div className="row   g-3">
@@ -103,10 +103,7 @@ export const CrearEvento = (props) => {
             <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
             <div className="mb-3">
-              <p id="descripcionCrearEvento">
-                
-                {actividadEscojida.descripcion}
-              </p>
+              <p id="descripcionCrearEvento">{actividadEscojida.descripcion}</p>
             </div>
           </div>
           <div className="col-6 col-md-6 " id="columnaDerecha">
@@ -132,7 +129,8 @@ export const CrearEvento = (props) => {
               <input
                 onChange={(e) => updateText(e, setAñadirParticipantes)}
                 value={participantes_creador}
-                type="number" min="1"
+                type="number"
+                min="1"
                 aria-label="First name"
                 className="form-control"
               ></input>
@@ -146,7 +144,8 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setMaxParticipantes)}
                   value={maximo_participantes}
-                  type="number" min="2"
+                  type="number"
+                  min="2"
                   aria-label="First name"
                   className="form-control"
                   placeholder="Max"
@@ -155,7 +154,8 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setMinParticipantes)}
                   value={minimo_participantes}
-                  type="number" min="1"
+                  type="number"
+                  min="1"
                   aria-label="Last name"
                   className="form-control"
                   placeholder="Min"
@@ -171,7 +171,8 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setEdadMaxima)}
                   value={edad_maxima}
-                  type="number" min="1"
+                  type="number"
+                  min="1"
                   aria-label="First name"
                   className="form-control"
                   placeholder="Max"
@@ -180,7 +181,8 @@ export const CrearEvento = (props) => {
                 <input
                   onChange={(e) => updateText(e, setEdadMinima)}
                   value={edad_minima}
-                  type="number" min="0"
+                  type="number"
+                  min="0"
                   aria-label="Last name"
                   className="form-control"
                   placeholder="Min"
@@ -212,12 +214,14 @@ export const CrearEvento = (props) => {
           </button>
         </div>
         {/* ................................MODAL....................................................... */}
-        <Modal show={modal} onHide={() => setModal(false)} aria-labelledby="contained-modal-title-vcenter"
-      centered>
+        <Modal
+          show={modal}
+          onHide={() => setModal(false)}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
-            <Modal.Title >
-              Evento Creado
-            </Modal.Title>
+            <Modal.Title>Evento Creado</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             Tu evento se ha añadido a la lista de eventos.
