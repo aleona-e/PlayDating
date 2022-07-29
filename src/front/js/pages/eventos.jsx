@@ -75,9 +75,9 @@ export const Eventos = () => {
       eventos.sort((a, b) => {
         const fechaEventoA = new Date(a.fecha_y_hora);
         const fechaEventoB = new Date(b.fecha_y_hora);
-        if (fechaEventoA < fechaEventoB) {
+        if (fechaEventoA > fechaEventoB) {
           return 1;
-        } else if (fechaEventoB < fechaEventoA) {
+        } else if (fechaEventoB > fechaEventoA) {
           return -1;
         } else {
           return 0;
