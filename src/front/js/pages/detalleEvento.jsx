@@ -81,6 +81,7 @@ export const DetalleEvento = (props) => {
     }
     return participantes;
   };
+
   const comprobarUsuarioEnEvento = () => {
     let usuarioEnEvento = eventoEscojido.participantes.find(
       (participante) => participante.id == localStorage.getItem("usuario")
@@ -160,6 +161,26 @@ export const DetalleEvento = (props) => {
       setDeshabilitado(true);
     }
   });
+
+  const onUnirse = () => {
+    unirseEvento(eventoId, numParticipantesPorUsuario)
+      .then((data) => {
+        setTextoModal(
+          "Se ha añadido la participación del usuario al evento con exito."
+        );
+        setTituloModal("Unirme a este evento");
+        setModal(true);
+      })
+      .catch((error) => {
+        console.log("error " + error);
+        const errorStr = JSON.stringify(error);
+        console.log(errorStr);
+        setTextoModal(error.message);
+        setTituloModal("Unirme a este evento");
+        setModal(true);
+      });
+  };
+
   const onRetirarse = () => {
     retirarseDeEvento(eventoId)
       .then((data) => {
@@ -195,33 +216,14 @@ export const DetalleEvento = (props) => {
     }
   };
 
-  const onUnirse = () => {
-    unirseEvento(eventoId, numParticipantesPorUsuario)
-      .then((data) => {
-        setTextoModal(
-          "Se ha añadido la participación del usuario al evento con exito."
-        );
-        setTituloModal("Unirme a este evento");
-        setModal(true);
-      })
-      .catch((error) => {
-        console.log("error " + error);
-        const errorStr = JSON.stringify(error);
-        console.log(errorStr);
-        setTextoModal(error.message);
-        setTituloModal("Unirme a este evento");
-        setModal(true);
-      });
-  };
-
-  let date = moment(eventoEscojido.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
-
   const esEventoFuturo = (fecha) => {
     const tiempoTrans = Date.now();
     const fechaActual = new Date(tiempoTrans);
     const fechaEvento = new Date(fecha);
     return fechaActual < fechaEvento;
   };
+
+  let date = moment(eventoEscojido.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
   return (
     <>

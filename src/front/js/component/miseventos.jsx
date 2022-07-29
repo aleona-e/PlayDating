@@ -49,6 +49,7 @@ export const MisEventos = () => {
       });
     }
   }, []);
+
   const onRetirarse = () => {
     retirarseDeEvento(eventoIdRetiro)
       .then((data) => {
@@ -74,19 +75,35 @@ export const MisEventos = () => {
   };
 
   const esEventoFuturo = (fecha) => {
-    const tiempoTrans = Date.now()
-    const fechaActual = new Date(tiempoTrans)
-    const fechaEvento = new Date(fecha)
-    return (fechaActual < fechaEvento)    
-    }
-  
+    const tiempoTrans = Date.now();
+    const fechaActual = new Date(tiempoTrans);
+    const fechaEvento = new Date(fecha);
+    return fechaActual < fechaEvento;
+  };
+
   const definirEstado = (evento) => {
-    let estado = evento.estado
-    if (!esEventoFuturo(evento.fecha_y_hora)){
-      estado = "Cerrado"
-    } 
-    return estado
+    let estado = evento.estado;
+    if (!esEventoFuturo(evento.fecha_y_hora)) {
+      estado = "Cerrado";
     }
+    return estado;
+  };
+
+  const sortedArray = (eventos) => {
+    eventos.sort((a, b) => {
+      const fechaEventoA = new Date(a.fecha_y_hora);
+      const fechaEventoB = new Date(b.fecha_y_hora);
+      if (fechaEventoA < fechaEventoB) {
+        return 1;
+      } else if (fechaEventoB < fechaEventoA) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return eventos
+  };
+
 
   return (
     <>
@@ -96,9 +113,12 @@ export const MisEventos = () => {
           <h3>Maneja Todos Tus Eventos</h3>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5 pb-3">
-          {eventos.length == 0 &&
-          <div><h5>Aún no tienes eventos</h5></div>}
-          {eventos.map((evento, index) => {           
+          {eventos.length == 0 && (
+            <div>
+              <h5>Aún no tienes eventos</h5>
+            </div>
+          )}
+          {sortedArray(eventos).map((evento, index) => {
             return (
               <div key={index}>
                 <CardEvento
@@ -117,7 +137,7 @@ export const MisEventos = () => {
                   notificarSolicitudRetiro={notificarSolicitudRetiro}
                 />
               </div>
-            );             
+            );
           })}
         </div>
         {/*--------------------Modal Confirmación retiro----------------------*/}

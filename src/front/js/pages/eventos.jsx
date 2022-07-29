@@ -71,7 +71,21 @@ export const Eventos = () => {
     return (fechaActual < fechaEvento)    
     }
   
-
+    const sortedArray = (eventos) => {
+      eventos.sort((a, b) => {
+        const fechaEventoA = new Date(a.fecha_y_hora);
+        const fechaEventoB = new Date(b.fecha_y_hora);
+        if (fechaEventoA < fechaEventoB) {
+          return 1;
+        } else if (fechaEventoB < fechaEventoA) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      return eventos
+    };
+  
   return (
     <>
       <Navbar />
@@ -80,7 +94,7 @@ export const Eventos = () => {
           <h3>Participa En Los Eventos Creados En Tu Zona</h3>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
-          {eventos.map((evento, index) => {
+          {sortedArray(eventos).map((evento, index) => {
             if (evento.estado !== "Cancelado" & esEventoFuturo(evento.fecha_y_hora)){             
               return (
                 <div key={index}>
