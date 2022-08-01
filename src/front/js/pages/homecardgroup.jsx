@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "./card.jsx";
+import {Card} from "../component/card.jsx"
 import { Navbar } from "../component/navbar.jsx";
 
 export const HomeCardGroup = () => {

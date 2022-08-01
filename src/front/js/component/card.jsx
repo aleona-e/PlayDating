@@ -24,7 +24,7 @@ export const Card = (props) => {
         <div className="card-footer bg-body">
           {props.button && (
             <Link to={`/${props.route}`}>
-              <button href="#" className="btn btn-primary" role="button">
+              <button href="#" id="buttonCard" className="btn" >
                 {props.button}
               </button>
             </Link>

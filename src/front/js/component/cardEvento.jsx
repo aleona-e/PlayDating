@@ -1,30 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import propTypes from "prop-types";
 import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
 import moment from "moment";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 export const CardEvento = (props) => {
-  const navigate = useNavigate();
-
-  const [textoAlerta, setTextoAlerta] = useState("");
-  const [navegar, setNavegar] = useState(false);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const modalManager = (texto, canNavigate) => {
-    setTextoAlerta(texto);
-    setNavegar(canNavigate);
-    handleShow();
-  };
-
   const onCancel = async () => {
     const response = await fetch(
       HOSTNAME + `/cancelarevento/${props.evento_id}`,
@@ -36,18 +18,7 @@ export const CardEvento = (props) => {
         },
       }
     );
-
-    if (!response.ok) {
-      modalManager("Error al conectar con el Servidor", false);
-    }
-
     const json = await response.json();
-
-    if (json.message === "Evento cancelado exitosamente") {
-      modalManager(json.message, true);
-    } else {
-      modalManager(json.message, false);
-    }
   };
 
   let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
@@ -94,8 +65,9 @@ export const CardEvento = (props) => {
                   {props.estado !== "Cancelado" && props.estado !== "Cerrado" && (
                     <button
                       onClick={onCancel}
+                      id="buttonCancelarEvento"
                       href="#"
-                      className="btn btn-danger m-1"
+                      className="btn m-1"
                       role="button"
                     >
                       Cancelar Evento
@@ -122,7 +94,8 @@ export const CardEvento = (props) => {
                     {!props.estado !== "Cancelado" &&
                       props.estado !== "Cerrado" && (
                         <button
-                          className="btn btn-danger m-1"
+                          id="buttonCancelarEvento"
+                          className="btn m-1"
                           onClick={() => {
                             props.notificarSolicitudRetiro(props.evento_id);
                           }}
@@ -151,29 +124,6 @@ export const CardEvento = (props) => {
             </div>
           </div>
         </div>
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Cancelar Evento</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{textoAlerta}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={() => {
-                handleClose, location.reload();
-              }}
-            >
-              OK
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </>
   );
