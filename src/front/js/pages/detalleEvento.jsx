@@ -141,8 +141,8 @@ export const DetalleEvento = (props) => {
       <div>
         <hr></hr>
         <button
-          id="buttonRetirarse"
-          className="btn btn-warning"
+          id="buttonAñadirse"
+          className="btn"
           onClick={() => {
             onRetirarse();
           }}
@@ -228,81 +228,88 @@ export const DetalleEvento = (props) => {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <div className="mt-5 mb-5">
-          <h2 id="h2CrearEvento">Detalles de este evento</h2>
-          <hr></hr>
+      <div className="container" id="unirseEvento">
+        <div className="mt-3">
           <div>
-            <div className="container">
-              <div className="row row-cols-2 m-5">
-                <div className="col mt-3">
-                  <img
-                    src={eventoEscojido.actividad.imagen}
-                    className="img-fluid rounded-start unirseImg"
-                  />
-                </div>
-                <div className="col mt-3">
-                  <h5>
-                    <strong>{eventoEscojido.actividad.nombre}</strong>
-                  </h5>
-                  <hr></hr>
-                  <p>
-                    <strong>Fecha:</strong> {eventoEscojido.fecha_y_hora}
-                  </p>
-                  <p>
-                    <strong>Creador:</strong> {eventoEscojido.creador.nombre}
-                  </p>
-                  <p>
-                    <strong>Descripción:</strong>{" "}
-                    {eventoEscojido.actividad.descripcion}
-                  </p>
-                  <p>
-                    <strong>Dirección:</strong> {eventoEscojido.direccion}
-                  </p>
-                  <div className="row">
-                    <div className="col-3">
-                      <p>
-                        <strong> Se ha unido:</strong>
-                      </p>
-                    </div>
-                    <div className="col-9">
-                      <ul>{participantesEvento()}</ul>
-                    </div>
-                  </div>
-                  <hr></hr>
-                  {eventoEscojido.estado == "Cancelado" ||
-                  !esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
+            <h1>Detalles de este evento</h1>
+          </div>
+
+          <div>
+            <div className="row row-cols-3 m-4">
+              <div className="col mt-3">
+                <h5>
+                  <strong>{eventoEscojido.actividad.nombre}</strong>
+                </h5>
+                <hr></hr>
+
+                <p>
+                  <strong>Creador:</strong> {eventoEscojido.creador.nombre}
+                </p>
+                <p>
+                  <strong>Dirección:</strong> {eventoEscojido.direccion}
+                </p>
+                <p>
+                  <strong>Descripción:</strong>{" "}
+                  {eventoEscojido.actividad.descripcion}
+                </p>
+
+                <div className="row">
+                  <div className="col-3">
                     <p>
-                      <strong>Este evento ya no está disponible</strong>
+                      <strong> Se ha unido:</strong>
                     </p>
-                  ) : (
-                    pintarBotonesRetiroUnirse()
-                  )}
+                  </div>
+                  <div className="col-9">
+                    <ul>{participantesEvento()}</ul>
+                  </div>
                 </div>
               </div>
-              <hr></hr>
-              <br></br>
-              <div className="row row-cols-5 text-center">
+
+              <div className="col mt-3">
+                <img
+                  src={eventoEscojido.actividad.imagen}
+                  className="img-fluid rounded-start unirseImg"
+                />
+              </div>
+
+              <div className="col mt-3">
+                <h5>{date}</h5>
+                <hr></hr>
+
                 {!esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
-                  <p>Estado: Cerrado</p>
+                  <p>
+                    <strong>Estado:</strong> Cerrado
+                  </p>
                 ) : (
-                  <p>Estado: {eventoEscojido.estado}</p>
+                  <p>
+                    <strong>Estado:</strong> {eventoEscojido.estado}
+                  </p>
                 )}
                 <p>
-                  Tipo de actividad:{" "}
+                  <strong>Tipo de actividad:</strong>{" "}
                   {eventoEscojido.actividad.tipo_de_actividad}
                 </p>
                 <p>
-                  Cantidad máxima de participantes:{" "}
+                  <strong>Cantidad máxima de participantes:</strong>{" "}
                   {eventoEscojido.maximo_participantes}
                 </p>
-                <p>Cupos disponibles: {eventoEscojido.cupos_disponibles}</p>
                 <p>
-                  Rango de edad: {eventoEscojido.edad_minima} -{" "}
+                  <strong>Cupos disponibles:</strong>{" "}
+                  {eventoEscojido.cupos_disponibles}
+                </p>
+                <p>
+                  <strong>Rango de edad:</strong> {eventoEscojido.edad_minima} -{" "}
                   {eventoEscojido.edad_maxima}
                 </p>
+                {eventoEscojido.estado == "Cancelado" ||
+                !esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
+                  <p>
+                    <strong>Este evento ya no está disponible</strong>
+                  </p>
+                ) : (
+                  pintarBotonesRetiroUnirse()
+                )}
               </div>
-              <hr></hr>
             </div>
           </div>
         </div>

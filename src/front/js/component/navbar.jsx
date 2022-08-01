@@ -34,7 +34,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-ligth">
       <div className="container">
-        <Link to="/homecardgroup">
+        <Link to="/">
           <span className="navbar-brand mb-0 h1">
             <img
               src={logoTresUrl}

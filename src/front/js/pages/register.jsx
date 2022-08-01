@@ -114,7 +114,7 @@ export const Register = () => {
             <input
               onChange={(e) => updateText(e, setNumero_hijos)}
               value={numero_hijos}
-              type="text"
+              type="number" min="1"
               className="form-control"
               required
             ></input>

@@ -123,7 +123,7 @@ export const Home = () => {
         </Link>
       </div>
       <div className="text-center mb-5">
-        <Link to="/login">
+        <Link to="/actividades">
           <div className="d-grid gap-2 col-6 mx-auto">
             <button className={"btn btn-primary btn-lg "  + ocultarSinToken}>
               Crear evento
