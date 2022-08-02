@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logoTresUrl from "../../img/logo-bloques.png";
-import logoUrl from "../../img/logo-circulo.png";
-import logoDosUrl from "../../img/logo-castillo.png";
 import { config } from "../component/config.js";
 import "../../styles/navbar.css";
 import { useNavigate } from "react-router-dom";

@@ -63,8 +63,6 @@ export const Login = (props) => {
         navigate("/homecardgroup");
       } else {
         modalManager("El usuario no existe", true);
-        // cambie este navigate, layout estaba con "p" no con "P" y me estaba dando problemas
-        // navigate("/zonaprivada");
       }
     }
   };

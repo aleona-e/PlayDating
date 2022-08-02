@@ -8,7 +8,7 @@ export const config = {
   };
 
 
-  //paleta de colores
+//paleta de colores
 //  #FFFFF2 AMARILLO
 // #103C76 AZUL OSCURO rgb(16, 60, 118)
 // #FF5757 ROJO  rgb(255, 87, 87)

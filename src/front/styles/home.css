@@ -27,9 +27,14 @@ h1 {
   margin-top: 20px;
   color: rgb(255, 189, 89);
 }
+h3 {
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(255, 189, 89);
+}
 h5 {
   color: rgb(3, 152, 158);
-  font-size: 30px;
+  font-size: 27px;
 }
 
 label {

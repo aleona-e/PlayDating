@@ -1,12 +1,21 @@
 import React, { Component } from "react";
+import Github from "../../img/Github.png";
+import "../../styles/footer.css";
 
 export const Footer = () => (
-  <footer className="footer mt-auto py-3 text-center">
+  <footer className="footer mt-5 py-3 text-center">
     <p>
-      Made with <i className="fa fa-heart text-danger" /> by{" "}
-      <a id="link" href="https://github.com/isarebollo">Isabel Rebollo, </a>
-      <a id="link" href="https://github.com/aleona-e">Alejandra Elsin, </a>
-      <a id="link" href="https://github.com/Vero2112">Verónica Rodríguez</a>
+      <a id="linkfooter" href="https://github.com/isarebollo">
+        Isabel Rebollo{" "}
+      </a>
+      <img id="logoGithub" src={Github} />
+      <a id="linkfooter" href="https://github.com/aleona-e">
+        Alejandra Elsin{" "}
+      </a>
+      <img id="logoGithub" src={Github} />
+      <a id="linkfooter" href="https://github.com/Vero2112">
+        Verónica Rodríguez
+      </a>
       {/* <a >Pon un@ Ale en tu vida!!</a>  */}
     </p>
   </footer>

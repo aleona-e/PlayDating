@@ -114,7 +114,7 @@ export const Register = () => {
             <input
               onChange={(e) => updateText(e, setNumero_hijos)}
               value={numero_hijos}
-              type="text"
+              type="number" min="1"
               className="form-control"
               required
             ></input>
@@ -127,7 +127,7 @@ export const Register = () => {
               value={provincia}
               className="form-select"
               required
-            >
+            ><option defaultValue=""></option>
               <option value="Álava">Álava</option>
               <option value="Albacete">Albacete</option>
               <option value="Alicante">Alicante</option>

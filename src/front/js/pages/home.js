@@ -3,8 +3,9 @@ import { Context } from "../store/appContext";
 import { obtenerActividades } from "../api.js";
 import "../../styles/home.css";
 import { Card } from "../component/card.jsx";
-import { Navbar } from "../component/navbar.jsx";
 import { Link } from "react-router-dom";
+import { Navbar } from "../component/navbar.jsx";
+
 import { config } from "../component/config.js";
 
 export const Home = () => {
@@ -35,11 +36,10 @@ export const Home = () => {
             name={actividad.nombre}
             src={actividad.imagen}
             text={actividad.descripcion}
-
           />
         );
       });
-
+  
       setActividadesCards(cardsActividades);
     });
   }, []);
@@ -49,69 +49,70 @@ export const Home = () => {
 
       <Navbar />
       <div className="container ">
-        <div
-          id="carouselExampleInterval"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner mt-5">
-            <div className="carousel-item active " data-bs-interval="3000">
-              <div className="card-group">
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                  {actividadesCards[0]}
-                  {actividadesCards[1]}
-                  {actividadesCards[2]}
+        <div className="my-5">
+          <div
+            id="carouselExampleInterval"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner mt-5">
+              <div className="carousel-item active " data-bs-interval="3000">
+                <div className="card-group">
+                  <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {actividadesCards[0]}
+                    {actividadesCards[1]}
+                    {actividadesCards[2]}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="carousel-item" data-bs-interval="3000">
-              <div className="card-group">
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                  {actividadesCards[3]}
-                  {actividadesCards[4]}
-                  {actividadesCards[5]}
+              <div className="carousel-item" data-bs-interval="3000">
+                <div className="card-group">
+                  <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {actividadesCards[3]}
+                    {actividadesCards[4]}
+                    {actividadesCards[5]}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="carousel-item" data-bs-interval="3000">
-              <div className="card-group">
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                  {actividadesCards[6]}
-                  {actividadesCards[7]}
-                  {actividadesCards[8]}
+              <div className="carousel-item" data-bs-interval="3000">
+                <div className="card-group">
+                  <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {actividadesCards[6]}
+                    {actividadesCards[7]}
+                    {actividadesCards[8]}
+                  </div>
                 </div>
               </div>
             </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleInterval"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleInterval"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
           </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleInterval"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleInterval"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
         </div>
       </div>
-
       <div className="text-center mb-5">
         <Link to="/login">
           <div className="d-grid gap-2 col-6 mx-auto">
@@ -121,9 +122,8 @@ export const Home = () => {
           </div>
         </Link>
       </div>
-
       <div className="text-center mb-5">
-        <Link to="/login">
+        <Link to="/actividades">
           <div className="d-grid gap-2 col-6 mx-auto">
             <button className={"btn btn-primary btn-lg "  + ocultarSinToken}>
               Crear evento

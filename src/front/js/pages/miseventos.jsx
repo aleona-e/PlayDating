@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
-import { CardEvento } from "../component/cardEvento.jsx";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { HOSTNAME } from "../component/config";
-import { useNavigate } from "react-router-dom";
+import { CardEvento } from "../component/cardEvento.jsx";
 import { Context } from "../store/appContext.js";
+import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
 import { retirarseDeEvento } from "../api.js";
 
-export const Eventos = () => {
+export const MisEventos = () => {
   const { store, actions } = useContext(Context);
-  const [eventoIdRetiro, setEventoIdRetiro] = useState("");
   const [eventos, setEventos] = useState([]);
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [textoModal, setTextoModal] = useState("");
+  const [eventoIdRetiro, setEventoIdRetiro] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,18 +22,28 @@ export const Eventos = () => {
       navigate("/zonaprivada");
     } else {
       const fetchData = async () => {
-        const response = await fetch(HOSTNAME + "/eventos", {
+        const response = await fetch(HOSTNAME + "/eventoscreados/usuario", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.token}`,
           },
         });
-        const json = await response.json();
-        setEventos(json.data);
-        actions.agregarEventos(json.data);
-      };
 
+        const response1 = await fetch(HOSTNAME + "/eventos/usuario", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.token}`,
+          },
+        });
+
+        const json = await response.json();
+        const json1 = await response1.json();
+        const eventos = json.data.concat(json1.data);
+        setEventos(eventos);
+        actions.agregarEventos(eventos);
+      };
       fetchData().catch((error) => {
         console.log(error);
       });
@@ -65,60 +75,70 @@ export const Eventos = () => {
   };
 
   const esEventoFuturo = (fecha) => {
-    const tiempoTrans = Date.now()
-    const fechaActual = new Date(tiempoTrans)
-    const fechaEvento = new Date(fecha)
-    return (fechaActual < fechaEvento)    
+    const tiempoTrans = Date.now();
+    const fechaActual = new Date(tiempoTrans);
+    const fechaEvento = new Date(fecha);
+    return fechaActual < fechaEvento;
+  };
+
+  const definirEstado = (evento) => {
+    let estado = evento.estado;
+    if (!esEventoFuturo(evento.fecha_y_hora)) {
+      estado = "Cerrado";
     }
-  
-    const sortedArray = (eventos) => {
-      eventos.sort((a, b) => {
-        const fechaEventoA = new Date(a.fecha_y_hora);
-        const fechaEventoB = new Date(b.fecha_y_hora);
-        if (fechaEventoA > fechaEventoB) {
-          return 1;
-        } else if (fechaEventoB > fechaEventoA) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      return eventos
-    };
-  
+    return estado;
+  };
+
+  const sortedArray = (eventos) => {
+    eventos.sort((a, b) => {
+      const fechaEventoA = new Date(a.fecha_y_hora);
+      const fechaEventoB = new Date(b.fecha_y_hora);
+      if (fechaEventoA < fechaEventoB) {
+        return 1;
+      } else if (fechaEventoB < fechaEventoA) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return eventos
+  };
+
+
   return (
     <>
       <Navbar />
       <div className="container">
         <div className="text-center p-3">
-          <h3>Participa En Los Eventos Creados En Tu Zona</h3>
+          <h3>Maneja Todos Tus Eventos</h3>
         </div>
-        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
+        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5 pb-3">
+          {eventos.length == 0 && (
+            <div>
+              <h5>Aún no tienes eventos</h5>
+            </div>
+          )}
           {sortedArray(eventos).map((evento, index) => {
-            if (evento.estado !== "Cancelado" & esEventoFuturo(evento.fecha_y_hora)){             
-              return (
-                <div key={index}>
-                  <CardEvento
-                    forzarHeight={true}
-                    evento_id={evento.id}
-                    participantes={evento.participantes}
-                    creador={evento.creador.id}
-                    name={evento.actividad.nombre}
-                    src={evento.actividad.imagen}
-                    text={evento.actividad.descripcion}
-                    tipo={evento.actividad.tipo_de_actividad}
-                    cupos_disponibles={evento.cupos_disponibles}
-                    max_participantes={evento.maximo_participantes}
-                    estado={evento.estado}
-                    fecha_y_hora={evento.fecha_y_hora}
-                    route={"/detalleEvento/" + evento.id}
-                    notificarSolicitudRetiro={notificarSolicitudRetiro}
-                  />
-                </div>
-              );
-            }
-          })
-          }
+            return (
+              <div key={index}>
+                <CardEvento
+                  evento_id={evento.id}
+                  creador={evento.creador.id}
+                  participantes={evento.participantes}
+                  name={evento.actividad.nombre}
+                  src={evento.actividad.imagen}
+                  text={evento.actividad.descripcion}
+                  tipo={evento.actividad.tipo_de_actividad}
+                  cupos_disponibles={evento.cupos_disponibles}
+                  max_participantes={evento.maximo_participantes}
+                  estado={definirEstado(evento)}
+                  fecha_y_hora={evento.fecha_y_hora}
+                  route={"/detalleEvento/" + evento.id}
+                  notificarSolicitudRetiro={notificarSolicitudRetiro}
+                />
+              </div>
+            );
+          })}
         </div>
         {/*--------------------Modal Confirmación retiro----------------------*/}
         <Modal show={modal1} onHide={() => setModal1(false)}>
@@ -153,6 +173,7 @@ export const Eventos = () => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
+            
               variant="primary"
               onClick={() => {
                 window.location.reload(false);

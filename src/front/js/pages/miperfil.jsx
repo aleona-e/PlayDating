@@ -8,30 +8,36 @@ import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";
 import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
-
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 export const MiPerfil = () => {
-
   const [numero_hijos, setNumero_hijos] = useState(1);
   const [provincia, setProvincia] = useState("");
-
   const { store, actions } = useContext(Context)
   const [datos, obtenerDatos] = useState({});
   const navigate = useNavigate()
-
+  const [textoAlerta, setTextoAlerta] = useState("");
+  const [navegar, setNavegar] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const modalManager = (texto, canNavigate) => {
+    setTextoAlerta(texto);
+    setNavegar(canNavigate);
+    handleShow();
+  };
   // OBTENER DATOS USUARIO
   useEffect(() => {
     const token = localStorage.getItem(config.jwt.nameToken);
     if (!token) {
       navigate("/login");
     }
-
     fetch(HOSTNAME + "/perfil", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-
     })
       .then((res) => {
         return res.json();
@@ -45,32 +51,21 @@ export const MiPerfil = () => {
       .catch((e) => {
         console.error(e);
         navigate(`/zonaprivada`);
-
       });
-
   }, []);
-
-
-
-  // MODIFICAR DATOS 
-
-
+  // MODIFICAR DATOS
   const updateText = (e, setState) => {
     const value = e.target.value;
-
     console.log("soy el numero de hijos: ", datos.numero_hijos)
-
     console.log("soy el nuevo value:", value)
     setState(value);
   };
-
   const onSave = async (e) => {
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
       numero_hijos,
       provincia
     });
-
     const res = await fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
       headers: {
@@ -79,27 +74,21 @@ export const MiPerfil = () => {
       },
       body,
     });
-
-    if (res.status !== 200) {
-      alert("No se pudo actualizar la data"); // TODO: check it.
-      return;
-    }
-
-    else if (res.status == 200) {
-      alert("se actualizaron los campos correctamente"); // TODO: check it.
-      return;
-    }
-
     const json = await res.json();
     const data = json.data;
+    console.log("soy resp: " + res);
+    console.log("soy data: " + data);
     obtenerDatos({
       ...datos,
       provincia: data.provincia,
       numero_hijos: data.numero_hijos,
     })
-
+    if (res.status == 200) {
+      modalManager(json.message, true);
+    } else if (res.status !== 200){
+      modalManager(json.message, false);
+    }
   };
-
   return (
     <>
       <Navbar />
@@ -214,7 +203,6 @@ export const MiPerfil = () => {
           {/* -------------------------------------------------------------------------- */}
           <div className="col-12">
             <button
-              
               onClick={onSave}
               id="buttonPerfil"
               type="submit"
@@ -224,6 +212,31 @@ export const MiPerfil = () => {
             </button>
           </div>
         </div>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Mi Perfil</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoAlerta}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (navegar) {
+                  location.reload();
+                } else {
+                  handleClose();
+                }
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

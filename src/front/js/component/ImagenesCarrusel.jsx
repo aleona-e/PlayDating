@@ -11,6 +11,7 @@ export const ImagenesCarrusel = () => {
     "https://res.cloudinary.com/daint2d1l/image/upload/v1658303026/Actividades/3_sb5ibo.png",
     "https://res.cloudinary.com/daint2d1l/image/upload/v1658302986/Actividades/1_nanc3k.png",
     "https://res.cloudinary.com/daint2d1l/image/upload/v1658303036/Actividades/6_dcpkjw.png",
+  
   ];
   const imagenesAMostrar = imagenes.map((imagen, index) => {
     const clase = index === 1 ? "carousel-item active" : "carousel-item";
