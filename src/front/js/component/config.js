@@ -1,11 +1,11 @@
-export const HOSTNAME= "https://3001-isarebollo-childwebappf-ixom9fgs510.ws-eu54.gitpod.io"
+export const HOSTNAME = process.env.BACKEND_URL
 
 export const config = {
 
-    jwt: {
-      nameToken: "token",
-    },
-  };
+  jwt: {
+    nameToken: "token",
+  },
+};
 
 
 //paleta de colores
