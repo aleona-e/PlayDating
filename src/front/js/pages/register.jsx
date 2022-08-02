@@ -127,7 +127,7 @@ export const Register = () => {
               value={provincia}
               className="form-select"
               required
-            >
+            ><option defaultValue=""></option>
               <option value="Álava">Álava</option>
               <option value="Albacete">Albacete</option>
               <option value="Alicante">Alicante</option>
