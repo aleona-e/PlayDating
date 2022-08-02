@@ -120,7 +120,7 @@ export const Eventos = () => {
           })
           }
         </div>
-        {/*--------------------Modal Confirmación retiro----------------------*/}
+        
         <Modal show={modal1} onHide={() => setModal1(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Retirarme de este evento</Modal.Title>
@@ -144,7 +144,7 @@ export const Eventos = () => {
               Cancelar
             </Button>
           </Modal.Footer>
-          {/*--------------------Modal redirección despues de retiro----------------------*/}
+          
         </Modal>
         <Modal show={modal2} onHide={() => setModal2(false)}>
           <Modal.Header closeButton>

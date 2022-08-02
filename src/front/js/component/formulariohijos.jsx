@@ -9,7 +9,7 @@ const FormularioHijos = () => {
 	});
 
 	const agregarhijos= (nombredelahijos) => {
-		// const auxhijos = hijos.concat(nombredelahijos);
+		
 		const auxhijos = [...hijos, nombredelahijos];
 		cambiarhijos(auxhijos);
 		cambiarNombrehijos({ label: "" });

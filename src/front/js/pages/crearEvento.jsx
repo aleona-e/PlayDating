@@ -8,6 +8,8 @@ import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
+
+
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -16,15 +18,12 @@ export const CrearEvento = (props) => {
     } else {
     }
   }, []);
-  // ..................llegan por PROPS..................................
+
   const { store } = useContext(Context);
   const { actividadId } = useParams();
   const actividadEscojida = store.actividades.find(
     (actividad) => actividadId == actividad.id
   );
-  // console.log(actividadEscojida);
-
-  // .................. FIN llegan por PROPS.....................................
 
   // inputs a rellenar por usuario
   const [direccion, setDireccion] = useState("");
@@ -35,15 +34,13 @@ export const CrearEvento = (props) => {
   const [participantes_creador, setAñadirParticipantes] = useState("");
   const [fecha_y_hora, setfechayhora] = useState(new Date());
 
-  //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
 
-  //modal creación de evento exitosa
   const [modal, setModal] = useState(false);
 
   const updateText = (e, setState) => {
     const value = e.target.value;
-    // if (value <= 0 ) value=1
+
     setState(value);
   };
 
@@ -76,7 +73,6 @@ export const CrearEvento = (props) => {
       maximo_participantes: parseInt(maximo_participantes),
       minimo_participantes: parseInt(minimo_participantes),
     });
-    // console.log(body);
 
     const resp = await fetch(HOSTNAME + "/crear/evento", {
       method: "POST",
@@ -98,7 +94,6 @@ export const CrearEvento = (props) => {
       <h2 id="h2CrearEvento">Crea tu Evento</h2>
       <div className="container " id="containerCrearEvento">
         <div className="row   g-3">
-          {/* ................................COLUMNA IZQUIERDA....................................................... */}
           <div className="col-6 col-md-6">
             <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
@@ -107,7 +102,6 @@ export const CrearEvento = (props) => {
             </div>
           </div>
           <div className="col-6 col-md-6 " id="columnaDerecha">
-            {/* ................................DIRECCION....................................................... */}
             <form className="was-validated ">
               <div className="mb-2">
                 <label className="form-label">Dirección</label>
@@ -121,8 +115,6 @@ export const CrearEvento = (props) => {
                 ></input>
               </div>
             </form>
-
-            {/* ................................PARTICIPANTES....................................................... */}
 
             <label className="col col-form-label">Añadir Participantes</label>
             <div className="input-sm mb-2 d-flex" id="input-group-crear-evento">
@@ -162,7 +154,7 @@ export const CrearEvento = (props) => {
                   required
                 ></input>
               </div>
-              {/* ..................................EDAD....................................................... */}
+
               <label className="col-sm-2 col-form-label">Edad</label>
               <div
                 className="input-sm mb-2 d-flex"
@@ -190,7 +182,6 @@ export const CrearEvento = (props) => {
                 ></input>
               </div>
             </form>
-            {/* ................................FECHA Y HORA....................(para validar "required").......................... */}
 
             <form className="was-validated">
               <label className="col-sm-3 col-form-label">Fecha y Hora</label>
@@ -199,8 +190,6 @@ export const CrearEvento = (props) => {
               </div>
             </form>
           </div>
-
-          {/* .......................................BOTON ..................................................................... */}
         </div>
         <div className="mb-3 text-center">
           <button
@@ -213,7 +202,7 @@ export const CrearEvento = (props) => {
             Crear Evento
           </button>
         </div>
-        {/* ................................MODAL....................................................... */}
+
         <Modal
           show={modal}
           onHide={() => setModal(false)}

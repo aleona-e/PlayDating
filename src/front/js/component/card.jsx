@@ -9,9 +9,9 @@ export const Card = (props) => {
     : "card text-center";
   return (
     <>
-      <div className={clase}>
+      <div className={clase} id="cardHome" >
         <img
-          className="card-img-top imagenCard rounded"
+          className="card-img-top imagenCard rounded" id="imgCarrusel"
           src={props.src}
           alt="Card image cap"
         ></img>

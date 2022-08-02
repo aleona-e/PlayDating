@@ -21,19 +21,15 @@ export const DetalleEvento = (props) => {
   const { eventoId } = useParams();
   const eventoEscojido = store.eventos.find((evento) => eventoId == evento.id);
 
-  // inputs a rellenar por usuario
   const [numParticipantesPorUsuario, setNumParticipantesPorUsuario] =
     useState("");
 
-  //ciclo de vida de boton.
   const [deshabilitado, setDeshabilitado] = useState(true);
 
-  //modal de unirse a evento
   const [modal, setModal] = useState(false);
   const [textoModal, setTextoModal] = useState("");
   const [tituloModal, setTituloModal] = useState("");
 
-  //mostrar opciones de selecion basado en cupos disponibles
   const llenarOpcionesSelect = () => {
     let cuposDisponibles = eventoEscojido.cupos_disponibles;
     let cupos = [];
@@ -172,9 +168,8 @@ export const DetalleEvento = (props) => {
         setModal(true);
       })
       .catch((error) => {
-        console.log("error " + error);
         const errorStr = JSON.stringify(error);
-        console.log(errorStr);
+
         setTextoModal(error.message);
         setTituloModal("Unirme a este evento");
         setModal(true);

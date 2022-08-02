@@ -2,7 +2,7 @@ import { resetWarningCache } from "prop-types";
 import React, { useEffect, useState, useContext } from "react";
 import "../../styles/miPerfil.css";
 import { HOSTNAME } from "../component/config.js";
-import FormularioHijos from "./formulariohijos.jsx";
+import FormularioHijos from "../component/formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
 import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,13 @@ import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+
 export const MiPerfil = () => {
   const [numero_hijos, setNumero_hijos] = useState(1);
   const [provincia, setProvincia] = useState("");
-  const { store, actions } = useContext(Context)
+  const { store, actions } = useContext(Context);
   const [datos, obtenerDatos] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [textoAlerta, setTextoAlerta] = useState("");
   const [navegar, setNavegar] = useState(false);
   const [show, setShow] = useState(false);
@@ -26,7 +27,7 @@ export const MiPerfil = () => {
     setNavegar(canNavigate);
     handleShow();
   };
-  // OBTENER DATOS USUARIO
+
   useEffect(() => {
     const token = localStorage.getItem(config.jwt.nameToken);
     if (!token) {
@@ -43,7 +44,6 @@ export const MiPerfil = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("soy la data", data.data);
         obtenerDatos(data.data);
         setNumero_hijos(data.data.numero_hijos);
         setProvincia(data.data.provincia);
@@ -53,18 +53,17 @@ export const MiPerfil = () => {
         navigate(`/zonaprivada`);
       });
   }, []);
-  // MODIFICAR DATOS
+
   const updateText = (e, setState) => {
     const value = e.target.value;
-    console.log("soy el numero de hijos: ", datos.numero_hijos)
-    console.log("soy el nuevo value:", value)
+
     setState(value);
   };
   const onSave = async (e) => {
     const token = localStorage.getItem(config.jwt.nameToken);
     const body = JSON.stringify({
       numero_hijos,
-      provincia
+      provincia,
     });
     const res = await fetch(HOSTNAME + "/perfil/modificar", {
       method: "POST",
@@ -76,16 +75,15 @@ export const MiPerfil = () => {
     });
     const json = await res.json();
     const data = json.data;
-    console.log("soy resp: " + res);
-    console.log("soy data: " + data);
+
     obtenerDatos({
       ...datos,
       provincia: data.provincia,
       numero_hijos: data.numero_hijos,
-    })
+    });
     if (res.status == 200) {
       modalManager(json.message, true);
-    } else if (res.status !== 200){
+    } else if (res.status !== 200) {
       modalManager(json.message, false);
     }
   };
@@ -108,25 +106,7 @@ export const MiPerfil = () => {
               <FormularioHijos />
             </div>
           </div>
-          {/* <div className="col-md-6">
-            <label className="form-label">Numero Hijos</label>
-            <input
-              onChange={(e) => updateText(e, setNumero_hijos)}
-              // placeholder= {datos.numero_hijos}
-              // value={numero_hijos}
-              value={datos.numero_hijos}
-              // defaultValue={datos.numero_hijos}
-              type="number"
-              className="form-control"
-            ></input>
-            <button
-              className="btn btn-info button"
-              onClick={guardarnumerohijos}
-            >
-              Guardar
-            </button>
-          </div> */}
-          {/* -------------------------------------------------------------------------- */}
+
           <div className="col-md-6">
             <label className="form-label">Numero Hijos </label>
             <div className="input-group mb-3">
@@ -143,9 +123,6 @@ export const MiPerfil = () => {
             <label className="form-label">Provincia</label>
             <select
               onChange={(e) => updateText(e, setProvincia)}
-              // value={provincia}
-              // value={datos.provincia}
-              // defaultValue={datos.provincia}
               className="form-select"
             >
               <option defaultValue={datos.provincia}>{datos.provincia}</option>
@@ -190,7 +167,10 @@ export const MiPerfil = () => {
               <option value="Sevilla">Sevilla</option>
               <option value="Soria">Soria</option>
               <option value="Tarragona">Tarragona</option>
-              <option value="Santa Cruz de Tenerife"> Santa Cruz de Tenerife </option>
+              <option value="Santa Cruz de Tenerife">
+                {" "}
+                Santa Cruz de Tenerife{" "}
+              </option>
               <option value="Teruel">Teruel</option>
               <option value="Toledo">Toledo</option>
               <option value="Valencia">Valencia</option>

@@ -33,7 +33,7 @@ export const Login = (props) => {
 
   const onSave = async () => {
     if (email === "" || password === "" || password.length < 4) {
-      // ACTUALMENTE CONTRASEÑA 4, CAMBIAR MAS ADELANTE.
+     
     } else {
       const body = JSON.stringify({
         email,
@@ -55,7 +55,7 @@ export const Login = (props) => {
       }
       const data = await resp.json();
 
-      console.log(data.data);
+    
 
       if (data.data !== undefined) {
         localStorage.setItem("token", data.data);

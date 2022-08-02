@@ -9,7 +9,7 @@ export const obtenerActividades = () => {
       return resp.json();
     })
     .catch((error) => {
-      console.log("error " + error);
+       console.log("error " + error);
     });
 };
 export const obtenerDetallesEvento = (eventoId) => {
@@ -74,19 +74,7 @@ export const retirarseDeEvento = async (eventoId) => {
   return await Promise.resolve(data);
 };
 
-// export const obtenerDatosperfil = () => {
-//     return fetch(HOSTNAME + "/perfil",
-//     {
-//         method: "GET",
-//         headers: {"Content-Type":"application/json"}
 
-//     }).then((resp) => {
-//         return resp.json()
-//     }). catch((error) => {
-//     console.log("error " +  error)
-// })
-
-// }
 
 export const obtenerDatosperfil = () => {
   return fetch(HOSTNAME + "/perfil", {

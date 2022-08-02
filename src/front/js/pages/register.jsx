@@ -35,7 +35,7 @@ export const Register = () => {
   };
 
   const onSave = async (e) => {
-    e.preventDefault(); //contarselo a ALE y vero
+    e.preventDefault(); 
 
     const body = JSON.stringify({
       email,
@@ -59,8 +59,7 @@ export const Register = () => {
 
     const data = await resp.json();
 
-    console.log("resp" + resp);
-    console.log("data" + data);
+   
 
     if (data.message === "Usuario creado exitosamente") {
       modalManager(data.message, true);
@@ -193,9 +192,7 @@ export const Register = () => {
             </button>
           </div>
         </form>
-        {/* <Button variant="primary" onClick={handleShow}>
-          Launch static backdrop modal
-        </Button> */}
+       
 
         <Modal
           show={show}

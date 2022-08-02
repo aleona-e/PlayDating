@@ -1,22 +1,14 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
-
-/* .card {
-  width: 350px;
-
-} */
+#cardHome {
+  width: 320px;
+}
 #buttonCard {
+  text-decoration: none; 
   background-color: rgb(3, 152, 158);
   color: white;
 }
 #imgCarrusel {
-  width: 200px;
-  height: 500px;
+  width: 280px;
+  height: 200px;
 }
 
 body {
@@ -39,7 +31,6 @@ h5 {
 
 label {
   font-size: 20px;
-  
 }
 span {
   font-size: 20px;

@@ -18,7 +18,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer.jsx";
-import { UnirseEvento2 } from "./pages/UnirseEvento2.jsx";
+
 
 
 //create your first component

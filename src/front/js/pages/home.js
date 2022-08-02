@@ -116,7 +116,7 @@ export const Home = () => {
       <div className="text-center mb-5">
         <Link to="/login">
           <div className="d-grid gap-2 col-6 mx-auto">
-            <button className={"btn btn-primary btn-lg "  + ocultarConToken}>
+            <button id="buttonCard" className={"btn btn-lg "  + ocultarConToken}>
               Entra para ver más!
             </button>
           </div>
@@ -125,7 +125,7 @@ export const Home = () => {
       <div className="text-center mb-5">
         <Link to="/actividades">
           <div className="d-grid gap-2 col-6 mx-auto">
-            <button className={"btn btn-primary btn-lg "  + ocultarSinToken}>
+            <button id="buttonCard" className={"btn btn-lg "  + ocultarSinToken}>
               Crear evento
             </button>
           </div>
