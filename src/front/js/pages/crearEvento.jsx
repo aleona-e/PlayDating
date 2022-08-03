@@ -5,9 +5,9 @@ import DateTimePicker from "react-datetime-picker";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../../styles/crearEvento.css";
+import "../../styles/modal.css";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
-
 
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const CrearEvento = (props) => {
   const fechaDeHoy = () => {
     const tiempoTrans = Date.now();
     const fechaActual = new Date(tiempoTrans);
-    return fechaActual
+    return fechaActual;
   };
 
   useEffect(() => {
@@ -192,7 +192,11 @@ export const CrearEvento = (props) => {
             <form className="was-validated">
               <label className="col-sm-3 col-form-label">Fecha y Hora</label>
               <div>
-                <DateTimePicker onChange={setfechayhora} value={fecha_y_hora} minDate={new Date()} />
+                <DateTimePicker
+                  onChange={setfechayhora}
+                  value={fecha_y_hora}
+                  minDate={new Date()}
+                />
               </div>
             </form>
           </div>
@@ -222,7 +226,11 @@ export const CrearEvento = (props) => {
             Tu evento se ha añadido a la lista de eventos.
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={() => navigate("/eventos")}>
+            <Button
+              className="botonmodalazul"
+              variant="botonmodalazul"
+              onClick={() => navigate("/eventos")}
+            >
               Ir a eventos
             </Button>
           </Modal.Footer>

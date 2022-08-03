@@ -63,7 +63,7 @@ export const Eventos = () => {
           <h3>Participa En Los Eventos Creados En Tu Zona</h3>
         </div>
         {eventos.length === 0 && (
-            <div className="mt-5 v             ">
+            <div className="mt-5 v">
               <h5>Aún no hay eventos en esta provincia</h5>
             </div>
           )}
