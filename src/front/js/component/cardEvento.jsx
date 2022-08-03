@@ -4,14 +4,14 @@ import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { Context } from "../store/appContext.js";
+import { retirarseDeEvento } from "../api.js";
 import { HOSTNAME } from "./config";
 import moment from "moment";
 
 export const CardEvento = (props) => {
-
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   const [textoModal, setTextoModal] = useState("");
 
   const onCancel = async () => {
@@ -26,14 +26,25 @@ export const CardEvento = (props) => {
       }
     );
     const json = await response.json();
-    setTextoModal(
-      "Se ha cancelado este evento."
-    );
-    setModal1(true);
-    setModal2(true)
+    setTextoModal("Se ha cancelado este evento.");
+    setModal1(false);
+    setModal2(true);
   };
-
-
+  const onRetirarse = () => {
+    retirarseDeEvento(props.evento_id)
+      .then((data) => {
+        setModal1(false);
+        setTextoModal(
+          "Se ha retirado la participación del usuario a este evento."
+        );
+        setModal2(true);
+      })
+      .catch((error) => {
+        const errorStr = JSON.stringify(error);
+        setTextoModal(error.message);
+        setModal2(true);
+      });
+  };
 
   let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
@@ -78,7 +89,12 @@ export const CardEvento = (props) => {
                   </Link>
                   {props.estado !== "Cancelado" && props.estado !== "Cerrado" && (
                     <button
-                      onClick={()=> {setModal1(true); setTextoModal("¿Estás seguro de que quieres cancelar este evento?")}}
+                      onClick={() => {
+                        setModal1(true);
+                        setTextoModal(
+                          "¿Estás seguro de que quieres cancelar este evento?"
+                        );
+                      }}
                       id="buttonCancelarEvento"
                       href="#"
                       className="btn m-1"
@@ -105,13 +121,16 @@ export const CardEvento = (props) => {
                         Ver Detalles
                       </button>
                     </Link>
-                    {!props.estado !== "Cancelado" &&
+                    {props.estado !== "Cancelado" &&
                       props.estado !== "Cerrado" && (
                         <button
                           id="buttonCancelarEvento"
                           className="btn m-1"
                           onClick={() => {
-                            props.notificarSolicitudRetiro(props.evento_id);
+                            setModal3(true);
+                            setTextoModal(
+                              "¿Estás seguro de que quieres retirar tu participación de este evento?"
+                            );
                           }}
                         >
                           Retirarse
@@ -138,6 +157,7 @@ export const CardEvento = (props) => {
             </div>
           </div>
         </div>
+        {/*--------------MODAL CANCELAR EVENTO-----------------*/}
         <Modal show={modal1} onHide={() => setModal1(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Cancelar este evento</Modal.Title>
@@ -161,17 +181,15 @@ export const CardEvento = (props) => {
               Cancelar
             </Button>
           </Modal.Footer>
-          
+          {/*--------------MODAL CONFIRMACION-----------------*/}
         </Modal>
-        
         <Modal show={modal2} onHide={() => setModal2(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Cancelar este evento</Modal.Title>
+            <Modal.Title>Detalles de este evento</Modal.Title>
           </Modal.Header>
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-            
               variant="primary"
               onClick={() => {
                 window.location.reload(false);
@@ -181,7 +199,31 @@ export const CardEvento = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        
+        {/*--------------MODAL RETIRO EVENTO----------------*/}
+        <Modal show={modal3} onHide={() => setModal3(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Retirarme de este evento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoModal}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                onRetirarse();
+              }}
+            >
+              Confirmar
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                setModal3(false);
+              }}
+            >
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

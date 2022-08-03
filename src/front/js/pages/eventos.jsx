@@ -1,20 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CardEvento } from "../component/cardEvento.jsx";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import { HOSTNAME } from "../component/config";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
-import { retirarseDeEvento } from "../api.js";
 
 export const Eventos = () => {
   const { store, actions } = useContext(Context);
-  const [eventoIdRetiro, setEventoIdRetiro] = useState("");
   const [eventos, setEventos] = useState([]);
-  const [modal1, setModal1] = useState(false);
-  const [modal2, setModal2] = useState(false);
-  const [textoModal, setTextoModal] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,30 +32,6 @@ export const Eventos = () => {
       });
     }
   }, []);
-
-  const onRetirarse = () => {
-    retirarseDeEvento(eventoIdRetiro)
-      .then((data) => {
-        setModal1(false);
-        setTextoModal(
-          "Se ha retirado la participación del usuario a este evento."
-        );
-        setModal2(true);
-      })
-      .catch((error) => {
-        const errorStr = JSON.stringify(error);
-        setTextoModal(error.message);
-        setModal2(true);
-      });
-  };
-
-  const notificarSolicitudRetiro = (eventoId) => {
-    setTextoModal(
-      "¿Estás seguro de que quieres retirar tu participación de este evento?."
-    );
-    setModal1(true);
-    setEventoIdRetiro(eventoId);
-  };
 
   const esEventoFuturo = (fecha) => {
     const tiempoTrans = Date.now();
@@ -121,54 +90,12 @@ export const Eventos = () => {
                     estado={evento.estado}
                     fecha_y_hora={evento.fecha_y_hora}
                     route={"/detalleEvento/" + evento.id}
-                    notificarSolicitudRetiro={notificarSolicitudRetiro}
                   />
                 </div>
               );
             }
           })}
         </div>
-
-        <Modal show={modal1} onHide={() => setModal1(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Retirarme de este evento</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{textoModal}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={() => {
-                onRetirarse();
-              }}
-            >
-              Confirmar
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => {
-                setModal1(false);
-              }}
-            >
-              Cancelar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Modal show={modal2} onHide={() => setModal2(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Retirarme de este evento</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{textoModal}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={() => {
-                window.location.reload(false);
-              }}
-            >
-              Aceptar
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </>
   );
