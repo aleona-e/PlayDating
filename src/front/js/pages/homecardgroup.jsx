@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect} from "react";
 import {Card} from "../component/card.jsx"
 import { Navbar } from "../component/navbar.jsx";
+import { config } from "../component/config.js";
+import { useNavigate } from "react-router-dom";
 
 export const HomeCardGroup = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(config.jwt.nameToken);
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <Navbar />

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
 import { retirarseDeEvento } from "../api.js";
+import "../../styles/modal.css";
 
 export const Eventos = () => {
   const { store, actions } = useContext(Context);
@@ -19,7 +20,7 @@ export const Eventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaprivada");
+      navigate("/");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventos", {
@@ -128,7 +129,8 @@ export const Eventos = () => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+            className="botonmodalazul"
+              variant="botonmodalazul"
               onClick={() => {
                 onRetirarse();
               }}
@@ -136,7 +138,8 @@ export const Eventos = () => {
               Confirmar
             </Button>
             <Button
-              variant="danger"
+            className="botonmodalrojo"
+              variant="botonmodalrojo"
               onClick={() => {
                 setModal1(false);
               }}
@@ -153,7 +156,8 @@ export const Eventos = () => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+            className="botonmodalazul"
+              variant="botonmodalazul"
               onClick={() => {
                 window.location.reload(false);
               }}

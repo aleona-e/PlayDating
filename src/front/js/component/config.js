@@ -1,5 +1,7 @@
-// export const HOSTNAME = process.env.BACKEND_URL + '/api'
-export const HOSTNAME = "https://playdating2.herokuapp.com/api"
+export const HOSTNAME = process.env.BACKEND_URL + '/api'
+// export const HOSTNAME = "https://playdating2.herokuapp.com/api"
+
+
 
 export const config = {
 

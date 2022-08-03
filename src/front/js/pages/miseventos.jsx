@@ -7,6 +7,7 @@ import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
 import { retirarseDeEvento } from "../api.js";
+import "../../styles/modal.css";
 
 export const MisEventos = () => {
   const { store, actions } = useContext(Context);
@@ -19,7 +20,7 @@ export const MisEventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaprivada");
+      navigate("/");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventoscreados/usuario", {
@@ -148,7 +149,8 @@ export const MisEventos = () => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+            className="botonmodalazul"
+            variant="botonmodalazul"
               onClick={() => {
                 onRetirarse();
               }}
@@ -156,7 +158,8 @@ export const MisEventos = () => {
               Confirmar
             </Button>
             <Button
-              variant="danger"
+            className="botonmodalrojo"
+            variant="botonmodalrojo"
               onClick={() => {
                 setModal1(false);
               }}
@@ -173,8 +176,8 @@ export const MisEventos = () => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-            
-              variant="primary"
+            className="botonmodalazul"
+            variant="botonmodalazul"
               onClick={() => {
                 window.location.reload(false);
               }}

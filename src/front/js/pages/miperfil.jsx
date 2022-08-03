@@ -10,6 +10,7 @@ import { config } from "../component/config.js";
 import { Navbar } from "../component/navbar.jsx";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import "../../styles/modal.css";
 
 export const MiPerfil = () => {
   const [numero_hijos, setNumero_hijos] = useState(1);
@@ -31,7 +32,7 @@ export const MiPerfil = () => {
   useEffect(() => {
     const token = localStorage.getItem(config.jwt.nameToken);
     if (!token) {
-      navigate("/login");
+      navigate("/");
     }
     fetch(HOSTNAME + "/perfil", {
       method: "GET",
@@ -50,7 +51,7 @@ export const MiPerfil = () => {
       })
       .catch((e) => {
         console.error(e);
-        navigate(`/zonaprivada`);
+        navigate(`/`);
       });
   }, []);
 
@@ -204,7 +205,8 @@ export const MiPerfil = () => {
           <Modal.Body>{textoAlerta}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+              className="botonmodalazul"
+              variant="botonmodalazul"
               onClick={() => {
                 if (navegar) {
                   location.reload();

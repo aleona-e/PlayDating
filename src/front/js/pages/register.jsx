@@ -6,6 +6,7 @@ import { HOSTNAME } from "../component/config";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { Navbar } from "../component/navbar.jsx";
+import "../../styles/modal.css";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -208,7 +209,8 @@ export const Register = () => {
           <Modal.Body>{textoAlerta}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+            className="botonmodalazul"
+            variant="botonmodalazul"
               onClick={() => {
                 if (navegar) {
                   navigate("/login");
