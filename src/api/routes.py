@@ -63,7 +63,6 @@ def validacion_campos_registro(email, password, nombre, provincia, numero_hijos)
 
 # Funciones para validar desde el back campos de registro y login
 
-
 def validacion_campos_login(email, password):
     validacion_email_password(email, password)
 
@@ -249,14 +248,14 @@ def get_eventos():
     all_eventos = []
     creador_id = obtener_usuario_id()
     creador = Usuario.query.filter_by(id=creador_id).first()
-    usuarios = Usuario.query.filter_by(provincia=creador.provincia).all()    
+    usuarios = Usuario.query.filter_by(provincia=creador.provincia).all()
     for usuario in usuarios:
         eventos = Evento.query.filter_by(creador_id=usuario.id).all()
         for evento in eventos:
             all_eventos.append(evento)
     all_eventos = list(map(lambda evento: evento.serialize(), all_eventos))
-    return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos})                
-    
+    return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos})
+
 
 # Obtener informacion detalle de evento por id
 
@@ -265,20 +264,21 @@ def get_eventos():
 @jwt_required()
 def get_evento(evento_id):
     evento = Evento.query.get(evento_id)
-    participantes_Evento = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
+    participantes_Evento = Participantes_Evento.query.filter_by(
+        evento_id=evento_id).all()
     all_participantes = []
     for participante_Evento in participantes_Evento:
         nombre = participante_Evento.usuario.nombre
         cantidad = participante_Evento.num_participantes_por_usuario
-        participante = {"nombre":nombre, "cantidad":cantidad}
+        participante = {"nombre": nombre, "cantidad": cantidad}
         all_participantes.append(participante)
     evento_serialized = evento.serialize()
     evento_serialized.update({'participantes': all_participantes})
     if evento is None:
         raise APIException("Evento no encontrado")
-    return jsonify({'message':'Informacion detalle de evento solicitada exitosamente','data':evento_serialized})
-    
-#Unirse a evento ya creado, usuario añadido a tabla participantes_evento
+    return jsonify({'message': 'Informacion detalle de evento solicitada exitosamente', 'data': evento_serialized})
+
+# Unirse a evento ya creado, usuario añadido a tabla participantes_evento
 
 
 @api.route('/unirse/evento/<int:evento_id>', methods=['POST'])
@@ -318,16 +318,18 @@ def unirse_a_evento(evento_id):
 def retirarse_de_evento(evento_id):
     usuario_id = obtener_usuario_id()
     evento = Evento.query.filter_by(id=evento_id).first()
-    participante_evento = Participantes_Evento.query.filter_by(usuario_id=usuario_id, evento_id=evento_id).first()
+    participante_evento = Participantes_Evento.query.filter_by(
+        usuario_id=usuario_id, evento_id=evento_id).first()
     if participante_evento == None:
         raise APIException('Usuario NO registrado en evento')
     db.session.delete(participante_evento)
     total_participantes = 0
-    participantes_evento_aux = Participantes_Evento.query.filter_by(evento_id=evento_id).all()
+    participantes_evento_aux = Participantes_Evento.query.filter_by(
+        evento_id=evento_id).all()
     for participante_evento in participantes_evento_aux:
         total_participantes += participante_evento.num_participantes_por_usuario
     if total_participantes < evento.maximo_participantes:
-        evento.estado = ESTADO_DISPONIBLE     
+        evento.estado = ESTADO_DISPONIBLE
     db.session.commit()
     return jsonify({
         'message': "Se retiró exitosamente la participación de este usuario al evento"
@@ -338,7 +340,7 @@ def retirarse_de_evento(evento_id):
 
 @api.route('/eventoscreados/usuario', methods=['GET'])
 @jwt_required()
-def get_eventos_creados_usuario():    
+def get_eventos_creados_usuario():
     usuario_id = obtener_usuario_id()
     eventos = Evento.query.filter_by(creador_id=usuario_id).all()
     eventos_creados = list(map(lambda evento: evento.serialize(), eventos))
