@@ -4,7 +4,6 @@ import { Context } from "../store/appContext";
 import DateTimePicker from "react-datetime-picker";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { DateTime } from "react-datetime-bootstrap";
 import "../../styles/crearEvento.css";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
@@ -44,6 +43,12 @@ export const CrearEvento = (props) => {
     setState(value);
   };
 
+  const fechaDeHoy = () => {
+    const tiempoTrans = Date.now();
+    const fechaActual = new Date(tiempoTrans);
+    return fechaActual
+  };
+
   useEffect(() => {
     if (
       direccion !== "" &&
@@ -51,10 +56,11 @@ export const CrearEvento = (props) => {
       edad_minima !== "" &&
       maximo_participantes !== "" &&
       maximo_participantes !== "0" &&
-      parseInt(maximo_participantes) > parseInt(minimo_participantes) &&
+      parseInt(maximo_participantes) >= parseInt(minimo_participantes) &&
       minimo_participantes !== "" &&
       minimo_participantes !== "0" &&
-      fecha_y_hora !== ""
+      fecha_y_hora !== "" &&
+      fecha_y_hora > fechaDeHoy()
     ) {
       setDeshabilitado(false);
     } else {
@@ -186,7 +192,7 @@ export const CrearEvento = (props) => {
             <form className="was-validated">
               <label className="col-sm-3 col-form-label">Fecha y Hora</label>
               <div>
-                <DateTimePicker onChange={setfechayhora} value={fecha_y_hora} />
+                <DateTimePicker onChange={setfechayhora} value={fecha_y_hora} minDate={new Date()} />
               </div>
             </form>
           </div>

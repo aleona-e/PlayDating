@@ -91,25 +91,25 @@ export const MiPerfil = () => {
   return (
     <>
       <Navbar />
-      <div className="container" id="containerPerfil">
+      <div className="container" id="containerPerfil" >
         <div className="row g-2">
-          <div className="col-md-6">
+          <div className="col-md-6 my-4">
             <label className="form-label">Nombre Completo: </label>
-            <span>{datos.nombre}</span>
+            <span> {datos.nombre}</span>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 my-4">
             <label className="form-label">Email: </label>
-            <span>{datos.email}</span>
+            <span> {datos.email}</span>
           </div>
           <div className="col-md-6">
-            <label className="form-label">Lista Hijos</label>
+            <label className="form-label">Tus hij@s</label>
             <div>
               <FormularioHijos />
             </div>
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Numero Hijos </label>
+            <label className="form-label">¿Cuántos hijos tienes? </label>
             <div className="input-group mb-3">
               <input
                 id="inputGuardarhijos"
@@ -182,7 +182,7 @@ export const MiPerfil = () => {
             </select>
           </div>
           {/* -------------------------------------------------------------------------- */}
-          <div className="col-12">
+          <div className="col-12 my-3">
             <button
               onClick={onSave}
               id="buttonPerfil"
