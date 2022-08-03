@@ -255,8 +255,6 @@ def get_eventos():
         for evento in eventos:
             all_eventos.append(evento)
     all_eventos = list(map(lambda evento: evento.serialize(), all_eventos))
-    if len(all_eventos) == 0:
-        raise APIException("No hay eventos creados")
     return jsonify({'message': 'Informacion de eventos por provincia solicitada exitosamente', 'data': all_eventos})                
     
 

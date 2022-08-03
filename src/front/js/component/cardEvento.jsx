@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import propTypes from "prop-types";
 import "../../styles/cardEvento.css";
 import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "./config";
 import moment from "moment";
 
 export const CardEvento = (props) => {
+
+  const [modal1, setModal1] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [textoModal, setTextoModal] = useState("");
+
   const onCancel = async () => {
     const response = await fetch(
       HOSTNAME + `/cancelarevento/${props.evento_id}`,
@@ -19,7 +26,14 @@ export const CardEvento = (props) => {
       }
     );
     const json = await response.json();
+    setTextoModal(
+      "Se ha cancelado este evento."
+    );
+    setModal1(true);
+    setModal2(true)
   };
+
+
 
   let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
@@ -64,7 +78,7 @@ export const CardEvento = (props) => {
                   </Link>
                   {props.estado !== "Cancelado" && props.estado !== "Cerrado" && (
                     <button
-                      onClick={onCancel}
+                      onClick={()=> {setModal1(true); setTextoModal("¿Estás seguro de que quieres cancelar este evento?")}}
                       id="buttonCancelarEvento"
                       href="#"
                       className="btn m-1"
@@ -124,6 +138,50 @@ export const CardEvento = (props) => {
             </div>
           </div>
         </div>
+        <Modal show={modal1} onHide={() => setModal1(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Cancelar este evento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoModal}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                onCancel();
+              }}
+            >
+              Confirmar
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                setModal1(false);
+              }}
+            >
+              Cancelar
+            </Button>
+          </Modal.Footer>
+          
+        </Modal>
+        
+        <Modal show={modal2} onHide={() => setModal2(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Cancelar este evento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoModal}</Modal.Body>
+          <Modal.Footer>
+            <Button
+            
+              variant="primary"
+              onClick={() => {
+                window.location.reload(false);
+              }}
+            >
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        
       </div>
     </>
   );

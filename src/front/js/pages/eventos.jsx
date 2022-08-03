@@ -65,27 +65,27 @@ export const Eventos = () => {
   };
 
   const esEventoFuturo = (fecha) => {
-    const tiempoTrans = Date.now()
-    const fechaActual = new Date(tiempoTrans)
-    const fechaEvento = new Date(fecha)
-    return (fechaActual < fechaEvento)    
-    }
-  
-    const sortedArray = (eventos) => {
-      eventos.sort((a, b) => {
-        const fechaEventoA = new Date(a.fecha_y_hora);
-        const fechaEventoB = new Date(b.fecha_y_hora);
-        if (fechaEventoA > fechaEventoB) {
-          return 1;
-        } else if (fechaEventoB > fechaEventoA) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      return eventos
-    };
-  
+    const tiempoTrans = Date.now();
+    const fechaActual = new Date(tiempoTrans);
+    const fechaEvento = new Date(fecha);
+    return fechaActual < fechaEvento;
+  };
+
+  const sortedArray = (eventos) => {
+    eventos.sort((a, b) => {
+      const fechaEventoA = new Date(a.fecha_y_hora);
+      const fechaEventoB = new Date(b.fecha_y_hora);
+      if (fechaEventoA > fechaEventoB) {
+        return 1;
+      } else if (fechaEventoB > fechaEventoA) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return eventos;
+  };
+
   return (
     <>
       <Navbar />
@@ -93,9 +93,18 @@ export const Eventos = () => {
         <div className="text-center p-3">
           <h3>Participa En Los Eventos Creados En Tu Zona</h3>
         </div>
+        {eventos.length === 0 && (
+            <div className="mt-5 v             ">
+              <h5>Aún no hay eventos en esta provincia</h5>
+            </div>
+          )}
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
+          
           {sortedArray(eventos).map((evento, index) => {
-            if (evento.estado !== "Cancelado" & esEventoFuturo(evento.fecha_y_hora)){             
+            if (
+              (evento.estado !== "Cancelado") &
+              esEventoFuturo(evento.fecha_y_hora)
+            ) {
               return (
                 <div key={index}>
                   <CardEvento
@@ -117,10 +126,9 @@ export const Eventos = () => {
                 </div>
               );
             }
-          })
-          }
+          })}
         </div>
-        
+
         <Modal show={modal1} onHide={() => setModal1(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Retirarme de este evento</Modal.Title>
@@ -144,7 +152,6 @@ export const Eventos = () => {
               Cancelar
             </Button>
           </Modal.Footer>
-          
         </Modal>
         <Modal show={modal2} onHide={() => setModal2(false)}>
           <Modal.Header closeButton>
