@@ -12,7 +12,7 @@ export const Eventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaprivada");
+      navigate("/");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventos", {

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import propTypes from "prop-types";
 import "../../styles/cardEvento.css";
+import "../../styles/modal.css";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -165,16 +166,18 @@ export const CardEvento = (props) => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
-              onClick={() => {
+            className="botonmodalazul"
+            variant="botonmodalazul"
+            onClick={() => {
                 onCancel();
               }}
             >
               Confirmar
             </Button>
             <Button
-              variant="danger"
-              onClick={() => {
+            className="botonmodalrojo"
+            variant="botonmodalrojo"
+             onClick={() => {
                 setModal1(false);
               }}
             >
@@ -190,7 +193,8 @@ export const CardEvento = (props) => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+               className="botonmodalazul"
+               variant="botonmodalazul"
               onClick={() => {
                 window.location.reload(false);
               }}
@@ -207,7 +211,8 @@ export const CardEvento = (props) => {
           <Modal.Body>{textoModal}</Modal.Body>
           <Modal.Footer>
             <Button
-              variant="primary"
+               className="botonmodalazul"
+               variant="botonmodalazul"
               onClick={() => {
                 onRetirarse();
               }}
@@ -215,7 +220,8 @@ export const CardEvento = (props) => {
               Confirmar
             </Button>
             <Button
-              variant="danger"
+              className="botonmodalrojo"
+              variant="botonmodalrojo"
               onClick={() => {
                 setModal3(false);
               }}

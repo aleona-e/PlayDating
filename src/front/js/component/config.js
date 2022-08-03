@@ -1,11 +1,14 @@
-export const HOSTNAME= "https://3001-isarebollo-childwebappf-ixom9fgs510.ws-eu54.gitpod.io"
+export const HOSTNAME = process.env.BACKEND_URL + '/api'
+// export const HOSTNAME = "https://playdating2.herokuapp.com/api"
+
+
 
 export const config = {
 
-    jwt: {
-      nameToken: "token",
-    },
-  };
+  jwt: {
+    nameToken: "token",
+  },
+};
 
 
 //paleta de colores

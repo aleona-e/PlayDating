@@ -5,7 +5,6 @@ import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
 
-
 export const MisEventos = () => {
   const { store, actions } = useContext(Context);
   const [eventos, setEventos] = useState([]);
@@ -13,7 +12,7 @@ export const MisEventos = () => {
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate("/zonaprivada");
+      navigate("/");
     } else {
       const fetchData = async () => {
         const response = await fetch(HOSTNAME + "/eventoscreados/usuario", {
