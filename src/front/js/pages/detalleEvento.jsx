@@ -243,7 +243,7 @@ export const DetalleEvento = (props) => {
                 <p>
                   <strong>Dirección:</strong> {eventoEscojido.direccion}
                 </p>
-                <p>
+                <p id="descripcionCrearEvento">
                   <strong>Descripción:</strong>{" "}
                   {eventoEscojido.actividad.descripcion}
                 </p>
