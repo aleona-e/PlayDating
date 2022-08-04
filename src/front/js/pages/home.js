@@ -50,11 +50,7 @@ export const Home = () => {
       <Navbar />
       <div className="container ">
         <div className="my-5">
-          <div
-            id="carouselExampleInterval"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
+          <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner mt-5">
               <div className="carousel-item active " data-bs-interval="3000">
                 <div className="card-group">
@@ -115,8 +111,8 @@ export const Home = () => {
       </div>
       <div className="text-center mb-5">
         <Link to="/login">
-          <div className="d-grid gap-2 col-6 mx-auto">
-            <button id="buttonCard" className={"btn btn-lg "  + ocultarConToken}>
+          <div className="grid gap-2 col-6 mx-auto">
+            <button id="buttonCardHome" className={"btn btn-lg "  + ocultarConToken}>
               Entra para ver más!
             </button>
           </div>
@@ -124,8 +120,8 @@ export const Home = () => {
       </div>
       <div className="text-center mb-5">
         <Link to="/actividades">
-          <div className="d-grid gap-2 col-6 mx-auto">
-            <button id="buttonCard" className={"btn btn-lg "  + ocultarSinToken}>
+          <div className="grid gap-2 col-6 mx-auto">
+            <button id="buttonCardHome" className={"btn btn-lg "  + ocultarSinToken}>
               Crear evento
             </button>
           </div>

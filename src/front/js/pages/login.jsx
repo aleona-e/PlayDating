@@ -70,7 +70,8 @@ export const Login = (props) => {
   return (
     <>
       <Navbar />
-      <div className="container" id="containerLogin">
+      <div className="pagina">
+      <div className="container position-absolute top-50 start-50 translate-middle" id="containerLogin">
         <form id="inputLogin">
           <div className="row mb-3">
             <label className="col-sm-2 col-form-label">Email</label>
@@ -131,7 +132,7 @@ export const Login = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </div></div>
     </>
   );
 };
