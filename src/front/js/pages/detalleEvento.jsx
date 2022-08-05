@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../../styles/crearEvento.css";
+import "../../styles/cardEvento.css";
 import { unirseEvento, retirarseDeEvento } from "../api.js";
 import { Navbar } from "../component/navbar.jsx";
 import moment from "moment";
@@ -137,7 +138,7 @@ export const DetalleEvento = (props) => {
       <div>
         <hr></hr>
         <button
-          id="buttonAñadirse"
+          id="buttonCancelarEvento"
           className="btn"
           onClick={() => {
             onRetirarse();

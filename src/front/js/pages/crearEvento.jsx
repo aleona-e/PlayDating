@@ -103,7 +103,7 @@ export const CrearEvento = (props) => {
           <div className="col-6 col-md-6">
             <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
-            <div className="mb-3">
+            <div className="mb-3 ms-4">
               <p id="descripcionCrearEvento">{actividadEscojida.descripcion}</p>
             </div>
           </div>

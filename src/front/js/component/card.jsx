@@ -1,6 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 import "../../styles/actividades.css";
+import "../../styles/crearEvento.css"
 import { Link } from "react-router-dom";
 
 export const Card = (props) => {
@@ -18,7 +19,7 @@ export const Card = (props) => {
         <div className="card-body">
           <h5 className="card-title">{props.name}</h5>
           <hr></hr>
-          <p className="card-text">{props.text}</p>
+          <p className="card-text" id="descripcionCrearEvento">{props.text}</p>
           <p className="card-text">{props.tipo}</p>
         </div>
         <div className="card-footer bg-body">
