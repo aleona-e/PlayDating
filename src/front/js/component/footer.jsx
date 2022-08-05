@@ -3,7 +3,7 @@ import Github from "../../img/Github.png";
 import "../../styles/footer.css";
 
 export const Footer = () => (
-  <footer className="footer mt-5 py-3 text-center">
+  <footer className="footer mt-1 py-3 text-center">
     <p>
       <a id="linkfooter" href="https://github.com/isarebollo">
         Isabel Rebollo{" "}
@@ -16,7 +16,6 @@ export const Footer = () => (
       <a id="linkfooter" href="https://github.com/Vero2112">
         Verónica Rodríguez
       </a>
-      {/* <a >Pon un@ Ale en tu vida!!</a>  */}
     </p>
   </footer>
 );

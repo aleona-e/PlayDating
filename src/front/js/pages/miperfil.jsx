@@ -90,9 +90,10 @@ export const MiPerfil = () => {
   };
   return (
     <>
-      <Navbar />
+      <Navbar /> 
+      <div className="container-perfil">
       <div className="container" id="containerPerfil" >
-        <div className="row g-2">
+        <div className="row g-1">
           <div className="col-md-6 my-4">
             <label className="form-label">Nombre Completo: </label>
             <span> {datos.nombre}</span>
@@ -219,6 +220,7 @@ export const MiPerfil = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+      </div>
       </div>
     </>
   );

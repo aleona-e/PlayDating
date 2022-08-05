@@ -1,14 +1,27 @@
 #cardHome {
   width: 320px;
 }
+#buttonCardHome {
+  text-decoration: none; 
+  background-color: rgb(3, 152, 158);
+  color: white;
+  width: 600px;
+}
+
 #buttonCard {
   text-decoration: none; 
   background-color: rgb(3, 152, 158);
   color: white;
+  width: 150px;
 }
+
 #imgCarrusel {
   width: 280px;
   height: 200px;
+}
+
+#carouselExampleInterval {
+  margin-left: 100px;
 }
 
 body {
@@ -35,3 +48,5 @@ label {
 span {
   font-size: 20px;
 }
+
+

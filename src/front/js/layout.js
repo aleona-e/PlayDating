@@ -42,7 +42,7 @@ const Layout = () => {
             <Route element={<CrearEvento />} path="/crearevento/:actividadId" />
             <Route element={<DetalleEvento />} path="/detalleEvento/:eventoId" />
             <Route element={<Eventos />} path="/eventos" />
-            <Route element={<MisEventos />} path="/miseventos" />
+            <Route  element={<MisEventos />} path="/miseventos" />
             <Route element={<MiPerfil />} path="/miperfil" />
 
             <Route element={<h1>Not found!</h1>} />

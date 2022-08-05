@@ -76,7 +76,7 @@ export const MisEventos = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container pagina">
         <div className="text-center p-3">
           <h3>Maneja Todos Tus Eventos</h3>
         </div>
