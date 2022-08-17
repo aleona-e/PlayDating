@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -112,6 +113,28 @@ class Evento(db.Model):
             "actividad": self.actividad.serialize(),
             "participantes": self.participantes,
             "cupos_disponibles": self.cupos_disponibles
+            }
+
+class Comentario(db.Model):
+    __tablename__='comentario'
+    id = db.Column(db.Integer, primary_key=True)
+    evento_id = db.Column(db.Integer, db.ForeignKey('evento.id'), nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    comentario = db.Column(db.String(500), nullable=False)
+    fecha_y_hora = db.Column(db.DateTime, default=datetime.now)
+    evento = db.relationship('Evento')
+    usuario = db.relationship('Usuario')
+
+    def __repr__(self):
+        return '<Comentario %r>' % self.id
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "fecha_y_hora": self.fecha_y_hora.strftime("%c"),
+            "evento_id": self.evento_id,
+            "usuario_id": self.usuario.serialize(),
+            "comentario": self.comentario
             }
 
 class Participantes_Evento(db.Model):

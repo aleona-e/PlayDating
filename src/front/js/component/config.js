@@ -1,4 +1,4 @@
-export const HOSTNAME = process.env.BACKEND_URL + '/api'
+export const HOSTNAME = "https://3001-isarebollo-childwebappf-494vqnn21sf.ws-eu61.gitpod.io/api"
 // export const HOSTNAME = "https://playdating2.herokuapp.com/api"
 
 export const config = {

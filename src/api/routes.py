@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
-from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
+from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad, Comentario
 from api.admin import setup_admin
 from api.utils import generate_sitemap, APIException
 
@@ -167,16 +167,6 @@ def get_actividades():
         map(lambda actividad: actividad.serialize(), actividades))
     return jsonify({'message': 'Información de todas las actividades solicitada exitosamente', 'data': all_actividades})
 
-# Obtener detalle de actividad por id de actividad
-
-
-@api.route('/actividades/<int:actividad_id>', methods=['GET'])
-@jwt_required()
-def get_actividad(actividad_id):
-    actividad = Actividad.query.get(actividad_id)
-    if actividad is None:
-        raise APIException("Actividad no encontrada")
-    return jsonify({'message': 'Información de actividad solicitada con exito', 'data': actividad.serialize()})
 
 # Crear evento
 
@@ -383,3 +373,41 @@ def get_eventos_usuario():
     return jsonify({'message': 'Informacion de eventos asociados al usuario solicitada exitosamente', 'data': all_eventos_serialized})
 
 # hasta aquí todos los endpoints están probados.
+
+@api.route('/comentarios/<int:evento_id>', methods=['GET'])
+@jwt_required()
+def get_comentarios(evento_id):
+    comentarios_evento = Comentario.query.filter_by(id=evento_id).all()
+    all_comentarios = list(
+        map(lambda comentario: comentario.serialize(), comentarios_evento))
+    return jsonify({'message': 'Comentarios solicitados exitosamente', 'data': all_comentarios})
+
+@api.route('/nuevo_comentario/<int:evento_id>', methods=['POST'])
+@jwt_required()
+def dejar_comentario(evento_id):
+    body = request.get_json()
+    usuario_id = obtener_usuario_id()
+    usuario = Usuario.query.get(usuario_id)
+    comentario = body['comentario']
+    comentario = Comentario(
+        evento_id = evento_id,
+        usuario_id = usuario_id,
+        comentario = comentario,    
+        )
+    if comentario is None:
+        raise APIException('El campo comentario no puede estar vacío')
+    db.session.add(comentario) 
+    db.session.commit()
+    return jsonify({'message': "Comentario creado exitosamente", 'data': comentario.serialize()})
+
+@api.route('/borrar_comentario/<int:comentario_id>', methods=['DELETE'])
+@jwt_required()
+def borrar_comentario(comentario_id):
+    comentario_a_borrar = Comentario.query.filter_by(id=comentario_id).first()
+    usuario_id = obtener_usuario_id()
+    if comentario_a_borrar.usuario_id == usuario_id:
+        db.session.delete(comentario_a_borrar)
+        db.session.commit()
+    return jsonify({'message': "Comentario borrado exitosamente"})
+    
+    
