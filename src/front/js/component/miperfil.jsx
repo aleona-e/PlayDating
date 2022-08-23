@@ -5,7 +5,6 @@ import FormularioHijos from "./formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
 import { useNavigate } from "react-router-dom";
 import { config } from "./config.js";
-import { Navbar } from "./navbar.jsx";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../../styles/modal.css";

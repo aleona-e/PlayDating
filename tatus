@@ -1,0 +1,12 @@
+[1mdiff --git a/src/front/js/component/miperfil.jsx b/src/front/js/component/miperfil.jsx[m
+[1mindex 3542582..e4ab359 100644[m
+[1m--- a/src/front/js/component/miperfil.jsx[m
+[1m+++ b/src/front/js/component/miperfil.jsx[m
+[36m@@ -5,7 +5,6 @@[m [mimport FormularioHijos from "./formulariohijos.jsx";[m
+ import { Context } from "../store/appContext.js";[m
+ import { useNavigate } from "react-router-dom";[m
+ import { config } from "./config.js";[m
+[31m-import { Navbar } from "./navbar.jsx";[m
+ import Modal from "react-bootstrap/Modal";[m
+ import Button from "react-bootstrap/Button";[m
+ import "../../styles/modal.css";[m

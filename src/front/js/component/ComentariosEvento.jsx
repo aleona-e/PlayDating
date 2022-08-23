@@ -5,6 +5,7 @@ import { dejarComentario } from "../api.js";
 import { obtenerComentarios } from "../api.js";
 
 export const ComentariosEvento = (props) => {
+  
   let eventoId = props.eventoId;
   const [nuevoComentario, setNuevoComentario] = useState("");
   const [comentarios, setComentarios] = useState([]);

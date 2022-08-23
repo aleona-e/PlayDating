@@ -122,4 +122,64 @@ export const eliminarComentario = async (comentarioId) => {
   return await Promise.resolve(data);
 };
 
+export const agregarFavorito = async () => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/agregar_favorito", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({
+      usuario_favorito_id,
+    }),
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+export const obtenerFavoritos = async () => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/favoritos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+export const eliminarFavorito = async (usuarioFavoritoId) => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/eliminar_favorito/" + usuarioFavoritoId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
 
