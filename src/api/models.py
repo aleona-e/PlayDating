@@ -131,10 +131,27 @@ class Comentario(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "fecha_y_hora": self.fecha_y_hora.strftime("%c"),
+            "fecha_y_hora": self.fecha_y_hora.strftime("%m/%d/%Y, %H:%M:%S"),
             "evento_id": self.evento_id,
             "usuario_id": self.usuario.serialize(),
             "comentario": self.comentario
+            }
+class Favorito(db.Model):
+    __tablename__='favorito'
+    id = db.Column(db.Integer, primary_key=True)
+    usuario_inicial_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    usuario_favorito_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    usuario_inicial = db.relationship('Usuario', foreign_keys=[usuario_inicial_id])
+    usuario_favorito = db.relationship('Usuario', foreign_keys=[usuario_favorito_id])
+    
+    def __repr__(self):
+        return '<Favorito %r>' % self.id
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "usuario_inicial": self.usuario_inicial.serialize(),
+            "usuario_favorito": self.usuario_favorito.serialize()
             }
 
 class Participantes_Evento(db.Model):

@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
-from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad, Comentario
+from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad, Comentario, Favorito
 from api.admin import setup_admin
 from api.utils import generate_sitemap, APIException
 
@@ -372,12 +372,12 @@ def get_eventos_usuario():
         map(lambda evento: evento.serialize(), all_eventos_usuario))
     return jsonify({'message': 'Informacion de eventos asociados al usuario solicitada exitosamente', 'data': all_eventos_serialized})
 
-# hasta aquí todos los endpoints están probados.
 
 @api.route('/comentarios/<int:evento_id>', methods=['GET'])
 @jwt_required()
 def get_comentarios(evento_id):
-    comentarios_evento = Comentario.query.filter_by(id=evento_id).all()
+    comentarios_evento = Comentario.query.filter_by(evento_id=evento_id).all()
+    print(len(comentarios_evento))
     all_comentarios = list(
         map(lambda comentario: comentario.serialize(), comentarios_evento))
     return jsonify({'message': 'Comentarios solicitados exitosamente', 'data': all_comentarios})
@@ -389,16 +389,16 @@ def dejar_comentario(evento_id):
     usuario_id = obtener_usuario_id()
     usuario = Usuario.query.get(usuario_id)
     comentario = body['comentario']
-    comentario = Comentario(
+    comentario_nuevo = Comentario(
         evento_id = evento_id,
         usuario_id = usuario_id,
         comentario = comentario,    
         )
     if comentario is None:
         raise APIException('El campo comentario no puede estar vacío')
-    db.session.add(comentario) 
+    db.session.add(comentario_nuevo) 
     db.session.commit()
-    return jsonify({'message': "Comentario creado exitosamente", 'data': comentario.serialize()})
+    return jsonify({'message': "Comentario creado exitosamente", 'data': comentario_nuevo.serialize()})
 
 @api.route('/borrar_comentario/<int:comentario_id>', methods=['DELETE'])
 @jwt_required()
@@ -410,4 +410,44 @@ def borrar_comentario(comentario_id):
         db.session.commit()
     return jsonify({'message': "Comentario borrado exitosamente"})
     
+@api.route('/favoritos', methods=['GET'])
+@jwt_required()
+def get_favoritos():
+    usuario_id = obtener_usuario_id()
+    favoritos_usuario = Favorito.query.filter_by(usuario_inicial_id=usuario_id).all()
+    all_favoritos = list(
+        map(lambda favorito: favorito.serialize(), favoritos_usuario))
+    return jsonify({'message': 'Favoritos solicitados exitosamente', 'data': all_favoritos})
+
+@api.route('/agregar_favorito', methods=['POST'])
+@jwt_required()
+def agregar_favorito():
+    body = request.get_json()
+    usuario_id = obtener_usuario_id()
+    usuario_favorito_id = body['usuario_favorito']
+    nuevo_favorito = Favorito(
+        usuario_inicial_id = usuario_id,
+        usuario_favorito_id = usuario_favorito_id,    
+        )
+    usuario_favorito = Usuario.query.get(usuario_favorito_id)
+    if usuario_favorito is None:
+        raise APIException('El usuario no existe')
+    usuario_ya_agregado = Favorito.query.filter_by(usuario_inicial_id=usuario_id, usuario_favorito_id=usuario_favorito_id).first()
+    if usuario_ya_agregado is not None:
+        raise APIException('El usuario ya esta en la lista de favoritos') 
+    db.session.add(nuevo_favorito) 
+    db.session.commit()
+    return jsonify({'message': "Comentario creado exitosamente", 'data': nuevo_favorito.serialize()})
+
+@api.route('/eliminar_favorito/<int:usuario_favorito_id>', methods=['DELETE'])
+@jwt_required()
+def eliminar_favorito(usuario_favorito_id):
+    usuario_id = obtener_usuario_id()
+    favorito_a_borrar = Favorito.query.filter_by(usuario_inicial_id=usuario_id, usuario_favorito_id=usuario_favorito_id).first()  
+    if favorito_a_borrar is not None:
+        db.session.delete(favorito_a_borrar)
+        db.session.commit()
+        return jsonify({'message': "Comentario borrado exitosamente"})
+    raise APIException("Favorito no existe")
     
+        

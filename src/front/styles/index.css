@@ -1,3 +1,11 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+#buttonGuardar {
+    background-color: rgb(3, 152, 158);
+    color: white;
+}
+#nombreUsuario {
+    color: rgb(3, 152, 158);
+
+}
+#favoritosPerfil {
+    margin-top: 50px;
+}

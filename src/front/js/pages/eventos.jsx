@@ -59,8 +59,7 @@ export const Eventos = () => {
   return (
     <>
       <Navbar />
-      <div className="container pagina" 
-      
+      <div className="container pagina"       
       >
         <div className="text-center p-3 ">
           <h3>Participa En Los Eventos Creados En Tu Zona</h3>

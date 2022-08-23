@@ -70,7 +70,7 @@ export const Navbar = () => {
           </Link>
 
           <Link to="/">
-            <button id="buttonCerrarSesion" className={"btn me-2 " + ocultarSinToken} onClick={()=>{removeStorage(), location.reload()}} >Cerrar sesión</button>
+            <button id="buttonCerrarSesion" className={"btn me-2 " + ocultarSinToken} onClick={()=>{removeStorage()}} >Cerrar sesión</button>
           </Link>
 
           <Link to="/miperfil">

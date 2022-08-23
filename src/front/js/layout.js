@@ -9,7 +9,7 @@ import { Login } from "./pages/login.jsx";
 import { HomeCardGroup } from "./pages/homecardgroup.jsx";
 import { Actividades } from "./pages/actividades.jsx";
 import { MisEventos } from "./pages/miseventos.jsx";
-import { MiPerfil } from "./pages/miperfil.jsx";
+import { MiperfilDos } from "./pages/MiperfilDos.jsx";
 import { CrearEvento } from "./pages/crearEvento.jsx";
 import { DetalleEvento } from "./pages/detalleEvento.jsx";
 import { Eventos } from "./pages/eventos.jsx";
@@ -43,7 +43,7 @@ const Layout = () => {
             <Route element={<DetalleEvento />} path="/detalleEvento/:eventoId" />
             <Route element={<Eventos />} path="/eventos" />
             <Route  element={<MisEventos />} path="/miseventos" />
-            <Route element={<MiPerfil />} path="/miperfil" />
+            <Route element={<MiperfilDos />} path="/miperfil" />
 
             <Route element={<h1>Not found!</h1>} />
           </Routes>

@@ -7,10 +7,12 @@ import "../../styles/crearEvento.css";
 import "../../styles/cardEvento.css";
 import { unirseEvento, retirarseDeEvento } from "../api.js";
 import { Navbar } from "../component/navbar.jsx";
+import { ComentariosEvento } from "../component/ComentariosEvento.jsx";
 import moment from "moment";
 
 export const DetalleEvento = (props) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/zonaPrivada");
@@ -21,12 +23,9 @@ export const DetalleEvento = (props) => {
   const { store } = useContext(Context);
   const { eventoId } = useParams();
   const eventoEscojido = store.eventos.find((evento) => eventoId == evento.id);
-
   const [numParticipantesPorUsuario, setNumParticipantesPorUsuario] =
     useState("");
-
   const [deshabilitado, setDeshabilitado] = useState(true);
-
   const [modal, setModal] = useState(false);
   const [textoModal, setTextoModal] = useState("");
   const [tituloModal, setTituloModal] = useState("");
@@ -64,14 +63,12 @@ export const DetalleEvento = (props) => {
         if (participante.id == localStorage.getItem("usuario")) {
           return (
             <li key={index}>
-              Te has unido con {participante.cantidad} participante/s
+              Te has unido con {participante.cantidad} participante/s <button className="btn btn-outline-warning ms-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Añadir usuario a Favoritos"><i className="fa fa-star"></i></button>
             </li>
           );
         } else {
           return (
-            <li key={index}>
-              {participante.nombre} con {participante.cantidad} participante/s
-            </li>
+            <li key={index}>{participante.nombre} con {participante.cantidad} participante/s <button className="btn btn-outline-warning ms-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Añadir usuario a Favoritos"><i className="fa fa-star"></i></button></li>
           );
         }
       });
@@ -241,22 +238,21 @@ export const DetalleEvento = (props) => {
                 <p>
                   <strong>Creador:</strong> {eventoEscojido.creador.nombre}
                 </p>
-                <p>
-                  <strong>Dirección:</strong> {eventoEscojido.direccion}
-                </p>
                 <p id="descripcionCrearEvento">
                   <strong>Descripción:</strong>{" "}
                   {eventoEscojido.actividad.descripcion}
                 </p>
 
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-4">
                     <p>
                       <strong> Se ha unido:</strong>
                     </p>
                   </div>
-                  <div className="col-9">
-                    <ul>{participantesEvento()}</ul>
+                  <div className="row">
+                    <div className="col-12">
+                      <ul>{participantesEvento()}</ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -271,6 +267,9 @@ export const DetalleEvento = (props) => {
               <div className="col mt-3">
                 <h5>{date}</h5>
                 <hr></hr>
+                <p>
+                  <strong>Lugar:</strong> {eventoEscojido.direccion}
+                </p>
 
                 {!esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
                   <p>
@@ -307,6 +306,12 @@ export const DetalleEvento = (props) => {
                 )}
               </div>
             </div>
+            {!esEventoFuturo(eventoEscojido.fecha_y_hora) && (
+              <div>
+                <hr></hr>
+                <ComentariosEvento eventoId={eventoEscojido.id} />
+              </div>
+            )}
           </div>
         </div>
         {/* ................................MODAL.......................................................*/}

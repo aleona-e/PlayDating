@@ -1,18 +1,17 @@
-import { resetWarningCache } from "prop-types";
 import React, { useEffect, useState, useContext } from "react";
 import "../../styles/miPerfil.css";
-import { HOSTNAME } from "../component/config.js";
-import FormularioHijos from "../component/formulariohijos.jsx";
+import { HOSTNAME } from "./config.js";
+import FormularioHijos from "./formulariohijos.jsx";
 import { Context } from "../store/appContext.js";
-import { obtenerDatosperfil } from "../api.js";
 import { useNavigate } from "react-router-dom";
-import { config } from "../component/config.js";
-import { Navbar } from "../component/navbar.jsx";
+import { config } from "./config.js";
+import { Navbar } from "./navbar.jsx";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../../styles/modal.css";
 
-export const MiPerfil = () => {
+export const MiPerfil = (props) => {
+
   const [numero_hijos, setNumero_hijos] = useState(1);
   const [provincia, setProvincia] = useState("");
   const { store, actions } = useContext(Context);
@@ -48,6 +47,7 @@ export const MiPerfil = () => {
         obtenerDatos(data.data);
         setNumero_hijos(data.data.numero_hijos);
         setProvincia(data.data.provincia);
+        props.notificarNombre(data.data.nombre)
       })
       .catch((e) => {
         console.error(e);
@@ -90,7 +90,7 @@ export const MiPerfil = () => {
   };
   return (
     <>
-      <Navbar /> 
+      
       <div className="container-perfil">
       <div className="container" id="containerPerfil" >
         <div className="row g-1">

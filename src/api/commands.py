@@ -3,7 +3,7 @@ import click
 import cloudinary.uploader
 import cloudinary.api
 from flask.cli import AppGroup
-from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad
+from api.models import db, Usuario, Actividad, Evento, Participantes_Evento, Tipo_De_Actividad, Favorito
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
