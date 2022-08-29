@@ -1,25 +1,105 @@
 #buttonGuardar {
-    background-color: rgb(3, 152, 158);
-    color: white;
+  background-color: rgb(3, 152, 158);
+  color: white;
 }
 #nombreUsuario {
-    color: rgb(3, 152, 158);
-
+  color: rgb(3, 152, 158);
 }
 #favoritosPerfil {
-    margin-top: 50px;
+  margin-top: 50px;
 }
-#tituloFavorito{
-    color: rgb(3, 152, 158)
+#tituloFavorito {
+  font-family: "Short Stack";
+  color: rgb(3, 152, 158);
 }
-h4{
-    color:rgb(255, 189, 89)
-}
-
-#favoritoPerfil{
-    color:rgb(255, 189, 89)
+h4 {
+  color: rgb(255, 189, 89);
 }
 
-#bienvenida{
-    color: rgb(3, 152, 158)
+#favoritoPerfil {
+  color: rgb(255, 189, 89);
+}
+
+#bienvenida {
+  color: rgb(3, 152, 158);
+  font-family: "DynaPuff", fantasy;
+}
+
+#titulosPaginas {
+  font-family: "DynaPuff", fantasy;
+}
+
+#cardFavoritos {
+  background-color: rgb(3, 152, 158, 0.2);
+}
+
+.descripcionAppHome {
+  font-family: "DynaPuff", fantasy;
+  text-align: center;
+}
+
+.descripcionApp {
+  animation: color-animation 4s linear infinite;
+}
+
+.card-title {
+    font-family: "Short Stack";
+}
+.card-text {
+    font-family: "Short Stack";
+}
+
+.palabra-1 {
+  font-size: 1em;
+  --color-1: #df8453;
+  --color-2: #3d8dae;
+  --color-3: #dbad4a;
+}
+
+.palabra-2 {
+  font-size: 1em;
+  --color-1: #dbad4a;
+  --color-2: #accfcb;
+  --color-3: #df8453;
+}
+
+.palabra-3 {
+  font-size: 1em;
+  --color-1: #df8453;
+  --color-2: #dbad4a;
+  --color-3: #accfcb;
+}
+
+.palabra-4 {
+  font-size: 1em;
+  --color-1: #3d8dae;
+  --color-2: #df8453;
+  --color-3: #dbad4a;
+}
+span {
+  font-size: 2em;
+}
+
+@keyframes color-animation {
+  0% {
+    color: var(--color-1);
+  }
+  32% {
+    color: var(--color-1);
+  }
+  33% {
+    color: var(--color-2);
+  }
+  65% {
+    color: var(--color-2);
+  }
+  66% {
+    color: var(--color-3);
+  }
+  99% {
+    color: var(--color-3);
+  }
+  100% {
+    color: var(--color-1);
+  }
 }

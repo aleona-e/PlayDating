@@ -5,7 +5,7 @@ import { dejarComentario } from "../api.js";
 import { obtenerComentarios } from "../api.js";
 
 export const ComentariosEvento = (props) => {
-  
+
   let eventoId = props.eventoId;
   const [nuevoComentario, setNuevoComentario] = useState("");
   const [comentarios, setComentarios] = useState([]);
@@ -63,7 +63,7 @@ export const ComentariosEvento = (props) => {
                 onChange={(e) => updateComentario(e, setNuevoComentario)}
                 value={nuevoComentario}
                 className="form-control"
-                placeholder="Cómo estuvo este evento..."
+                placeholder="Deja un comentario..."
               ></textarea>
               <button
                 className="btn btn-primary"
@@ -87,6 +87,7 @@ export const ComentariosEvento = (props) => {
                   comentario={comentario.comentario}
                   comentarioId={comentario.id}
                   notificarEliminacionComentario={notificarEliminacionComentario}
+                  onAgregarOEliminarFavorito={props.onAgregarOEliminarFavorito}
                 />
               </div>
             )

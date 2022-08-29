@@ -15,7 +15,7 @@ export const MiperfilDos = () => {
       <Navbar />
       <div className="container-fluid">
         <div className="mt-4 pt-3">
-          <h3 id="bienvenida">¡Bienvenid@ {nombre}!</h3>
+          <h3 id="bienvenida">¡Hola {nombre}!</h3>
         </div>
         <div className="row">
           <div className="col-8">

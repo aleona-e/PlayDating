@@ -74,8 +74,8 @@ export const Login = (props) => {
       <div className="container position-absolute top-50 start-50 translate-middle" id="containerLogin">
         <form id="inputLogin">
           <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">Email</label>
-            <div className="col-sm-10">
+            <label className="col-sm-3 col-form-label">Email</label>
+            <div className="col-sm-9">
               <input
                 onChange={(e) => updateText(e, setEmail)}
                 value={email}
@@ -85,8 +85,8 @@ export const Login = (props) => {
             </div>
           </div>
           <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">Contraseña</label>
-            <div className="col-sm-10">
+            <label className="col-md-3 col-form-label">Contraseña</label>
+            <div className="col-sm-9">
               <input
                 onChange={(e) => updateText(e, setPassword)}
                 value={password}

@@ -3,6 +3,8 @@ import { obtenerActividades } from "../api.js";
 import { Card } from "../component/card.jsx";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
+import "../../styles/index.css";
+
 export const Actividades = () => {
   const { store, actions } = useContext(Context);
   const [actividadesCards, setActividadesCards] = useState([]);
@@ -18,7 +20,6 @@ export const Actividades = () => {
               forzarHeight={true}
               name={actividad.nombre}
               src={actividad.imagen}
-              text={actividad.descripcion}
               tipo={actividad.tipo_de_actividad}
               button=" Crear Evento "
               route={"crearevento/" + actividad.id}
@@ -34,7 +35,7 @@ export const Actividades = () => {
       <Navbar />
       <div className="container">
         <div className="text-center py-4">
-          <h3 className="my-3">
+          <h3 className="my-3" id="titulosPaginas">
             Crea Eventos Con Las Actividades Favoritas De Tus Hijos
           </h3>
         </div>

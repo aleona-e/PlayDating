@@ -24,18 +24,20 @@
   margin-left: 125px;
 }
 #h2CrearEvento {
+  font-family: "DynaPuff", sans;
   text-align: center;
   margin-top: 20px;
-  color: rgb(16, 60, 118);
+  color: rgb(3, 152, 158);
   
 }
 #NombreActividadEvento {
+  font-family: "Short Stack";
   text-align: center;
   font-weight: 800;
-
   color: rgb(16, 60, 118);
 }
 #descripcionCrearEvento {
+  font-family: "Short Stack";
   text-align: justify;
 }
 #columnaDerecha {

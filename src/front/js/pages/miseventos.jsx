@@ -4,6 +4,7 @@ import { CardEvento } from "../component/cardEvento.jsx";
 import { Context } from "../store/appContext.js";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
+import "../../styles/index.css";
 
 export const MisEventos = () => {
   const { store, actions } = useContext(Context);
@@ -78,7 +79,7 @@ export const MisEventos = () => {
       <Navbar />
       <div className="container pagina">
         <div className="text-center p-3">
-          <h3>Maneja Todos Tus Eventos</h3>
+          <h3 id="titulosPaginas">Maneja Todos Tus Eventos</h3>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5 pb-3">
           {eventos.length == 0 && (

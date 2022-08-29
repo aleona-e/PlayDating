@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
 import "../../styles/eventos.css";
+import "../../styles/index.css";
 
 export const Eventos = () => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const [eventos, setEventos] = useState([]);
   const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ export const Eventos = () => {
       <div className="container pagina"       
       >
         <div className="text-center p-3 ">
-          <h3>Participa En Los Eventos Creados En Tu Zona</h3>
+          <h3 id="titulosPaginas">Participa En Los Eventos Creados En Tu Zona</h3>
         </div>
         {eventos.length === 0 && (
             <div className="mt-1">

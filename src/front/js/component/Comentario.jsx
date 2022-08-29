@@ -11,15 +11,14 @@ export const Comentario = (props) => {
       })
       .catch((error) => {
         const errorStr = JSON.stringify(error);
-      });
-  
+      }); 
 }
   return (
     <>
       <div className="container">
         <div className="card w-50 mx-auto mb-2">
           <div className="card-header">
-            <p id="nombreUsuario">{props.usuario.nombre} <button className="btn btn-outline-warning ms-2"data-bs-toggle="tooltip" data-bs-placement="right" title="Añadir usuario a Favoritos"><i className="fa fa-star"></i></button></p>
+            <p id="nombreUsuario">{props.usuario.nombre}{props.usuario.id != localStorage.getItem("usuario") && (<button className="btn btn-outline-warning ms-2"data-bs-toggle="tooltip" data-bs-placement="right" title="Añadir usuario a Favoritos" onClick={()=>{props.onAgregarOEliminarFavorito(props.usuario.id)}}><i className="fa fa-star"></i></button>)}</p>
           </div>
           <div className="card-body">
             <p className="card-text">{props.comentario}</p>

@@ -53,15 +53,25 @@ export const retirarseDeEvento = async (eventoId) => {
   return await Promise.resolve(data);
 };
 
-export const obtenerDatosperfil = () => {
-  return fetch(HOSTNAME + "/perfil", {
+export const obtenerDatosPerfil = async () => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/perfil", {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
     },
   });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
 };
-
+  
 export const dejarComentario = async (eventoId, comentario) => {
   let failed = false
   const resp = await fetch(HOSTNAME + "/nuevo_comentario/" + eventoId, {
@@ -122,7 +132,7 @@ export const eliminarComentario = async (comentarioId) => {
   return await Promise.resolve(data);
 };
 
-export const agregarFavorito = async () => {
+export const agregarFavorito = async (usuarioFavoritoId) => {
   let failed = false
   const resp = await fetch(HOSTNAME + "/agregar_favorito", {
     method: "POST",
@@ -131,7 +141,7 @@ export const agregarFavorito = async () => {
       Authorization: `Bearer ${localStorage.token}`,
     },
     body: JSON.stringify({
-      usuario_favorito_id,
+      usuario_favorito: usuarioFavoritoId
     }),
   });
   if (!resp.ok) {

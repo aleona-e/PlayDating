@@ -110,7 +110,7 @@ export const Register = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Numero Hijos</label>
+            <label className="form-label">¿Cuántos hijos tienes?</label>
             <input
               onChange={(e) => updateText(e, setNumero_hijos)}
               value={numero_hijos}

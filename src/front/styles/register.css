@@ -1,17 +1,23 @@
 #containerRegister {
-  background-color:rgb(255, 189, 89);
+  background-color: rgb(255, 189, 89);
 
   width: 700px;
   height: 380px;
   margin-top: 50px;
 
-  border-radius: 5%;
-margin-bottom: 50px;
-
+  border-radius: 2%;
+  margin-bottom: 50px;
 }
 #buttonRegister {
   margin-top: 10px;
   margin-left: 300px;
-  background-color: rgb(3, 152, 158) ;
+  background-color: rgb(3, 152, 158);
   color: white;
+}
+h1 {
+  font-family: "DynaPuff", fantasy;
+}
+
+label {
+  color:rgb(3, 152, 158)
 }

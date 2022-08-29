@@ -437,7 +437,7 @@ def agregar_favorito():
         raise APIException('El usuario ya esta en la lista de favoritos') 
     db.session.add(nuevo_favorito) 
     db.session.commit()
-    return jsonify({'message': "Comentario creado exitosamente", 'data': nuevo_favorito.serialize()})
+    return jsonify({'message': "Favorito agregado exitosamente", 'data': nuevo_favorito.serialize()})
 
 @api.route('/eliminar_favorito/<int:usuario_favorito_id>', methods=['DELETE'])
 @jwt_required()
@@ -447,7 +447,7 @@ def eliminar_favorito(usuario_favorito_id):
     if favorito_a_borrar is not None:
         db.session.delete(favorito_a_borrar)
         db.session.commit()
-        return jsonify({'message': "Comentario borrado exitosamente"})
+        return jsonify({'message': "Favorito borrado exitosamente"})
     raise APIException("Favorito no existe")
     
         

@@ -35,7 +35,7 @@ export const Home = () => {
             forzarHeight={false}
             name={actividad.nombre}
             src={actividad.imagen}
-            text={actividad.descripcion}
+            
           />
         );
       });
@@ -82,6 +82,9 @@ export const Home = () => {
                 </div>
               </div>
             </div>
+            <div className="my-5 pb-3 mx-auto">
+              <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea Divertidas </span><span className="descripcionApp palabra-2">Citas de   </span><span className="descripcionApp palabra-3">Juego para  </span><span className="descripcionApp palabra-4">tus hijos!</span></h1>
+            </div>
             <button
               className="carousel-control-prev"
               type="button"
@@ -109,6 +112,7 @@ export const Home = () => {
           </div>
         </div>
       </div>
+      {/* ----- BOTONES --------
       <div className="text-center mb-5">
         <Link to="/login">
           <div className="grid gap-2 col-6 mx-auto">
@@ -126,7 +130,7 @@ export const Home = () => {
             </button>
           </div>
         </Link>
-      </div>
+  </div>*/}
     </>
   );
 };
