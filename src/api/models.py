@@ -154,6 +154,27 @@ class Favorito(db.Model):
             "usuario_favorito": self.usuario_favorito.serialize()
             }
 
+class Invitacion(db.Model):
+    __tablename__='invitacion'
+    id = db.Column(db.Integer, primary_key=True)
+    usuario_creador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    usuario_invitado_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    evento_id = db.Column(db.Integer, db.ForeignKey('evento.id'), nullable=False)
+    evento = db.relationship('Evento')
+    usuario_creador = db.relationship('Usuario', foreign_keys=[usuario_creador_id])
+    usuario_invitado = db.relationship('Usuario', foreign_keys=[usuario_invitado_id])
+    
+    def __repr__(self):
+        return '<Invitacion %r>' % self.id
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "usuario_creador": self.usuario_creador.serialize(),
+            "usuario_invitado": self.usuario_invitado.serialize(),
+            "evento": self.evento.serialize()
+            }
+
 class Participantes_Evento(db.Model):
     __tablename__='participantes_evento'
     id = db.Column(db.Integer, primary_key=True)

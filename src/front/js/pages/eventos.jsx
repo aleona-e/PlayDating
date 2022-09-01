@@ -26,7 +26,6 @@ export const Eventos = () => {
         });
         const json = await response.json();
         setEventos(json.data);
-        actions.agregarEventos(json.data);
       };
 
       fetchData().catch((error) => {

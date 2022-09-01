@@ -11,7 +11,6 @@ export const UnirseRetirarseEvento = (props) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const eventoId = props.eventoId;
-  const eventoEscojido = store.eventos.find((evento) => eventoId == evento.id);
   const [numParticipantesPorUsuario, setNumParticipantesPorUsuario] =
     useState("");
   const [deshabilitado, setDeshabilitado] = useState(true);
@@ -20,7 +19,7 @@ export const UnirseRetirarseEvento = (props) => {
   const [tituloModal, setTituloModal] = useState("");
 
   const llenarOpcionesSelect = () => {
-    let cuposDisponibles = eventoEscojido.cupos_disponibles;
+    let cuposDisponibles = props.cupos;
     let cupos = [];
     while (cuposDisponibles > 0) {
       let currentCupo = cuposDisponibles--;
@@ -43,7 +42,7 @@ export const UnirseRetirarseEvento = (props) => {
   };
 
   const comprobarUsuarioEnEvento = () => {
-    let usuarioEnEvento = eventoEscojido.participantes.find(
+    let usuarioEnEvento = props.participantes.find(
       (participante) => participante.id == localStorage.getItem("usuario")
     );
     return usuarioEnEvento != undefined;
@@ -158,17 +157,17 @@ export const UnirseRetirarseEvento = (props) => {
   };
 
   const pintarBotonesRetiroUnirse = () => {
-    if (eventoEscojido.estado != "Lleno" && comprobarUsuarioEnEvento()) {
+    if (props.estado != "Lleno" && comprobarUsuarioEnEvento()) {
       return retirarse();
     } else if (
-      eventoEscojido.estado != "Lleno" &&
+      props.estado != "Lleno" &&
       !comprobarUsuarioEnEvento()
     ) {
       return unirse();
-    } else if (eventoEscojido.estado == "Lleno" && comprobarUsuarioEnEvento()) {
+    } else if (props.estado == "Lleno" && comprobarUsuarioEnEvento()) {
       return noHayCuposRetirarse();
     } else if (
-      eventoEscojido.estado == "Lleno" &&
+      props.estado == "Lleno" &&
       !comprobarUsuarioEnEvento()
     ) {
       return noHaycupos();
@@ -184,8 +183,8 @@ export const UnirseRetirarseEvento = (props) => {
 
   return (
     <>
-      {eventoEscojido.estado == "Cancelado" ||
-      !esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
+      {props.estado == "Cancelado" ||
+      !esEventoFuturo(props.fecha_y_hora) ? (
         <p>
           <strong>Este evento ya no está disponible</strong>
         </p>

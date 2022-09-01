@@ -16,6 +16,10 @@ h4 {
   color: rgb(255, 189, 89);
 }
 
+#buttonInvitacion {
+  background-color: rgb(255, 189, 89, 0.5);
+}
+
 #favoritoPerfil {
   color: rgb(255, 189, 89);
 }
@@ -79,6 +83,19 @@ h4 {
 span {
   font-size: 2em;
 }
+
+.yellow{
+  color :rgb(255, 189, 89)
+}
+
+.fas fa-star{
+  background-color :rgb(255, 189, 89)
+}
+.fas fa-star{
+  background-color :rgb(255, 189, 89)
+}
+
+
 
 @keyframes color-animation {
   0% {

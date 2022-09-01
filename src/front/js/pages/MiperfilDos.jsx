@@ -3,6 +3,7 @@ import { MisFavoritos } from "../component/MisFavoritos.jsx";
 import { Navbar } from "../component/navbar.jsx";
 import { MiPerfil } from "../component/miperfil.jsx";
 import "../../styles/index.css";
+import { MisInvitaciones } from "../component/MisInvitaciones.jsx";
 
 export const MiperfilDos = () => {
   const [nombre, setNombre] = useState("");
@@ -22,9 +23,10 @@ export const MiperfilDos = () => {
             <MiPerfil notificarNombre={notificarNombreUsuario} />
           </div>
           <div className="col-4">
-            <div className="mx-auto">
+            
             <MisFavoritos />
-            </div>
+            <MisInvitaciones/>
+            
           </div>
         </div>
       </div>

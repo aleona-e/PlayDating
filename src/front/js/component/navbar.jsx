@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logoTresUrl from "../../img/logo-bloques.png";
+import actividades from "../../img/actividades.png";
+import eventos from "../../img/eventos.png";
+import misEventos from "../../img/mis-eventos.png";
+import miPerfil from "../../img/mi-perfil.png";
 import { config } from "../component/config.js";
 import "../../styles/navbar.css";
 
@@ -35,6 +39,7 @@ export const Navbar = () => {
               height="120"
               className="d-inline-block align-text-top"
             ></img>
+        
           </span>
         </Link>
         <div>
@@ -43,7 +48,14 @@ export const Navbar = () => {
               id="LinkNavbar"
               className={"navbar-brand mb-0 h1 " + ocultarSinToken}
             >
-              Actividades
+              <img
+              src={actividades}
+              alt=""
+              width="80"
+              height="80"
+              className="d-inline-block align-text-top"
+            ></img>
+            
             </span>
           </Link>
         </div>
@@ -52,7 +64,13 @@ export const Navbar = () => {
             id="LinkNavbar"
             className={"navbar-brand mb-0 h1 " + ocultarSinToken}
           >
-            Eventos
+            <img
+              src={eventos}
+              alt=""
+              width="80"
+              height="80"
+              className="d-inline-block align-text-top"
+            ></img>
           </span>
         </Link>
 
@@ -61,7 +79,13 @@ export const Navbar = () => {
             id="LinkNavbar"
             className={"navbar-brand mb-0 h1 " + ocultarSinToken}
           >
-            Mis eventos
+            <img
+              src={misEventos}
+              alt=""
+              width="80"
+              height="80"
+              className="d-inline-block align-text-top"
+            ></img>
           </span>
         </Link>
 
@@ -70,7 +94,13 @@ export const Navbar = () => {
             id="LinkNavbar"
             className={"navbar-brand mb-0 h1  " + ocultarSinToken}
           >
-            Mi Perfil
+            <img
+              src={miPerfil}
+              alt=""
+              width="80"
+              height="80"
+              className="d-inline-block align-text-top"
+            ></img>
           </span>
         </Link>
         <div className="text-end">

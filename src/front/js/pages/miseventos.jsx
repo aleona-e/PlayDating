@@ -36,7 +36,6 @@ export const MisEventos = () => {
         const json1 = await response1.json();
         const eventos = json.data.concat(json1.data);
         setEventos(eventos);
-        actions.agregarEventos(eventos);
       };
       fetchData().catch((error) => {
         console.log(error);

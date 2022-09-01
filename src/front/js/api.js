@@ -192,4 +192,85 @@ export const eliminarFavorito = async (usuarioFavoritoId) => {
   return await Promise.resolve(data);
 };
 
+export const invitarUsuario = async (usuarioInvitadoId, eventoId) => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/invitar_usuario", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({
+      usuario_invitado: usuarioInvitadoId,
+      evento: eventoId
+    }),
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+export const obtenerInvitaciones = async () => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/invitaciones", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+export const eliminarInvitacion = async (invitacionId) => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/eliminar_invitacion/" + invitacionId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+export const obtenerEventos = async () => {
+  let failed = false
+  const resp = await fetch(HOSTNAME + "/eventos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  });
+  if (!resp.ok) {
+    failed = true;
+  }
+  const data = await resp.json();
+  if (failed) {
+    throw new Error(`${data.message}`);
+  }
+  return await Promise.resolve(data);
+};
+
+
 

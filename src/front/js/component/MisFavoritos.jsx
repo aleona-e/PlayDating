@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/index.css";
 import { obtenerFavoritos, eliminarFavorito } from "../api.js";
-import { Context } from "../store/appContext.js"
 
 export const MisFavoritos = () => {
 
-  const { store, actions } = useContext(Context);
   const [favoritos, setFavoritos] = useState([]);
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import "../../styles/crearEvento.css";
 import "../../styles/modal.css";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
+import { InvitarUsuario } from "../component/InvitarUsuario.jsx";
 
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export const CrearEvento = (props) => {
       <Navbar />
       <h2 id="h2CrearEvento">Crea tu Evento</h2>
       <div className="container " id="containerCrearEvento">
-        <div className="row   g-3">
+        <div className="row g-3">
           <div className="col-6 col-md-6">
             <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
             <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
@@ -188,9 +189,10 @@ export const CrearEvento = (props) => {
                 ></input>
               </div>
             </form>
+           <InvitarUsuario/>
 
             <form className="was-validated">
-              <label className="col-sm-3 col-form-label">Fecha y Hora</label>
+              <label className="col-form-label">Fecha y Hora</label>
               <div>
                 <DateTimePicker
                   onChange={setfechayhora}
@@ -201,16 +203,18 @@ export const CrearEvento = (props) => {
             </form>
           </div>
         </div>
-        <div className="mb-5 pb-3 text-center">
-          <button
-            disabled={deshabilitado}
-            onClick={onSave}
-            id="buttonCrearEvento"
-            className="btn"
-            type="submit"
-          >
-            Crear Evento
-          </button>
+        <div className="col-6">
+          <div className="mb-5 pb-5 text-center">
+            <button
+              disabled={deshabilitado}
+              onClick={onSave}
+              id="buttonCrearEvento"
+              className="btn"
+              type="submit"
+            >
+              Crear Evento
+            </button>
+          </div>
         </div>
 
         <Modal

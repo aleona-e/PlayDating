@@ -17,7 +17,7 @@ const esEventoFuturo = (fecha) => {
     return fechaActual < fechaEvento;
   };
 
-  let date = moment(eventoEscojido.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
+  let date = moment(props.fecha_y_hora).format("DD/MM/YYYY - HH:mm");
 
   return (
     <>
@@ -25,34 +25,39 @@ const esEventoFuturo = (fecha) => {
         <h5>{date}</h5>
         <hr></hr>
         <p>
-          <strong>Lugar:</strong> {eventoEscojido.direccion}
+          <strong>Lugar:</strong> {props.direccion}
         </p>
 
-        {!esEventoFuturo(eventoEscojido.fecha_y_hora) ? (
+        {!esEventoFuturo(props.fecha_y_hora) ? (
           <p>
             <strong>Estado:</strong> Cerrado
           </p>
         ) : (
           <p>
-            <strong>Estado:</strong> {eventoEscojido.estado}
+            <strong>Estado:</strong> {props.estado}
           </p>
         )}
         <p>
           <strong>Tipo de actividad:</strong>{" "}
-          {eventoEscojido.actividad.tipo_de_actividad}
+          {props.tipo_de_actividad}
         </p>
         <p>
           <strong>Cantidad máxima de participantes:</strong>{" "}
-          {eventoEscojido.maximo_participantes}
+          {props.maximo_participantes}
         </p>
         <p>
-          <strong>Cupos disponibles:</strong> {eventoEscojido.cupos_disponibles}
+          <strong>Cupos disponibles:</strong> {props.cupos}
         </p>
         <p>
-          <strong>Rango de edad:</strong> {eventoEscojido.edad_minima} -{" "}
-          {eventoEscojido.edad_maxima}
+          <strong>Rango de edad:</strong> {props.edad_minima} -{" "}
+          {props.edad_maxima}
         </p>
-        <UnirseRetirarseEvento eventoId={eventoEscojido.id}/>
+        <UnirseRetirarseEvento eventoId={eventoId}
+        cupos={props.cupos}
+        participantes={props.participantes}
+        estado={props.estado}
+        fecha_y_hora={props.fecha_y_hora}
+        />
       </div>
     </>
   );

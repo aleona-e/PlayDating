@@ -5,15 +5,10 @@ import "../../styles/cardEvento.css";
 
 export const DetallesActividadEvento = (props) => {
 
-  const { store } = useContext(Context);
-  const eventoId = props.eventoId;
-  const eventoEscojido = store.eventos.find((evento) => eventoId == evento.id);
-
-
-
-  const participantesEvento = () => {
-    let listaParticipantes = eventoEscojido.participantes;
+  const participantesEvento = (listaParticipantes) => {
     let participantes = [];
+    
+
     if (listaParticipantes.length === 0) {
       return <li>Aún no hay participantes</li>;
     } else {
@@ -26,17 +21,16 @@ export const DetallesActividadEvento = (props) => {
             </li>
           );
         } else {
+          const favClazz = participante.esFavorito ? "fas fa-star" : "far fa-star"
           return (
             <li key={index}>
               {participante.nombre} con {participante.cantidad} participante/s{" "}
               <button        
-                className={participanteEnFavoritos(participante)}            
-                data-bs-toggle="tooltip"
+                className="btn ms-2"           
                 data-bs-placement="right"
-                title="Añadir usuario a Favoritos"
                 onClick={()=>{props.onAgregarOEliminarFavorito(participante.id)}}
               >
-                <i className="fa fa-star"></i>
+                <i className={favClazz+ " yellow"}></i>
               </button>
             </li>
           );
@@ -46,24 +40,18 @@ export const DetallesActividadEvento = (props) => {
     return participantes;
   };
 
-  const participanteEnFavoritos = (participante) => {
-    let buttonClass = ""
-    store.favoritos.find(favorito=>favorito.usuario_favorito_id == participante.id) ? buttonClass = "btn btn-warning ms-2" : buttonClass="btn btn-outline-warning ms-2"  
-    return buttonClass
-  }
-
   return (
     <>
       <div className="col mt-3">
         <h5>
-          <strong>{eventoEscojido.actividad.nombre}</strong>
+          <strong>{props.nombre}</strong>
         </h5>
         <hr></hr>
         <p>
-          <strong>Creador:</strong> {eventoEscojido.creador.nombre}
+          <strong>Creador:</strong> {props.creador}
         </p>
         <p id="descripcionCrearEvento">
-          <strong>Descripción:</strong> {eventoEscojido.actividad.descripcion}
+          <strong>Descripción:</strong> {props.descripcion}
         </p>
         <div className="row">
           <div className="col-4">
@@ -73,14 +61,14 @@ export const DetallesActividadEvento = (props) => {
           </div>
           <div className="row">
             <div className="col-12">
-              <ul>{participantesEvento()}</ul>
+              <ul>{participantesEvento(props.participantes)}</ul>
             </div>
           </div>
         </div>
       </div>
       <div className="col mt-3">
         <img
-          src={eventoEscojido.actividad.imagen}
+          src={props.imagen}
           className="img-fluid rounded-start unirseImg"
         />
       </div>

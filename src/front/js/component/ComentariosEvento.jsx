@@ -24,6 +24,16 @@ export const ComentariosEvento = (props) => {
       });
   }, []);
 
+  const comentariosConFavoritos = (comentarios) =>{
+    const favoritos = props.favoritos
+  
+    return comentarios.map((comentario) => {
+      const autorEsFavorito = favoritos.find(favorito =>  comentario.usuario_id.id === favorito.usuario_favorito.id) != undefined
+      return {...comentario, esFavorito: autorEsFavorito}
+      })
+      }
+  
+
   const notificarEliminacionComentario = (comentarioId) => {
     setComentarios(comentarios.filter((comentario)=>comentarioId != comentario.id))
   }
@@ -78,7 +88,7 @@ export const ComentariosEvento = (props) => {
           </div>
         </div>
         {
-          (sortedComentarios(comentarios).map((comentario, index) => {
+          (sortedComentarios(comentariosConFavoritos(comentarios)).map((comentario, index) => {
             return (
               <div key={index}>
                 <Comentario
@@ -86,6 +96,7 @@ export const ComentariosEvento = (props) => {
                   fecha={comentario.fecha_y_hora}
                   comentario={comentario.comentario}
                   comentarioId={comentario.id}
+                  esFavorito = {comentario.esFavorito}
                   notificarEliminacionComentario={notificarEliminacionComentario}
                   onAgregarOEliminarFavorito={props.onAgregarOEliminarFavorito}
                 />
