@@ -3,8 +3,7 @@ import "../../styles/index.css";
 import { eliminarComentario } from "../api.js";
 
 export const Comentario = (props) => {
-  console.log("Inside Comentario")
-  console.log(props.esFavorito)
+ 
   const favClazz = props.esFavorito ? "fas fa-star" : "far fa-star" 
 
   const onEliminarComentario = (comentarioId) => {

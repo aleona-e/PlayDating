@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import "../../styles/crearEvento.css";
 import "../../styles/cardEvento.css";
 import moment from "moment";
 import { UnirseRetirarseEvento } from "./UnirseRetirarseEvento.jsx";
 
 export const DetallesEventoCreado = (props) => {
-  const { store } = useContext(Context);
+
   const eventoId = props.eventoId;
-  const eventoEscojido = store.eventos.find((evento) => eventoId == evento.id);
 
 const esEventoFuturo = (fecha) => {
     const tiempoTrans = Date.now();

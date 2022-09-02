@@ -9,9 +9,13 @@ export const Card = (props) => {
   const clase = props.forzarHeight
     ? "card text-center h-100"
     : "card text-center";
+
+    const cardId = props.homeCard
+    ? "cardHome"
+    : "cardActividades";
   return (
     <>
-      <div className={clase} id="cardHome">
+      <div className={clase} id={cardId}>
         <img
           className="card-img-top imagenCard rounded"
           id="imgCarrusel"
@@ -22,14 +26,14 @@ export const Card = (props) => {
           <h5 className="card-title">{props.name}</h5>
           {props.text && (
             <>
-              <hr></hr>
+              
               <p className="card-text text-center">{props.text}</p>
               <p className="card-text">{props.tipo}</p>
             </>
           )}
         </div>
         {props.button && (
-          <div className="card-footer bg-body">
+          <div className="m-2">
             <Link to={`/${props.route}`}>
               <button href="#" id="buttonCard" className="btn btn-outline">
                 {props.button}

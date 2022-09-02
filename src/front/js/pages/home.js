@@ -33,6 +33,7 @@ export const Home = () => {
         return (
           <Card
             forzarHeight={false}
+            homeCard={true}
             name={actividad.nombre}
             src={actividad.imagen}
             

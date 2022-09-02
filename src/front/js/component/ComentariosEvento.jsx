@@ -39,6 +39,7 @@ export const ComentariosEvento = (props) => {
   }
 
   const onDejarComentario = () => {
+    if (nuevoComentario != ""){
     dejarComentario(eventoId, nuevoComentario)
       .then((data) => {
        setComentarios(comentarios => [...comentarios, data.data])
@@ -46,6 +47,9 @@ export const ComentariosEvento = (props) => {
       .catch((error) => {
         const errorStr = JSON.stringify(error);
       });
+    } else {
+      alert("Comentario vacío")
+    }
   };
 
   const sortedComentarios = (comentarios) => {

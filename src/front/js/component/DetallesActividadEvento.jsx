@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import "../../styles/crearEvento.css";
 import "../../styles/cardEvento.css";
 

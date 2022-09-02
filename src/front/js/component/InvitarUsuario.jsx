@@ -3,7 +3,7 @@ import { obtenerFavoritos } from "../api.js";
 import "../../styles/crearEvento.css";
 import "../../styles/modal.css";
 
-export const InvitarUsuario = () => {
+export const InvitarUsuario = (props) => {
   const [favoritos, setFavoritos] = useState([]);
   const [invitacion, setInvitacion] = useState([]);
 
@@ -22,7 +22,7 @@ export const InvitarUsuario = () => {
     if (favoritosUsuario.length != 0) {
       let opcionesSelect = favoritosUsuario.map((favoritoUsuario, index) => {
         return (
-          <option key={index} value={favoritoUsuario.usuario_favorito.nombre}>
+          <option key={index} value={favoritoUsuario.usuario_favorito.id}>
             {favoritoUsuario.usuario_favorito.nombre}
           </option>
         );
@@ -36,6 +36,8 @@ export const InvitarUsuario = () => {
   const updateSelect = (e) => {
     const value = e.target.value;
     setInvitacion(value);
+    console.log(JSON.stringify(value))
+    props.onRecibirUsuarioAInvitar(value);
   };
 
   return (

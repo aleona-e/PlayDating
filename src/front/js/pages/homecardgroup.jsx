@@ -32,13 +32,14 @@ export const HomeCardGroup = () => {
       <Navbar />
       <div className="container-fluid">
         {datosUsuario.nombre && (
-          <div className="mt-2 pt-2">
+          <div className="mt-2 pt-2 mb-1">
             <h3 id="bienvenida">¡Bienvenid@ {datosUsuario.nombre}!</h3>
           </div>
         )}
-        <div className="pt-2 pb-4 me-5 pe-5">
+        <div className="pb-4 me-5 pe-5 mb-4">
           <div className="btn-group mt-4" role="group">
             <Card
+            homeCard={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1658477832/Home/11_zt2ju9.png"
               text={"Crea Eventos Con Las Actividades Favoritas De Tus Hijos."}
               name="Actividades"
@@ -47,6 +48,7 @@ export const HomeCardGroup = () => {
             />
 
             <Card
+            homeCard={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1658496142/Home/5_yvbobb.png"
               text={"Únete Y Participa En Los Eventos Creados En Tu Provincia."}
               name="Eventos"
@@ -55,6 +57,7 @@ export const HomeCardGroup = () => {
             />
 
             <Card
+            homeCard={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1658495567/Home/6_tarplu.png"
               text={
                 "Edita Tu Información, Maneja Tus Favoritos, Revisa Tus Invitaciones"
@@ -65,6 +68,7 @@ export const HomeCardGroup = () => {
             />
 
             <Card
+            homeCard={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1658496145/Home/3_d12ocd.png"
               text={
                 "Accede, Maneja Y Obten Todos Los Detalles De Tus Eventos, Futuros Y Pasados"

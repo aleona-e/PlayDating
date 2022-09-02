@@ -120,6 +120,7 @@ export const DetalleEvento = (props) => {
                 cupos={eventoEscojido.cupos_disponibles}
                 edad_minima={eventoEscojido.edad_minima}
                 edad_maxima={eventoEscojido.edad_maxima}
+                participantes={eventoEscojido.participantes}
               />
             </div>
             {eventoEscojido.estado != "Cancelado" && (

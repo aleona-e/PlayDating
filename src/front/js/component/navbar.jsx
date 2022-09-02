@@ -77,7 +77,7 @@ export const Navbar = () => {
         <Link id="link" to="/miseventos">
           <span
             id="LinkNavbar"
-            className={"navbar-brand mb-0 h1 " + ocultarSinToken}
+            className={"navbar-brand mb-0 h1 " + ocultarSinToken} 
           >
             <img
               src={misEventos}

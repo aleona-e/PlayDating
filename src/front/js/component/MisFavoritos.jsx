@@ -46,7 +46,7 @@ export const MisFavoritos = () => {
 
             {favoritos.map((favorito, index) => {
               return (
-                <li className="list-group-item" key={index}>
+                <li className="list-group-item m-1" key={index}>
                   {favorito.usuario_favorito.nombre}{" "}
                   <button
                     className="btn btn-outline-danger ms-4"

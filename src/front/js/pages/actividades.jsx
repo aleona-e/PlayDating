@@ -17,6 +17,7 @@ export const Actividades = () => {
         return (
           <div key={index}>
             <Card
+              homeCard={false}
               forzarHeight={true}
               name={actividad.nombre}
               src={actividad.imagen}

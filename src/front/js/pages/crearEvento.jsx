@@ -9,6 +9,7 @@ import "../../styles/modal.css";
 import { HOSTNAME } from "../component/config";
 import { Navbar } from "../component/navbar.jsx";
 import { InvitarUsuario } from "../component/InvitarUsuario.jsx";
+import { invitarUsuario } from "../api";
 
 export const CrearEvento = (props) => {
   const navigate = useNavigate();
@@ -33,15 +34,18 @@ export const CrearEvento = (props) => {
   const [minimo_participantes, setMinParticipantes] = useState("");
   const [participantes_creador, setAñadirParticipantes] = useState("");
   const [fecha_y_hora, setfechayhora] = useState(new Date());
-
   const [deshabilitado, setDeshabilitado] = useState(true);
-
   const [modal, setModal] = useState(false);
+  const [usuarioAInvitar, setUsuarioAInvitar] = useState("");
 
   const updateText = (e, setState) => {
     const value = e.target.value;
 
     setState(value);
+  };
+
+  const onRecibirUsuarioAInvitar = (usuarioRecibido) => {
+    setUsuarioAInvitar(usuarioRecibido);
   };
 
   const fechaDeHoy = () => {
@@ -92,6 +96,15 @@ export const CrearEvento = (props) => {
     const data = await resp.json();
     if (resp.ok) {
       setModal(true);
+      console.log(usuarioAInvitar);
+      if (usuarioAInvitar != "") {
+        try {
+          const resp2 = await invitarUsuario(usuarioAInvitar, data.data.id);
+          alert("invitacion enviada");
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
   };
 
@@ -189,7 +202,9 @@ export const CrearEvento = (props) => {
                 ></input>
               </div>
             </form>
-           <InvitarUsuario/>
+            <InvitarUsuario
+              onRecibirUsuarioAInvitar={onRecibirUsuarioAInvitar}
+            />
 
             <form className="was-validated">
               <label className="col-form-label">Fecha y Hora</label>
