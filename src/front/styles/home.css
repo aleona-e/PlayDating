@@ -1,6 +1,3 @@
-#cardHome {
-  width: 320px;
-}
 #buttonCardHome {
   font-family: "Short Stack";
   text-decoration: none; 
@@ -17,8 +14,14 @@
 }
 
 #imgCarrusel {
-  width: 280px;
-  height: 200px;
+  width: 290px;
+  height: 250px;
+}
+
+#homeCardImagen {
+  width: 230px;
+  height: 190px;
+  margin-left: 70px;
 }
 
 #carouselExampleInterval {

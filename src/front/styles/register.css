@@ -1,16 +1,14 @@
 #containerRegister {
   background-color: rgb(255, 189, 89);
-
-  width: 700px;
-  height: 380px;
   margin-top: 50px;
-
-  border-radius: 2%;
+  border-radius: 20px;
   margin-bottom: 50px;
+  padding: 20px
 }
+
 #buttonRegister {
   margin-top: 10px;
-  margin-left: 300px;
+  margin-bottom: 10px;
   background-color: rgb(3, 152, 158);
   color: white;
 }

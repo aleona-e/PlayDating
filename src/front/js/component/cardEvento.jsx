@@ -55,7 +55,7 @@ export const CardEvento = (props) => {
         <div className="col">
           <div className="card text-center">
             <img
-              className="card-img-top imagenCard rounded"
+              className="card-img-top img-fluid rounded"
               src={props.src}
               alt="Card image cap"
             ></img>

@@ -19,9 +19,11 @@ const esEventoFuturo = (fecha) => {
 
   return (
     <>
-      <div className="col mt-3">
-        <h5>{date}</h5>
+    <div className="card" id="cardDetalle">
+      <div className="card-title">
+        <h5 className="text-center">{date}</h5>
         <hr></hr>
+        <div className="card-body">
         <p>
           <strong>Lugar:</strong> {props.direccion}
         </p>
@@ -50,12 +52,16 @@ const esEventoFuturo = (fecha) => {
           <strong>Rango de edad:</strong> {props.edad_minima} -{" "}
           {props.edad_maxima}
         </p>
+        </div>
+        <div className="card-footer">
         <UnirseRetirarseEvento eventoId={eventoId}
         cupos={props.cupos}
         participantes={props.participantes}
         estado={props.estado}
         fecha_y_hora={props.fecha_y_hora}
         />
+        </div>
+      </div>
       </div>
     </>
   );

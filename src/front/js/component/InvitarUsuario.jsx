@@ -50,6 +50,7 @@ export const InvitarUsuario = (props) => {
         onChange={(e) => updateSelect(e, setInvitacion)}
         value={invitacion}
         className="form-select"
+        multiple={false}
       >
         <option value="Seleccionar">Seleccionar</option>
         {llenarOpcionesSelect()}

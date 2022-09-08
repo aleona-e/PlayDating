@@ -1,15 +1,11 @@
 #containerPerfil {
   background-color: rgb(255, 189, 89);
-
-  width:900px;
-  height: auto;
   margin-top: 50px;
-
   border-radius: 20px;
 }
 #buttonPerfil{
-  margin-left: 380px;
   background-color: rgb(3, 152, 158) ;
+  margin-bottom: 10px;
   color: white;
 }
 #buttonguardarNumHijos{

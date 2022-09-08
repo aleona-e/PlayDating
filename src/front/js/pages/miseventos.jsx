@@ -80,7 +80,7 @@ export const MisEventos = () => {
         <div className="text-center p-3">
           <h3 id="titulosPaginas">Maneja Todos Tus Eventos</h3>
         </div>
-        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5 pb-3">
+        <div className="row row-cols-1 row-cols-sm-3 g-4 mt-1 mb-5 pb-3">
           {eventos.length == 0 && (
             <div>
               <h5>Aún no tienes eventos</h5>

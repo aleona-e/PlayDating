@@ -1,13 +1,8 @@
 #containerLogin {
-  background-color:rgb(255, 189, 89);
-  color: black;
-  width: 600px;
-  height: 190px;
-  padding-top: 50px;
+  background-color:rgb(255, 189, 89); 
   padding: 20px;
   text-align: center;
   border-radius: 20px;
-
 }
 
 #inputLogin {
@@ -21,6 +16,6 @@
 }
 
 .pagina{
-  min-height: 1vh;
- /* margin-bottom: 5px;  */
+  min-height: 60vh;
+  margin-bottom: 50px;
 }

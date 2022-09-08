@@ -41,7 +41,7 @@ export const Actividades = () => {
           </h3>
         </div>
         <div className="card-group mb-5">
-          <div className="row row-cols-1 row-cols-md-3 g-4">
+          <div className="row row-cols-1 row-cols-sm-3 g-4">
             {actividadesCards}
           </div>
         </div>

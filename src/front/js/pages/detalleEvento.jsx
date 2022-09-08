@@ -13,7 +13,7 @@ import {
   obtenerEventos,
 } from "../api";
 
-export const DetalleEvento = (props) => {
+export const DetalleEvento = () => {
   const { eventoId } = useParams();
   const [favoritos, setFavoritos] = useState([]);
   const [eventos, setEventos] = useState([]);
@@ -93,13 +93,14 @@ export const DetalleEvento = (props) => {
       <div className="container" id="unirseEvento">
       { eventoEscojido != undefined && 
 
-        <div className="mt-3">
+        <div className="mx-auto mt-3">
        
           <div>
             <h1>Detalles de este evento</h1>
           </div>
           <div>
-            <div className="row row-cols-3 m-4">
+            <div className="row row-cols-xs-3 mt-3 pt-3">
+              <div className="card-group">
               <DetallesActividadEvento
                 participantes={participantesConFavoritos(eventoEscojido.participantes)}
                 nombre={eventoEscojido.actividad.nombre}
@@ -123,6 +124,7 @@ export const DetalleEvento = (props) => {
                 participantes={eventoEscojido.participantes}
               />
             </div>
+            </div>
             {eventoEscojido.estado != "Cancelado" && (
               <div>
                 <hr></hr>
@@ -137,7 +139,7 @@ export const DetalleEvento = (props) => {
         </div>
         }
       { eventoEscojido == undefined && 
-      <h2>Cargando evento</h2>
+      <h2 className="m-4">...Cargando evento</h2>
       }
       </div>
             

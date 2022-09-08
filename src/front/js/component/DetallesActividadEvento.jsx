@@ -41,36 +41,45 @@ export const DetallesActividadEvento = (props) => {
 
   return (
     <>
-      <div className="col mt-3">
-        <h5>
+    <div className="card" id="cardDetalle">
+      <div className="card-title">
+        <h5 className="text-center">
           <strong>{props.nombre}</strong>
         </h5>
         <hr></hr>
+        <div className="card-body">
         <p>
           <strong>Creador:</strong> {props.creador}
         </p>
         <p id="descripcionCrearEvento">
           <strong>Descripción:</strong> {props.descripcion}
         </p>
-        <div className="row">
-          <div className="col-4">
+        </div>
+        <div className="card-footer">
+          
             <p>
               <strong> Se ha unido:</strong>
             </p>
-          </div>
+          
           <div className="row">
-            <div className="col-12">
+            
               <ul>{participantesEvento(props.participantes)}</ul>
-            </div>
+            
           </div>
         </div>
       </div>
-      <div className="col mt-3">
+      </div>
+      
+      <div className="card mt-5 pt-5" id="cardHome">
+      
         <img
           src={props.imagen}
-          className="img-fluid rounded-start unirseImg"
+          className="img-fluid card-img"
         />
+        
       </div>
+      
+      
     </>
   );
 };

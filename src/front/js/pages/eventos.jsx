@@ -69,7 +69,7 @@ export const Eventos = () => {
               <h5>Aún no hay eventos en esta provincia</h5>
             </div>
           )}
-        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-5">
+        <div className="row row-cols-1 row-cols-sm-3 g-4 mt-1 mb-5">
           
           {sortedArray(eventos).map((evento, index) => {
             if (

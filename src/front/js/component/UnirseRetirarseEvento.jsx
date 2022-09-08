@@ -51,7 +51,7 @@ export const UnirseRetirarseEvento = (props) => {
   const noHaycupos = () => {
     return (
       <div>
-        <hr></hr>
+        
         <p>
           <strong>No hay cupos disponibles para unirse a este evento</strong>
         </p>
@@ -61,8 +61,8 @@ export const UnirseRetirarseEvento = (props) => {
 
   const unirse = () => {
     return (
-      <div>
-        <hr></hr>
+      <div className="text-center">
+        
         <div className="input-group">
           <select
             className="form-select"
@@ -97,8 +97,8 @@ export const UnirseRetirarseEvento = (props) => {
 
   const retirarse = () => {
     return (
-      <div>
-        <hr></hr>
+      <div className="text-center">
+       
         <button
           id="buttonCancelarEvento"
           className="btn"

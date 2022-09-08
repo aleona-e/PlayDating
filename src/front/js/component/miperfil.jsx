@@ -93,11 +93,11 @@ export const MiPerfil = (props) => {
       <div className="container-perfil">
       <div className="container" id="containerPerfil" >
         <div className="row g-1">
-          <div className="col-md-6 my-4">
+          <div className="col-md-6 my-3">
             <label className="form-label">Nombre Completo: </label>
             <span> {datos.nombre}</span>
           </div>
-          <div className="col-md-6 my-4">
+          <div className="col-md-6 my-3">
             <label className="form-label">Email: </label>
             <span> {datos.email}</span>
           </div>
@@ -182,7 +182,7 @@ export const MiPerfil = (props) => {
             </select>
           </div>
           {/* -------------------------------------------------------------------------- */}
-          <div className="col-12 my-3">
+          <div className="col-12 text-center">
             <button
               onClick={onSave}
               id="buttonPerfil"

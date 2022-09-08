@@ -13,12 +13,17 @@ export const Card = (props) => {
     const cardId = props.homeCard
     ? "cardHome"
     : "cardActividades";
+
+    const imagenId = props.home
+    ? "homeCardImagen"
+    : "imgCarrusel";
+
   return (
     <>
       <div className={clase} id={cardId}>
         <img
-          className="card-img-top imagenCard rounded"
-          id="imgCarrusel"
+          className="card-img-top img-fluid imagenCard rounded"
+          id={imagenId}
           src={props.src}
           alt="Card image cap"
         ></img>

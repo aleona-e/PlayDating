@@ -71,7 +71,7 @@ export const ComentariosEvento = (props) => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-6 mx-auto mb-3">
+          <div className="col-sm-6 mx-auto mb-3">
             <div className="input-group">
               <textarea
                 onChange={(e) => updateComentario(e, setNuevoComentario)}
