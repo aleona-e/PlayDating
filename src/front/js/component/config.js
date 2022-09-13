@@ -1,4 +1,5 @@
-export const HOSTNAME = "https://3001-blush-bandicoot-mctwyj9gwbq.ws-eu64.gitpod.io/api"
+export const HOSTNAME ="https://play-dating-1.herokuapp.com/api"
+ //"https://3001-blush-bandicoot-mctwyj9gwbq.ws-eu64.gitpod.io/api"
 // export const HOSTNAME = "https://playdating2.herokuapp.com/api"
 
 export const config = {
