@@ -115,6 +115,7 @@ export const DetalleEvento = () => {
                 eventoId={eventoEscojido.id}
                 lugar={eventoEscojido.direccion}
                 fecha_y_hora={eventoEscojido.fecha_y_hora}
+                direccion={eventoEscojido.direccion}
                 estado={eventoEscojido.estado}
                 tipo_de_actividad={eventoEscojido.actividad.tipo_de_actividad}
                 maximo_participantes={eventoEscojido.maximo_participantes}
