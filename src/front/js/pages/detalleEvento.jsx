@@ -42,9 +42,10 @@ export const DetalleEvento = () => {
   }, []);
   
   const eventoEscojido = eventos.find((evento) => eventoId == evento.id);
+
   const participantesConFavoritos = (participantes) => {
     return participantes.map( participante => {
-      const esParticipanteFavorito = favoritos.find( favorito => favorito.usuario_favorito.id = participante.id) != undefined
+      const esParticipanteFavorito = favoritos.find( favorito => favorito.usuario_favorito.id === participante.id) != undefined
       return {...participante, esFavorito : esParticipanteFavorito}
     })
   }
