@@ -43,7 +43,7 @@ export const InvitarUsuario = (props) => {
   return (
   <>
     
-    <div className="mb-2 col-5 mx-auto">
+    <div className="mb-2 mx-auto">
       <label className="col-form-label">Invita a tus favoritos</label>
       
       <select

@@ -51,7 +51,7 @@ export const Home = () => {
       <Navbar />
       <div className="container">
             <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
-              <div className="carousel-inner mt-5">
+              <div className="carousel-inner mt-4">
                 <div className="carousel-item active " data-bs-interval="3000">
                   <div className="card-group">
                     <div className="row row-cols-1 row-cols-sm-3">
@@ -83,7 +83,7 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="ms-5 ps-5 pb-3 mx-auto">
+            <div className="ms-5 ps-5 pb-5 mx-auto">
               <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea Divertidas </span><span className="descripcionApp palabra-2">Citas de   </span><span className="descripcionApp palabra-3">Juego para  </span><span className="descripcionApp palabra-4">tus hijos!</span></h1>
             </div>
         </div>

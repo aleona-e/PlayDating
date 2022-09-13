@@ -112,124 +112,150 @@ export const CrearEvento = (props) => {
     <>
       <Navbar />
       <h2 id="h2CrearEvento">Crea tu Evento</h2>
-      <div className="container " id="containerCrearEvento">
-        <div className="row g-3">
-          <div className="col-6 col-md-6">
-            <h3 id="NombreActividadEvento"> {actividadEscojida.nombre} </h3>
-            <img id="imgCrearEvento" src={actividadEscojida.imagen} alt="" />
-            <div className="mb-3 ms-4">
+      <div className="container">
+        
+        <div className="row g-3 my-5 mx-2 justify-content-center" id="containerCrearEvento">
+          
+          <div className="col-sm-4 ms-2">
+            <h3 id="NombreActividadEvento"> {actividadEscojida.nombre}</h3>
+            <img
+              className="img-fluid mt-3"
+              src={actividadEscojida.imagen}
+              alt=""
+            />
+            <div className="mb-3 mt-3">
               <p id="descripcionCrearEvento">{actividadEscojida.descripcion}</p>
             </div>
           </div>
-          <div className="col-6 col-md-6 " id="columnaDerecha">
-            <form className="was-validated ">
-              <div className="mb-2">
-                <label className="form-label">Dirección</label>
-                <input
-                  onChange={(e) => updateText(e, setDireccion)}
-                  value={direccion}
-                  type="text"
-                  className="form-control"
-                  aria-describedby="addon-wrapping"
-                  required
-                ></input>
-              </div>
-            </form>
+          <div className="col-2"></div>
 
-            <label className="col col-form-label">Añadir Participantes</label>
-            <div className="input-sm mb-2 d-flex" id="input-group-crear-evento">
-              <input
-                onChange={(e) => updateText(e, setAñadirParticipantes)}
-                value={participantes_creador}
-                type="number"
-                min="1"
-                aria-label="First name"
-                className="form-control"
-              ></input>
+          <div className="col-sm-4 ms-2">
+            <div className="row">
+              <div className="col-10">
+                <form className="was-validated">
+                  <div className="mb-2">
+                    <label className="col-form-label">Dirección</label>
+                    <input
+                      onChange={(e) => updateText(e, setDireccion)}
+                      value={direccion}
+                      type="text"
+                      className="form-control"
+                      aria-describedby="addon-wrapping"
+                      required
+                    ></input>
+                  </div>
+                </form>
+              </div>
             </div>
-            <form className="was-validated">
-              <label className="col-sm-2 col-form-label">Participantes</label>
-              <div
-                className="input-sm mb-2 d-flex"
-                id="input-group-crear-evento"
-              >
-                <input
-                  onChange={(e) => updateText(e, setMaxParticipantes)}
-                  value={maximo_participantes}
-                  type="number"
-                  min="2"
-                  aria-label="First name"
-                  className="form-control"
-                  placeholder="Max"
-                  required
-                ></input>
-                <input
-                  onChange={(e) => updateText(e, setMinParticipantes)}
-                  value={minimo_participantes}
-                  type="number"
-                  min="1"
-                  aria-label="Last name"
-                  className="form-control"
-                  placeholder="Min"
-                  required
-                ></input>
-              </div>
+            <div className="row">
+              <div className="col-10">
+                <label className="col-form-label">Añadir Participantes</label>
 
-              <label className="col-sm-2 col-form-label">Edad</label>
-              <div
-                className="input-sm mb-2 d-flex"
-                id="input-group-crear-evento"
-              >
                 <input
-                  onChange={(e) => updateText(e, setEdadMaxima)}
-                  value={edad_maxima}
+                  onChange={(e) => updateText(e, setAñadirParticipantes)}
+                  value={participantes_creador}
                   type="number"
                   min="1"
                   aria-label="First name"
                   className="form-control"
-                  placeholder="Max"
-                  required
-                ></input>
-                <input
-                  onChange={(e) => updateText(e, setEdadMinima)}
-                  value={edad_minima}
-                  type="number"
-                  min="0"
-                  aria-label="Last name"
-                  className="form-control"
-                  placeholder="Min"
-                  required
                 ></input>
               </div>
-            </form>
-            <InvitarUsuario
-              onRecibirUsuarioAInvitar={onRecibirUsuarioAInvitar}
-            />
+            </div>
+            <div className="row">
+              <div className="col-10">
+                <form className="was-validated">
+                  <label className="col-sm-2 col-form-label">
+                    Participantes
+                  </label>
+                  <div className="row">
+                    <div className="col-6">
+                      <input
+                        onChange={(e) => updateText(e, setMinParticipantes)}
+                        value={minimo_participantes}
+                        type="number"
+                        min="1"
+                        aria-label="Last name"
+                        className="form-control input-sm"
+                        placeholder="Min"
+                        required
+                      ></input>
+                    </div>
+                    <div className="col-6">
+                      <input
+                        onChange={(e) => updateText(e, setMaxParticipantes)}
+                        value={maximo_participantes}
+                        type="number"
+                        min="2"
+                        aria-label="First name"
+                        className="form-control input-sm"
+                        placeholder="Max"
+                        required
+                      ></input>
+                    </div>
+                  </div>
 
-            <form className="was-validated">
-              <label className="col-form-label">Fecha y Hora</label>
-              <div>
-                <DateTimePicker
-                  onChange={setfechayhora}
-                  value={fecha_y_hora}
-                  minDate={new Date()}
-                />
+                  <label className="col-sm-2 col-form-label">Edad</label>
+                  <div className="row">
+                    <div className="col-6" id="input-group-crear-evento">
+                      <input
+                        onChange={(e) => updateText(e, setEdadMinima)}
+                        value={edad_minima}
+                        type="number"
+                        min="0"
+                        aria-label="Last name"
+                        className="form-control"
+                        placeholder="Min"
+                        required
+                      ></input>
+                    </div>
+                    <div className="col-6">
+                      <input
+                        onChange={(e) => updateText(e, setEdadMaxima)}
+                        value={edad_maxima}
+                        type="number"
+                        min="1"
+                        aria-label="First name"
+                        className="form-control"
+                        placeholder="Max"
+                        required
+                      ></input>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
+            <div className="col-10">
+              <InvitarUsuario
+                onRecibirUsuarioAInvitar={onRecibirUsuarioAInvitar}
+              />
+            </div>
+            <div className="col-10">
+              <form className="was-validated">
+                <label className="col-form-label">Fecha y Hora</label>
+                <div>
+                  <DateTimePicker
+                    onChange={setfechayhora}
+                    value={fecha_y_hora}
+                    minDate={new Date()}
+                  />
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="col-6">
-          <div className="mb-5 pb-5 text-center">
-            <button
-              disabled={deshabilitado}
-              onClick={onSave}
-              id="buttonCrearEvento"
-              className="btn"
-              type="submit"
-            >
-              Crear Evento
-            </button>
+          <div className="col-6 mx-auto">
+            <div className="mt-2 mb-3 text-center">
+              <button
+                disabled={deshabilitado}
+                onClick={onSave}
+                id="buttonCrearEvento"
+                className="btn"
+                type="submit"
+              >
+                Crear Evento
+              </button>
+            </div>
           </div>
+          
         </div>
 
         <Modal

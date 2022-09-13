@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { HOSTNAME } from "../component/config";
-import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
 import "../../styles/login.css";
 import Modal from "react-bootstrap/Modal";

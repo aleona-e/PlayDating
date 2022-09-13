@@ -4,7 +4,7 @@ import { Navbar } from "../component/navbar.jsx";
 import { config } from "../component/config.js";
 import { useNavigate } from "react-router-dom";
 import { obtenerDatosPerfil } from "../api.js";
-import {ProximoEvento} from "../component/ProximoEvento.jsx"
+
 import "../../styles/index.css";
 
 export const HomeCardGroup = () => {
@@ -84,7 +84,7 @@ export const HomeCardGroup = () => {
          
          </div>
         </div>
-        <ProximoEvento/>
+        
       </div>
     </>
   );
