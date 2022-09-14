@@ -66,77 +66,71 @@ export const Login = (props) => {
   return (
     <>
       <Navbar />
-        <div className="container pagina">
-          <div className="row">
-            <div
-              className="col-6 position-absolute top-50 start-50 translate-middle"
-              id="containerLogin"
-            >
-              <form id="inputLogin">
-                <div className="row mb-3">
-                  <label className="col-sm-3 col-form-label">Email</label>
-                  <div className="col-sm-9">
-                    <input
-                      onChange={(e) => updateText(e, setEmail)}
-                      value={email}
-                      type="email"
-                      className="form-control"
-                    ></input>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <label className="col-md-3 col-form-label">Contraseña</label>
-                  <div className="col-sm-9">
-                    <input
-                      onChange={(e) => updateText(e, setPassword)}
-                      value={password}
-                      type="password"
-                      className="form-control"
-                    ></input>
-                  </div>
-                </div>
-
-                <button
-                  onClick={onSave}
-                  type="button"
-                  className="btn"
-                  id="buttonLogin"
-                >
-                  Iniciar Sesión
-                </button>
-              </form>
+      <div className="container pagina d-flex align-items-center">
+        <div className="col-6 mx-auto" id="containerLogin">
+          <form id="inputLogin">
+            <div className="row mb-3">
+              <label className="col-sm-3 col-form-label">Email</label>
+              <div className="col-sm-9">
+                <input
+                  onChange={(e) => updateText(e, setEmail)}
+                  value={email}
+                  type="email"
+                  className="form-control"
+                ></input>
+              </div>
             </div>
-          </div>
+            <div className="row mb-3">
+              <label className="col-md-3 col-form-label">Contraseña</label>
+              <div className="col-sm-9">
+                <input
+                  onChange={(e) => updateText(e, setPassword)}
+                  value={password}
+                  type="password"
+                  className="form-control"
+                ></input>
+              </div>
+            </div>
 
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Login</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{textoAlerta}</Modal.Body>
-            <Modal.Footer>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  if (navegar) {
-                    navigate("/register");
-                  } else {
-                    handleClose();
-                  }
-                }}
-              >
-                OK
-              </Button>
-            </Modal.Footer>
-          </Modal>
+            <button
+              onClick={onSave}
+              type="button"
+              className="btn"
+              id="buttonLogin"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
         </div>
-      
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{textoAlerta}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (navegar) {
+                  navigate("/register");
+                } else {
+                  handleClose();
+                }
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </>
   );
 };
