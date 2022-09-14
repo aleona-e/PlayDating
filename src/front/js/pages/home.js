@@ -50,63 +50,46 @@ export const Home = () => {
 
       <Navbar />
       <div className="container">
-            <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
-              <div className="carousel-inner mt-4">
-                <div className="carousel-item active " data-bs-interval="3000">
-                  <div className="card-group">
-                    <div className="row row-cols-1 row-cols-sm-3">
-                      {actividadesCards[0]}
-                      {actividadesCards[1]}
-                      {actividadesCards[2]}
-                    </div>
+        <div className="mx-auto">
+        <div className="ms-5 ps-5 mt-4 pt-4 pb-2 mx-auto">
+            <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea </span><span className="descripcionApp palabra-2">Divertidas   </span><span className="descripcionApp palabra-3">Citas  </span><span className="descripcionApp palabra-4">de </span><span className="descripcionApp palabra-5">Juego</span><span className="descripcionApp palabra-6">Para   </span><span className="descripcionApp palabra-7">Tus  </span><span className="descripcionApp palabra-8">Hijos!</span></h1>
+          </div>
+          <div className="carousel slide pb-5 mb-5" data-bs-ride="carousel">
+            <div className="carousel-inner mt-4">
+              <div className="carousel-item active " data-bs-interval="3000">
+                
+                  <div className="row row-cols-1 row-cols-sm-3">
+                    {actividadesCards[0]}
+                    {actividadesCards[1]}
+                    {actividadesCards[2]}
                   </div>
-                </div>
+                
+              </div>
 
-                <div className="carousel-item" data-bs-interval="3000">
-                  <div className="card-group">
-                    <div className="row row-cols-1 row-cols-sm-3">
-                      {actividadesCards[3]}
-                      {actividadesCards[4]}
-                      {actividadesCards[5]}
-                    </div>
+              <div className="carousel-item" data-bs-interval="3000">
+                
+                  <div className="row row-cols-1 row-cols-sm-3">
+                    {actividadesCards[3]}
+                    {actividadesCards[4]}
+                    {actividadesCards[5]}
                   </div>
-                </div>
+                
+              </div>
 
-                <div className="carousel-item" data-bs-interval="3000">
-                  <div className="card-group">
-                    <div className="row row-cols-1 row-cols-sm-3">
-                      {actividadesCards[6]}
-                      {actividadesCards[7]}
-                      {actividadesCards[8]}
-                    </div>
+              <div className="carousel-item" data-bs-interval="3000">
+                
+                  <div className="row row-cols-1 row-cols-sm-3">
+                    {actividadesCards[6]}
+                    {actividadesCards[7]}
+                    {actividadesCards[8]}
                   </div>
-                </div>
+                
               </div>
             </div>
-            <div className="ms-5 ps-5 pb-5 mx-auto">
-              <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea Divertidas </span><span className="descripcionApp palabra-2">Citas de   </span><span className="descripcionApp palabra-3">Juego para  </span><span className="descripcionApp palabra-4">tus hijos!</span></h1>
-            </div>
+          </div>
+          
         </div>
-      
-      {/* ----- BOTONES --------
-      <div className="text-center mb-5">
-        <Link to="/login">
-          <div className="grid gap-2 col-6 mx-auto">
-            <button id="buttonCardHome" className={"btn btn-lg "  + ocultarConToken}>
-              Entra para ver más!
-            </button>
-          </div>
-        </Link>
       </div>
-      <div className="text-center mb-5">
-        <Link to="/actividades">
-          <div className="grid gap-2 col-6 mx-auto">
-            <button id="buttonCardHome" className={"btn btn-lg "  + ocultarSinToken}>
-              Crear evento
-            </button>
-          </div>
-        </Link>
-  </div>*/}
     </>
   );
 };

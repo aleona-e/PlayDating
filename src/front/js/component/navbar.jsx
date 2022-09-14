@@ -43,15 +43,15 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <div className="navbar navbar-light">
+    <div className="navbar navbar-light sticky-top">
       <div className="container">
         <Link to="/homecardgroup">
           <span className="navbar-brand mb-0 h1">
             <img
               src={logoTresUrl}
               alt=""
-              width="100"
-              height="100"
+              width="90"
+              height="90"
               className="d-inline-block align-text-top"
             ></img>
           </span>
@@ -71,8 +71,8 @@ export const Navbar = () => {
               <img
                 src={actividades}
                 alt=""
-                width="40"
-                height="40"
+                width="30"
+                height="30"
                 className="d-inline-block align-text-top"
               ></img>
             </span>
@@ -92,8 +92,8 @@ export const Navbar = () => {
             <img
               src={eventos}
               alt=""
-              width="40"
-              height="40"
+              width="30"
+              height="30"
               className="d-inline-block align-text-top"
             ></img>
           </span>
@@ -113,8 +113,8 @@ export const Navbar = () => {
             <img
               src={misEventos}
               alt=""
-              width="40"
-              height="40"
+              width="30"
+              height="30"
               className="d-inline-block align-text-top"
             ></img>
           </span>
@@ -137,8 +137,8 @@ export const Navbar = () => {
             <img
               src={miPerfil}
               alt=""
-              width="40"
-              height="40"
+              width="30"
+              height="30"
               className="d-inline-block align-text-top "
             ></img>
             {invitaciones.length != 0 &&
@@ -155,7 +155,7 @@ export const Navbar = () => {
               id="buttonMiPerfil"
               className={"btn  me-2 " + ocultarConToken}
             >
-              Iniciar Sesión
+              Entrar
             </button>
           </Link>
           <Link to="/register">
@@ -175,7 +175,7 @@ export const Navbar = () => {
                 removeStorage();
               }}
             >
-              Cerrar sesión
+              Salir
             </button>
           </Link>
         </div>

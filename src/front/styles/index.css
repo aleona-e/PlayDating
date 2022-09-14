@@ -45,7 +45,6 @@ h4 {
   font-family: "DynaPuff", fantasy;
   text-align: center;
   margin-right: 110px;
-  margin-top: 100px;
 }
 
 .descripcionApp {
@@ -86,6 +85,35 @@ h4 {
   --color-2: #df8453;
   --color-3: #dbad4a;
 }
+
+.palabra-5 {
+  font-size: 1em;
+  --color-1: #df8453;
+  --color-2: #3d8dae;
+  --color-3: #dbad4a;
+}
+
+.palabra-6 {
+  font-size: 1em;
+  --color-1: #dbad4a;
+  --color-2: #accfcb;
+  --color-3: #df8453;
+}
+
+.palabra-7 {
+  font-size: 1em;
+  --color-1: #df8453;
+  --color-2: #dbad4a;
+  --color-3: #accfcb;
+}
+
+.palabra-8 {
+  font-size: 1em;
+  --color-1: #3d8dae;
+  --color-2: #df8453;
+  --color-3: #dbad4a;
+}
+
 span {
   font-size: 2em;
 }
