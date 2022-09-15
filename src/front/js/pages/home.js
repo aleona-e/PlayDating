@@ -52,7 +52,7 @@ export const Home = () => {
       <div className="container">
         <div className="mx-auto">
         <div className="ms-5 ps-5 mt-4 pt-4 pb-2 mx-auto">
-            <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea </span><span className="descripcionApp palabra-2">Divertidas   </span><span className="descripcionApp palabra-3">Citas  </span><span className="descripcionApp palabra-4">de </span><span className="descripcionApp palabra-5">Juego</span><span className="descripcionApp palabra-6">Para   </span><span className="descripcionApp palabra-7">Tus  </span><span className="descripcionApp palabra-8">Hijos!</span></h1>
+            <h1 className="descripcionAppHome"><span className="descripcionApp palabra-1">Crea </span><span className="descripcionApp palabra-2">Divertidas   </span><span className="descripcionApp palabra-3">Citas  </span><span className="descripcionApp palabra-4">de  </span><span className="descripcionApp palabra-5">Juego  </span><span className="descripcionApp palabra-6">Para  </span><span className="descripcionApp palabra-7">Niños</span><span className="descripcionApp palabra-8"> ! </span></h1>
           </div>
           <div className="carousel slide pb-5 mb-5" data-bs-ride="carousel">
             <div className="carousel-inner mt-4">
