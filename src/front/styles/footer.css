@@ -6,10 +6,11 @@
   vertical-align: bottom; */
   height: 5%;
   width: 100%; 
-  bottom: 0px;
+  
   position: relative;
   /* margin-top: 50px; */
 }
+
 
 /* html {
   min-height: 100%;
@@ -28,9 +29,10 @@ body {
   } */
 
 #logoGithub{
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
+
 #linkfooter {
  
   color: rgb(3, 152, 158);
