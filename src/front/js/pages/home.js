@@ -29,6 +29,7 @@ export const Home = () => {
       const actividades = data.data;
       actions.agregarActividades(actividades);
       let cardsActividades = actividades.map((actividad, index) => {
+        console.log(actividad)
 
         return (
           <Card

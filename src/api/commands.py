@@ -67,15 +67,15 @@ def setup_commands(app):
     @app.cli.command("insert-imagenes_actividades") 
     def insert_imagenes_data():
         imagenes_actividades = [
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303042/Actividades/8_blsifn.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303039/Actividades/7_gpcjmy.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303029/Actividades/4_j1yemg.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303045/Actividades/9_kfvczv.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658302989/Actividades/2_yrgzy6.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303032/Actividades/5_kq1tgf.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303026/Actividades/3_sb5ibo.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658302986/Actividades/1_nanc3k.png",
-            "https://res.cloudinary.com/daint2d1l/image/upload/v1658303036/Actividades/6_dcpkjw.png"]
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522929/Actividades/2_lsrmht.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522927/Actividades/4_fcaocu.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522928/Actividades/5_y0uy6z.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522928/Actividades/9_eqsdfm.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522894/Actividades/1_uvjrwq.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522928/Actividades/8_vbix7b.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522929/Actividades/3_pfaftn.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522928/Actividades/7_iaiefz.png",
+            "https://res.cloudinary.com/daint2d1l/image/upload/v1663522894/Actividades/6_qqntku.png"]
 
         todas_actividades = Actividad.query.all()
         for i,actividad in enumerate(todas_actividades):
