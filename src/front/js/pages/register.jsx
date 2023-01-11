@@ -109,7 +109,7 @@ export const Register = () => {
                 </div>
               </div>
 
-              <div className="col-sm-6">
+              <div className="col-sm-7">
                 <label className="form-label">¿Cuántos niños hay en tu familia?</label>
                 <input
                   onChange={(e) => updateText(e, setNumero_hijos)}
@@ -121,7 +121,7 @@ export const Register = () => {
                 ></input>
               </div>
 
-              <div className="col-sm-4">
+              <div className="col-sm-5">
                 <label className="form-label">Provincia</label>
                 <select
                   onChange={(e) => updateText(e, setProvincia)}

@@ -42,22 +42,22 @@ export const HomeCardGroup = () => {
             homeCard={true}
             home={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1662377335/Home/1_heqf6d.png"
-              text={"Crea Eventos Con Las Actividades Favoritas De Tus Hijos."}
+              text={"Crea Eventos Con Las Actividades Favoritas De Tus Hijos"}
               name="Actividades"
               route={"actividades"}
-              button="Ir"
+              buttonId={true}
+              button=">"
             />
-
             <Card
             homeCard={true}
             home={true}
               src="https://res.cloudinary.com/daint2d1l/image/upload/v1662377339/Home/2_ch0p1u.png"
-              text={"Únete Y Participa En Los Eventos Creados En Tu Provincia."}
+              text={"Únete Y Participa En Los Eventos Creados En Tu Provincia"}
               name="Eventos"
               route={"eventos"}
-              button="Ir"
+              buttonId={true}
+              button=">"
             />
-
             <Card
             homeCard={true}
             home={true}
@@ -67,9 +67,9 @@ export const HomeCardGroup = () => {
               }
               name="Mis Eventos"
               route={"miseventos"}
-              button="Ir"
+              buttonId={true}
+              button=">"
             />
-
             <Card
             homeCard={true}
             home={true}
@@ -79,12 +79,11 @@ export const HomeCardGroup = () => {
               }
               name="Mi Perfil"
               route={"miperfil"}
-              button="Ir"
-            />
-         
+              buttonId={true}
+              button=">"
+            />    
          </div>
-        </div>
-        
+        </div>  
       </div>
     </>
   );

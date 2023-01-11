@@ -1,8 +1,12 @@
-#buttonCardHome {
-  font-family: "Short Stack";
-  text-decoration: none; 
-  background-color: rgb(3, 152, 158);
-  color: white;
+#homeCardButton {
+
+    font-family: "Short Stack";
+    text-decoration: none; 
+    background-color:  rgb(3, 152, 158, 0.2);
+    color: rgb(3, 152, 158);;
+    width: 50px;
+    border-radius: 50%;
+  
 }
 
 #buttonCard {

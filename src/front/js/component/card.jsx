@@ -1,9 +1,10 @@
 import React from "react";
 import propTypes from "prop-types";
+import { Link } from "react-router-dom";
 import "../../styles/actividades.css";
 import "../../styles/crearEvento.css";
 import "../../styles/index.css";
-import { Link } from "react-router-dom";
+
 
 export const Card = (props) => {
   const clase = props.forzarHeight
@@ -17,6 +18,10 @@ export const Card = (props) => {
     const imagenId = props.home
     ? "homeCardImagen"
     : "imgCarrusel";
+
+    const idButton = props.buttonId
+    ? "homeCardButton"
+    : "buttonCard"
 
   return (
     <>
@@ -40,7 +45,7 @@ export const Card = (props) => {
         {props.button && (
           <div className="m-2">
             <Link to={`/${props.route}`}>
-              <button href="#" id="buttonCard" className="btn btn-outline">
+              <button href="#" id={idButton} className="btn btn-outline">
                 {props.button}
               </button>
             </Link>

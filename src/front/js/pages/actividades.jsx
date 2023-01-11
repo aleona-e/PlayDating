@@ -3,6 +3,7 @@ import { obtenerActividades } from "../api.js";
 import { Card } from "../component/card.jsx";
 import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/navbar.jsx";
+import "../../styles/home.css";
 import "../../styles/index.css";
 
 export const Actividades = () => {
