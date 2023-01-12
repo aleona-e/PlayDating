@@ -1,4 +1,4 @@
-export const HOSTNAME ="http://127.0.0.1:3001/api"
+export const HOSTNAME ="https://aleona.pythonanywhere.com/api"
  //"https://3001-blush-bandicoot-mctwyj9gwbq.ws-eu64.gitpod.io/api"
 // export const HOSTNAME = "https://playdating2.herokuapp.com/api"
 
